@@ -1,5 +1,4 @@
 #include <stdio.h>
-#include "vtimer.h"
 #include "board.h"
 #include <msp430.h>
 
@@ -7,14 +6,15 @@
 #define SEC ((uint32_t) 1000 * MSEC)
 
 int main(void) {
-	volatile uint32_t i;
+
 	P1DIR |= 0x01;					// Set P1.0 to output direction
+	P3DIR |= BIT6;
 
+	P3OUT = BIT6;
 	while(1) {
-		for(i = 0; i < 100; ++i);
-
-
+		__delay_cycles(F_CPU);
 		P1OUT ^= 0x01;				// Toggle P1.0 using exclusive-OR
+		P3OUT ^= BIT6;
 	}
 	return 0;
 }
