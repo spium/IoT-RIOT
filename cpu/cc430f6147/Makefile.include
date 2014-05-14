@@ -1,0 +1,3 @@
+INCLUDES += -I$(RIOTBASE)/cpu/cc430f6147/include/
+
+include $(RIOTCPU)/msp430-common/Makefile.include

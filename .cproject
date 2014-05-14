@@ -18,7 +18,7 @@
 					<folderInfo id="dk.xpg.msp430eclipse.toolchain.gcc.base.90899005.1921724529" name="/" resourcePath="">
 						<toolChain id="dk.xpg.msp430eclipse.toolchain.gcc.base.1161590671" name="MSP430 GCC Toolchain" superClass="dk.xpg.msp430eclipse.toolchain.gcc.base">
 							<targetPlatform archList="all" binaryParser="org.eclipse.cdt.core.ELF" id="dk.xpg.msp430eclipse.targetplatform.msp430.1535822702" isAbstract="false" name="MSP430 Cross-Target" osList="all" superClass="dk.xpg.msp430eclipse.targetplatform.msp430"/>
-							<builder id="cdt.managedbuild.target.gnu.builder.base.934293242" managedBuildOn="false" superClass="cdt.managedbuild.target.gnu.builder.base"/>
+							<builder buildPath="${workspace_loc:/IoT_RIOT}/" id="cdt.managedbuild.target.gnu.builder.base.934293242" keepEnvironmentInBuildfile="false" managedBuildOn="false" name="Gnu Make Builder" parallelBuildOn="true" parallelizationNumber="optimal" superClass="cdt.managedbuild.target.gnu.builder.base"/>
 							<tool id="dk.xpg.msp430eclipse.tool.compiler.gcc.1760330732" name="MSP430 C Compiler" superClass="dk.xpg.msp430eclipse.tool.compiler.gcc">
 								<inputType id="dk.xpg.msp430eclipse.tool.compiler.gcc.input.1850590346" name="C Source File" superClass="dk.xpg.msp430eclipse.tool.compiler.gcc.input"/>
 								<inputType id="dk.xpg.msp430eclipse.tool.compiler.gcc.input.cc.1595608106" name="C++ Source File" superClass="dk.xpg.msp430eclipse.tool.compiler.gcc.input.cc"/>
@@ -64,17 +64,18 @@
 	<storageModule moduleId="org.eclipse.cdt.internal.ui.text.commentOwnerProjectMappings"/>
 	<storageModule moduleId="org.eclipse.cdt.make.core.buildtargets">
 		<buildTargets>
-			<target name="native" path="examples/hello-world" targetID="org.eclipse.cdt.build.MakeTargetBuilder">
+			<target name="clean" path="examples/hello-world" targetID="org.eclipse.cdt.build.MakeTargetBuilder">
 				<buildCommand>make</buildCommand>
 				<buildArguments/>
+				<buildTarget>clean</buildTarget>
 				<stopOnError>true</stopOnError>
 				<useDefaultCommand>true</useDefaultCommand>
 				<runAllBuilders>true</runAllBuilders>
 			</target>
-			<target name="chronos" path="examples/hello-world" targetID="org.eclipse.cdt.build.MakeTargetBuilder">
+			<target name="all" path="examples/hello-world" targetID="org.eclipse.cdt.build.MakeTargetBuilder">
 				<buildCommand>make</buildCommand>
 				<buildArguments/>
-				<buildTarget>BOARD=chronos</buildTarget>
+				<buildTarget>all</buildTarget>
 				<stopOnError>true</stopOnError>
 				<useDefaultCommand>true</useDefaultCommand>
 				<runAllBuilders>true</runAllBuilders>
