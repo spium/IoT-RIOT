@@ -31,7 +31,7 @@
 
 void cc430_cpu_init(void)
 {
-    volatile uint16_t i;
+//    volatile uint16_t i;
 //    volatile unsigned char *ptr;
 
     /* disable watchdog */
@@ -45,6 +45,12 @@ void cc430_cpu_init(void)
 //
 //    UCSCTL3 = SELA__XT1CLK;                   // Select XT1 as FLL reference
 //    UCSCTL4 = SELA__XT1CLK | SELS__DCOCLKDIV | SELM__DCOCLKDIV;
+
+//    UCSCTL6 &= ~XT2OFF;		//enable XT2
+    UCSCTL3 |= SELREF_2;	//set FLL ref to REFO
+
+    //aclk = refo, smclk = mclk = dco
+    UCSCTL4 = SELA__REFOCLK | SELS__DCOCLKDIV | SELM__DCOCLKDIV;
 
     // ---------------------------------------------------------------------
     // Configure CPU clock for 12MHz
@@ -63,11 +69,13 @@ void cc430_cpu_init(void)
 
     // Loop until XT1 & DCO stabilizes, use do-while to insure that
     // body is executed at least once
-//    do {
-//        UCSCTL7 &= ~(XT2OFFG + XT1LFOFFG + XT1HFOFFG + DCOFFG);
-//        SFRIFG1 &= ~OFIFG;                      // Clear fault flags
-//    }
-//    while ((SFRIFG1 & OFIFG));
+    do {
+        UCSCTL7 &= ~(XT2OFFG + XT1LFOFFG + XT1HFOFFG + DCOFFG);
+        SFRIFG1 &= ~OFIFG;                      // Clear fault flags
+    }
+    while ((SFRIFG1 & OFIFG));
+
+//    UCSCTL4 |= SELM__XT2CLK;	//set MCLK to XT2
 
 //    // Disable all interrupts
 //    __disable_interrupt();
@@ -102,5 +110,5 @@ void board_init(void)
     cc430_cpu_init();
 //    lcd_init();
 //    init_display_putchar();
-    DEBUG("DISP OK");
+//    DEBUG("DISP OK");
 }

@@ -10,4 +10,7 @@ export RIOTBASE ?= $(CURDIR)/../..
 # Change this to 0 show compiler invocation lines by default:
 export QUIET ?= 0
 
+USEMODULE += vtimer
+USEMODULE += auto_init
+
 include $(RIOTBASE)/Makefile.include
