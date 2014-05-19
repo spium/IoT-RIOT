@@ -25,6 +25,7 @@
 #include <stddef.h>
 #include "bitarithm.h"
 #include "tcb.h"
+#include "attributes.h"
 
 #define MAXTHREADS 32 /**< the maximum number of threads to be scheduled */
 
@@ -65,7 +66,7 @@ void sched_switch(uint16_t current_prio, uint16_t other_prio);
 /**
  * @brief   Call context switching at thread exit
  */
-void cpu_switch_context_exit(void);
+NORETURN void cpu_switch_context_exit(void);
 
 /**
  * Flag indicating whether a context switch is necessary after handling an
@@ -81,17 +82,17 @@ extern volatile tcb_t *sched_threads[MAXTHREADS];
 /**
  *  Currently active thread
  */
-extern volatile tcb_t *active_thread;
+extern volatile tcb_t *sched_active_thread;
 
 /**
  *  Number of running (non-terminated) threads
  */
-extern volatile int num_tasks;
+extern volatile int sched_num_threads;
 
 /**
  *  Process ID of active thread
  */
-extern volatile int thread_pid;
+extern volatile int sched_active_pid;
 
 /**
  *  Process ID of the thread that was active before the current one
