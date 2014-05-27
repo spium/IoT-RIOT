@@ -34,7 +34,7 @@ static int native_rtc_enabled;
 void rtc_init(void)
 {
     native_rtc_enabled = 0;
-    printf("native rtc initialized\n");
+    //printf("native rtc initialized\n");
 }
 
 void rtc_enable(void)
@@ -54,7 +54,7 @@ void rtc_set_localtime(struct tm *localt)
     DEBUG("rtc_set_localtime()\n");
 
     (void)localt; /* not implemented atm */
-    printf("setting time not supported.");
+    //printf("setting time not supported.");
 }
 
 void rtc_get_localtime(struct tm *localt)

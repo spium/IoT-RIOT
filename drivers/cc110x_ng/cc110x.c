@@ -298,9 +298,9 @@ char *cc110x_state_to_text(uint8_t state)
 
 void cc110x_print_config(void)
 {
-    printf("Current radio state:          %s\r\n", cc110x_state_to_text(radio_state));
-    printf("Current MARC state:           %s\r\n", cc110x_get_marc_state());
-    printf("Current channel number:       %u\r\n", radio_channel);
+    //printf("Current radio state:          %s\r\n", cc110x_state_to_text(radio_state));
+    //printf("Current MARC state:           %s\r\n", cc110x_get_marc_state());
+    //printf("Current channel number:       %u\r\n", radio_channel);
 }
 
 void cc110x_switch_to_pwd(void)

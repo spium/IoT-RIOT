@@ -84,13 +84,13 @@ index e4b2fe5..0000000
 -  uip_ds6_addr_add(&listen_addr.addr, 0, ADDR_AUTOCONF);
 -
 -  uip_debug_lladdr_print(&uip_lladdr);
--  printf("\r\n");
+-  //printf("\r\n");
 -  uip_debug_ipaddr_print(&listen_addr.addr);
--  printf("\r\n");
+-  //printf("\r\n");
 -#endif /* WITH_CONTIKI */
 -
 -#ifdef WITH_CONTIKI
--  printf("tentative address: [%02x%02x:%02x%02x:%02x%02x:%02x%02x:%02x%02x:%02x%02x:%02x%02x:%02x%02x]:%d\r\n",
+-  //printf("tentative address: [%02x%02x:%02x%02x:%02x%02x:%02x%02x:%02x%02x:%02x%02x:%02x%02x:%02x%02x]:%d\r\n",
 -	 listen_addr.addr.u8[0], listen_addr.addr.u8[1], 
 -	 listen_addr.addr.u8[2], listen_addr.addr.u8[3], 
 -	 listen_addr.addr.u8[4], listen_addr.addr.u8[5], 
@@ -270,13 +270,13 @@ index 5dcdfcd..0000000
 -  uip_ds6_addr_add(&listen_addr.addr, 0, ADDR_AUTOCONF);
 -
 -  uip_debug_lladdr_print(&uip_lladdr);
--  printf("\r\n");
+-  //printf("\r\n");
 -  uip_debug_ipaddr_print(&listen_addr.addr);
--  printf("\r\n");
+-  //printf("\r\n");
 -#endif /* WITH_CONTIKI */
 -
 -#ifdef WITH_CONTIKI
--  printf("tentative address: [%02x%02x:%02x%02x:%02x%02x:%02x%02x:%02x%02x:%02x%02x:%02x%02x:%02x%02x]:%d\r\n",
+-  //printf("tentative address: [%02x%02x:%02x%02x:%02x%02x:%02x%02x:%02x%02x:%02x%02x:%02x%02x:%02x%02x]:%d\r\n",
 -	 listen_addr.addr.u8[0], listen_addr.addr.u8[1], 
 -	 listen_addr.addr.u8[2], listen_addr.addr.u8[3], 
 -	 listen_addr.addr.u8[4], listen_addr.addr.u8[5], 
@@ -343,7 +343,7 @@ index 5dcdfcd..0000000
 -  now = my_clock_base + (t / COAP_TICKS_PER_SECOND);
 -    
 -  /* output ticks */
--  response->length += snprintf((char *)response->data, 
+-  response->length += sn//printf((char *)response->data, 
 -			       response->max_size - response->length,
 -			       "%u", (unsigned int)now);
 -}

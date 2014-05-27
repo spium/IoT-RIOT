@@ -140,7 +140,7 @@ timestamp(void)
     struct timeval now;
     ccnl_get_timeval(&now);
 
-    sprintf(ts, "%.4lu", (time_t) 100000 * now.tv_sec + now.tv_usec);
+    s//printf(ts, "%.4lu", (time_t) 100000 * now.tv_sec + now.tv_usec);
     cp = strchr(ts, '.');
 
     if (!cp) {

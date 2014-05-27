@@ -51,7 +51,7 @@ int ccnl_riot_client_get(unsigned int relay_pid, char *name, char *reply_buf)
     for (int segment = 0; ; segment++) {
         char segment_string[16]; //max=999\0
         memset(segment_string, 0, 16);
-        snprintf(segment_string, 16, "%d", segment);
+        sn//printf(segment_string, 16, "%d", segment);
         prefix[i] = segment_string;
         unsigned char *interest_pkg = malloc(PAYLOAD_SIZE);
         if (!interest_pkg) {

@@ -475,10 +475,10 @@ static uint8_t calc_sb_tbl[512] = {
 int twofish_init(cipher_context_t *context, uint8_t blockSize, uint8_t keySize,
                  uint8_t *key)
 {
-    //printf("%-40s: Entry\r\n", __FUNCTION__);
+    ////printf("%-40s: Entry\r\n", __FUNCTION__);
     // 16 byte blocks only
     if (blockSize != TWOFISH_BLOCK_SIZE) {
-        printf("%-40s: blockSize != TWOFISH_BLOCK_SIZE...\r\n", __FUNCTION__);
+        //printf("%-40s: blockSize != TWOFISH_BLOCK_SIZE...\r\n", __FUNCTION__);
         return 0;
     }
 
@@ -534,7 +534,7 @@ static int twofish_set_key(twofish_context_t *ctx, uint8_t *key, uint8_t keylen)
 
     /* Check key length. */
     if (((keylen - 16) | 16) != 16) {
-        printf("%-40s: [ERROR] invalid key-length!\r\n", __FUNCTION__);
+        //printf("%-40s: [ERROR] invalid key-length!\r\n", __FUNCTION__);
         return -1;//GPG_ERR_INV_KEYLEN;
     }
 
@@ -654,7 +654,7 @@ int twofish_encrypt(cipher_context_t *context, uint8_t *in, uint8_t *out)
     twofish_context_t *ctx = malloc(sizeof(twofish_context_t));
 
     if (!ctx) {
-        printf("%-40s: [ERROR] Could NOT malloc space for the twofish_context_t \
+        //printf("%-40s: [ERROR] Could NOT malloc space for the twofish_context_t \
                 struct.\r\n", __FUNCTION__);
         return -1;
     }
@@ -662,7 +662,7 @@ int twofish_encrypt(cipher_context_t *context, uint8_t *in, uint8_t *out)
     res = twofish_set_key(ctx, context->context, TWOFISH_KEY_SIZE);
 
     if (res < 0) {
-        printf("%-40s: [ERROR] twofish_setKey failed with Code %i\r\n",
+        //printf("%-40s: [ERROR] twofish_setKey failed with Code %i\r\n",
                __FUNCTION__, res);
         free(ctx);
         return -2;
@@ -707,7 +707,7 @@ int twofish_decrypt(cipher_context_t *context, uint8_t *in, uint8_t *out)
     twofish_context_t *ctx = malloc(sizeof(twofish_context_t));
 
     if (!ctx) {
-        printf("%-40s: [ERROR] Could NOT malloc space for the twofish_context_t \
+        //printf("%-40s: [ERROR] Could NOT malloc space for the twofish_context_t \
                 struct.\r\n", __FUNCTION__);
         return -1;
     }
@@ -715,7 +715,7 @@ int twofish_decrypt(cipher_context_t *context, uint8_t *in, uint8_t *out)
     res = twofish_set_key(ctx, context->context, TWOFISH_KEY_SIZE);
 
     if (res < 0) {
-        printf("%-40s: [ERROR] twofish_setKey failed with Code %i\r\n",
+        //printf("%-40s: [ERROR] twofish_setKey failed with Code %i\r\n",
                __FUNCTION__, res);
         free(ctx);
         return -2;

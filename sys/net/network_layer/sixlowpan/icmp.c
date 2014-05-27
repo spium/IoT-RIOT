@@ -270,7 +270,7 @@ void icmpv6_send_echo_request(ipv6_addr_t *destaddr, uint16_t id, uint16_t seq, 
 
 #ifdef DEBUG_ENABLED
     char addr_str[IPV6_MAX_ADDR_STR_LEN];
-    printf("INFO: send echo request (id = %04x, seq = %d, data_len = %zu) to: %s\n",
+    //printf("INFO: send echo request (id = %04x, seq = %d, data_len = %zu) to: %s\n",
            id, seq, data_len, ipv6_addr_to_str(addr_str, IPV6_MAX_ADDR_STR_LEN,
                    &ipv6_buf->destaddr));
 #endif
@@ -309,7 +309,7 @@ void icmpv6_send_echo_reply(ipv6_addr_t *destaddr, uint16_t id, uint16_t seq, ui
 
 #ifdef DEBUG_ENABLED
     char addr_str[IPV6_MAX_ADDR_STR_LEN];
-    printf("INFO: send echo reply (id = %04x, seq = %d, data_len = %zu) to: %s\n",
+    //printf("INFO: send echo reply (id = %04x, seq = %d, data_len = %zu) to: %s\n",
            id, seq, data_len, ipv6_addr_to_str(addr_str, IPV6_MAX_ADDR_STR_LEN,
                    &ipv6_buf->destaddr));
 #endif
@@ -366,7 +366,7 @@ void icmpv6_send_router_sol(uint8_t sllao)
 
 #ifdef DEBUG_ENABLED
     char addr_str[IPV6_MAX_ADDR_STR_LEN];
-    printf("INFO: send router solicitation to: %s\n",
+    //printf("INFO: send router solicitation to: %s\n",
            ipv6_addr_to_str(addr_str, IPV6_MAX_ADDR_STR_LEN,
                             &ipv6_buf->destaddr));
 #endif
@@ -382,18 +382,18 @@ void recv_echo_req(void)
 
 #ifdef DEBUG_ENABLED
     char addr_str[IPV6_MAX_ADDR_STR_LEN];
-    printf("INFO: received echo request from: %s\n",
+    //printf("INFO: received echo request from: %s\n",
            ipv6_addr_to_str(addr_str, IPV6_MAX_ADDR_STR_LEN,
                             &ipv6_buf->srcaddr));
-    printf("\n");
-    printf("id = 0x%04x, seq = %d, data_len = %zu\n", NTOHS(echo_buf->id),
+    //printf("\n");
+    //printf("id = 0x%04x, seq = %d, data_len = %zu\n", NTOHS(echo_buf->id),
            NTOHS(echo_buf->seq), data_len);
 
     for (size_t i = 0; i < data_len; i++) {
-        printf("%02x ", echo_data_buf[i]);
+        //printf("%02x ", echo_data_buf[i]);
 
         if (!((i + 1) % 16) || i == data_len - 1) {
-            printf("\n");
+            //printf("\n");
         }
     }
 
@@ -411,18 +411,18 @@ void recv_echo_repl(void)
     size_t data_len = NTOHS(ipv6_buf->length) - ICMPV6_HDR_LEN - ECHO_REPL_LEN;
     char addr_str[IPV6_MAX_ADDR_STR_LEN];
 
-    printf("INFO: received echo reply from: %s\n",
+    //printf("INFO: received echo reply from: %s\n",
            ipv6_addr_to_str(addr_str, IPV6_MAX_ADDR_STR_LEN,
                             &ipv6_buf->srcaddr));
-    printf("\n");
-    printf("id = 0x%04x, seq = %d, data_len = %zu\n", NTOHS(echo_buf->id),
+    //printf("\n");
+    //printf("id = 0x%04x, seq = %d, data_len = %zu\n", NTOHS(echo_buf->id),
            NTOHS(echo_buf->seq), data_len);
 
     for (size_t i = 0; i < data_len; i++) {
-        printf("%02x ", echo_data_buf[i]);
+        //printf("%02x ", echo_data_buf[i]);
 
         if (!((i + 1) % 16) || i == data_len - 1) {
-            printf("\n");
+            //printf("\n");
         }
     }
 #endif
@@ -695,7 +695,7 @@ void icmpv6_send_router_adv(ipv6_addr_t *addr, uint8_t sllao, uint8_t mtu, uint8
 
 #ifdef DEBUG_ENABLED
     char addr_str[IPV6_MAX_ADDR_STR_LEN];
-    printf("INFO: send router advertisement to: %s\n",
+    //printf("INFO: send router advertisement to: %s\n",
            ipv6_addr_to_str(addr_str, IPV6_MAX_ADDR_STR_LEN,
                             &ipv6_buf->destaddr));
 #endif
@@ -986,7 +986,7 @@ void icmpv6_send_neighbor_sol(ipv6_addr_t *src, ipv6_addr_t *dest, ipv6_addr_t *
 
 #ifdef DEBUG_ENABLED
     char addr_str[IPV6_MAX_ADDR_STR_LEN];
-    printf("INFO: send neighbor solicitation to: %s\n",
+    //printf("INFO: send neighbor solicitation to: %s\n",
            ipv6_addr_to_str(addr_str, IPV6_MAX_ADDR_STR_LEN,
                             &ipv6_buf->destaddr));
 #endif
@@ -1258,7 +1258,7 @@ void icmpv6_send_neighbor_adv(ipv6_addr_t *src, ipv6_addr_t *dst, ipv6_addr_t *t
 
 #ifdef DEBUG_ENABLED
     char addr_str[IPV6_MAX_ADDR_STR_LEN];
-    printf("INFO: send neighbor advertisement to: %s\n",
+    //printf("INFO: send neighbor advertisement to: %s\n",
            ipv6_addr_to_str(addr_str, IPV6_MAX_ADDR_STR_LEN,
                             &ipv6_buf->destaddr));
 #endif
@@ -1421,7 +1421,7 @@ void icmpv6_ndp_set_sllao(icmpv6_ndp_opt_stllao_t *sllao, int if_id,
     SET_SLLAO_DEFAULT:
 
         default: {
-            printf("ERROR: llao not set\n");
+            //printf("ERROR: llao not set\n");
             break;
         }
     }
@@ -1478,7 +1478,7 @@ void icmpv6_send_parameter_prob(ipv6_addr_t *src, ipv6_addr_t *dest,
 
 #ifdef DEBUG_ENABLED
     char addr_str[IPV6_MAX_ADDR_STR_LEN];
-    printf("INFO: send parameter problem to: %s\n",
+    //printf("INFO: send parameter problem to: %s\n",
            ipv6_addr_to_str(addr_str, IPV6_MAX_ADDR_STR_LEN,
                             &ipv6_buf->destaddr));
 #endif
@@ -1547,7 +1547,7 @@ uint8_t ndp_neighbor_cache_add(int if_id, const ipv6_addr_t *ipaddr,
     (void) ltime;
 
     if (nbr_count == NBR_CACHE_SIZE) {
-        printf("ERROR: neighbor cache full\n");
+        //printf("ERROR: neighbor cache full\n");
         return NDP_OPT_ARO_STATE_NBR_CACHE_FULL;
     }
 

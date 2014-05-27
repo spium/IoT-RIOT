@@ -37,7 +37,7 @@
 
 #define PORT    (1234)
 
-#define ERROR(...)  printf("ERROR: " __VA_ARGS__)
+#define ERROR(...)  //printf("ERROR: " __VA_ARGS__)
 
 int init_local_address(uint16_t r_addr)
 {
@@ -107,7 +107,7 @@ int main(void)
         return 1;
     }
 
-    printf("Port: %d\n", their_addr.sin6_port);
+    //printf("Port: %d\n", their_addr.sin6_port);
 #endif
 
     if (res < 0) {
@@ -116,6 +116,6 @@ int main(void)
     }
 
     close(sockfd);
-    printf("All tests successful.\n");
+    //printf("All tests successful.\n");
     return 0;
 }

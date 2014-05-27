@@ -70,11 +70,11 @@ void udp_packet_handler(void)
                 msg_send_receive(&m_send_udp, &m_recv_udp, udp_socket->recv_pid);
             }
             else {
-                printf("Dropped UDP Message because no thread ID was found for delivery!\n");
+                //printf("Dropped UDP Message because no thread ID was found for delivery!\n");
             }
         }
         else {
-            printf("Wrong checksum (%x)!\n", chksum);
+            //printf("Wrong checksum (%x)!\n", chksum);
         }
 
         msg_reply(&m_recv_ip, &m_send_ip);

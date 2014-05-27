@@ -722,10 +722,10 @@ static const u32 rcon[] = {
 int aes_init(cipher_context_t *context, uint8_t blockSize, uint8_t keySize,
              uint8_t *key)
 {
-    //printf("%-40s: Entry\r\n", __FUNCTION__);
+    ////printf("%-40s: Entry\r\n", __FUNCTION__);
     // 16 byte blocks only
     if (blockSize != AES_BLOCK_SIZE) {
-        printf("%-40s: blockSize != AES_BLOCK_SIZE...\r\n", __FUNCTION__);
+        //printf("%-40s: blockSize != AES_BLOCK_SIZE...\r\n", __FUNCTION__);
         return 0;
     }
 

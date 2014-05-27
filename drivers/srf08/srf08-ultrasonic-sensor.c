@@ -126,7 +126,7 @@ int32_t srf08_get_distances(uint32_t *range_array, uint8_t ranging_mode)
             distance = (range_high_byte << 8) | range_low_byte;
             range_array[(register_location - 2) / 2] = distance;
             echo_number++;
-            printf("distance = %4lu cm , echo%d\n",
+            //printf("distance = %4lu cm , echo%d\n",
                    distance, register_location / 2);
         }
         hwtimer_wait(HWTIMER_TICKS(500000));
@@ -144,15 +144,15 @@ void srf08_start_ranging(uint8_t ranging_mode)
     puts("Ultrasonic SRF08 engine is started");
     //wait due to calibration
     hwtimer_wait(HWTIMER_TICKS(700000));
-    printf("Actual range = %d\n", srf08_get_range());
-    printf("Actual gain = %d\n", srf08_get_gain());
+    //printf("Actual range = %d\n", srf08_get_range());
+    //printf("Actual gain = %d\n", srf08_get_gain());
 
     while (1) {
         puts("--------------------------------------------");
         echo_number = srf08_get_distances(range_array, ranging_mode);
         if (echo_number > 0) {
             for (i = 0; i < echo_number; i++) {
-                printf("stored distance = %4lu cm , echo%d\n", range_array[i], i + 1);
+                //printf("stored distance = %4lu cm , echo%d\n", range_array[i], i + 1);
             }
         }
         else {

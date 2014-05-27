@@ -27,7 +27,7 @@ void *run(void *parameter) {
     size_t n = (size_t) parameter;
     size_t factorial = 1;
 
-    printf("pthread: parameter = %u\n", (unsigned int) n);
+    //printf("pthread: parameter = %u\n", (unsigned int) n);
 
     if (n > 0) {
         for (size_t i = 1; i <= n; i++) {
@@ -35,7 +35,7 @@ void *run(void *parameter) {
         }
     }
 
-    printf("pthread: factorial = %u\n", (unsigned int) factorial);
+    //printf("pthread: factorial = %u\n", (unsigned int) factorial);
     pthread_exit((void *)factorial);
 
     return NULL;
@@ -46,13 +46,13 @@ int main(void) {
     pthread_attr_t th_attr;
 
     size_t arg = 6;
-    printf("main parameter = %u\n", (unsigned int) arg);
+    //printf("main parameter = %u\n", (unsigned int) arg);
 
     pthread_attr_init(&th_attr);
     pthread_create(&th_id, &th_attr, run, (void *) arg);
     size_t res;
     pthread_join(th_id, (void **) &res);
-    printf("main: factorial = %u\n", (unsigned int) res);
+    //printf("main: factorial = %u\n", (unsigned int) res);
     puts("main: finished");
     return 0;
 }

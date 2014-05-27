@@ -42,7 +42,7 @@ struct timer_msg msg_b = { .interval = { .seconds = 5, .microseconds = 0}, .msg 
 
 void timer_thread(void)
 {
-    printf("This is thread %d\n", thread_getpid());
+    //printf("This is thread %d\n", thread_getpid());
 
     /* we need a queue if the second message arrives while the first is still processed */
     /* without a queue, the message would get lost */
@@ -55,7 +55,7 @@ void timer_thread(void)
         msg_receive(&m);
         struct timer_msg *tmsg = (struct timer_msg *) m.content.ptr;
         vtimer_now(&now);
-        printf("now=%" PRIu32 ":%" PRIu32 " -> every %" PRIu32 ".%" PRIu32 "s: %s\n",
+        //printf("now=%" PRIu32 ":%" PRIu32 " -> every %" PRIu32 ".%" PRIu32 "s: %s\n",
                now.seconds,
                now.microseconds,
                tmsg->interval.seconds,
@@ -73,7 +73,7 @@ void timer_thread(void)
 
 void timer_thread_local(void)
 {
-    printf("This is thread %d\n", thread_getpid());
+    //printf("This is thread %d\n", thread_getpid());
 
     while (1) {
         msg_t m;
@@ -81,7 +81,7 @@ void timer_thread_local(void)
 
         struct tm t;
         vtimer_get_localtime(&t);
-        printf("sec=%d min=%d hour=%d\n", t.tm_sec, t.tm_min, t.tm_hour);
+        //printf("sec=%d min=%d hour=%d\n", t.tm_sec, t.tm_min, t.tm_hour);
     }
 }
 

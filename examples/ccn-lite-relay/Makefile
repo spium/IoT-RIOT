@@ -25,7 +25,7 @@ export RIOTBASE ?= $(CURDIR)/../..
 #CFLAGS += -DDEVELHELP
 
 # Change this to 0 show compiler invocation lines by default:
-export QUIET ?= 1
+export QUIET ?= 0
 
 BOARD_BLACKLIST := arduino-due chronos mbed_lpc1768 msb-430 msb-430h \
                    pttu redbee-econotag telosb udoo wsn430-v1_3b wsn430-v1_4 z1

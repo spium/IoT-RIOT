@@ -12,7 +12,7 @@ Usage:
 When you start the program, it's small control window appears, and a
 xterm terminal window is launched.  The Xterm window allows you to
 simply leave lpc2k_pgm running and interface with the LPC uart using
-that window.  Most people configure "printf" on in their code to print
+that window.  Most people configure "//printf" on in their code to print
 to UART0, which will appear in this window.
 
 This program has 4 settings:

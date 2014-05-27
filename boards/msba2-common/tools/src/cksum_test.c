@@ -74,7 +74,7 @@ int main()
         cksum(buf);
     }
 
-    printf("sum = %u\n", sum);
+    //printf("sum = %u\n", sum);
 
     return 0;
 }

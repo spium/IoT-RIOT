@@ -44,7 +44,7 @@ void thread_print_all(void)
     int i;
     int overall_stacksz = 0;
 
-    printf("\tpid | %-21s| %-9sQ | pri | stack ( used) location"
+    //printf("\tpid | %-21s| %-9sQ | pri | stack ( used) location"
 #if SCHEDSTATISTICS
            "  | runtime | switches"
 #endif
@@ -65,7 +65,7 @@ void thread_print_all(void)
 #endif
             overall_stacksz += stacksz;
             stacksz -= thread_measure_stack_free(p->stack_start);
-            printf("\t%3u | %-21s| %-8s %.1s | %3i | %5i (%5i) %p"
+            //printf("\t%3u | %-21s| %-8s %.1s | %3i | %5i (%5i) %p"
 #if SCHEDSTATISTICS
                    " | %6.3f%% |  %8d"
 #endif
@@ -78,5 +78,5 @@ void thread_print_all(void)
         }
     }
 
-    printf("\t%5s %-21s|%13s%6s %5i\n", "|", "SUM", "|", "|", overall_stacksz);
+    //printf("\t%5s %-21s|%13s%6s %5i\n", "|", "SUM", "|", "|", overall_stacksz);
 }

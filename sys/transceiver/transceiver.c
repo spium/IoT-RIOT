@@ -690,10 +690,10 @@ static int8_t send_packet(transceiver_type_t t, void *pkt)
 #ifdef DEBUG_ENABLED
 
     for (size_t i = 0; i < 8; i++) {
-        printf("%02x ", p->frame.dest_addr[i]);
+        //printf("%02x ", p->frame.dest_addr[i]);
     }
 
-    printf("\n");
+    //printf("\n");
 #endif
 #else
     radio_packet_t *p = (radio_packet_t *)pkt;

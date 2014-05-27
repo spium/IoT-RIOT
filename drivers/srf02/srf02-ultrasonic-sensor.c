@@ -92,7 +92,7 @@ uint32_t srf02_get_distance(uint8_t ranging_mode)
     range_low_byte = rx_buff[0];
 
     distance = (range_high_byte << 8) | range_low_byte;
-    //printf("%u | %u\n", range_high_byte, range_low_byte);
+    ////printf("%u | %u\n", range_high_byte, range_low_byte);
     return distance;
 }
 
@@ -106,26 +106,26 @@ void srf02_start_ranging(uint16_t ranging_mode)
         if (distance != UINT32_MAX) {
             switch (ranging_mode) {
                 case SRF02_REAL_RANGING_MODE_CM :
-                    printf("distance = %lu cm\n", distance);
+                    //printf("distance = %lu cm\n", distance);
                     break;
 
                 case SRF02_REAL_RANGING_MODE_INCH :
-                    printf("distance = %lu inch\n", distance);
+                    //printf("distance = %lu inch\n", distance);
                     break;
 
                 case SRF02_REAL_RANGING_MODE_MICRO_SEC:
                     // dist_m = 0.000172 distance_micro_sec (air)
-                    printf("distance = %lu micro_sec\n", distance);
+                    //printf("distance = %lu micro_sec\n", distance);
                     break;
 
                 case SRF02_FAKE_RANGING_MODE_CM:
                 case SRF02_FAKE_RANGING_MODE_INCH:
                 case SRF02_FAKE_RANGING_MODE_MICRO_SEC:
-                    printf("distance fake ranging = %lu \n", distance);
+                    //printf("distance fake ranging = %lu \n", distance);
                     break;
 
                 default:
-                    printf("distance = %lu cm\n", distance);
+                    //printf("distance = %lu cm\n", distance);
             }
 
             hwtimer_wait(HWTIMER_TICKS(50000));

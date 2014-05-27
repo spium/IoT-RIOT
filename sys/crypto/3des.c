@@ -251,10 +251,10 @@ int tripledes_init(cipher_context_t *context, uint8_t blockSize, uint8_t keySize
 {
     uint8_t i;
 
-    //printf("%-40s: Entry\r\n", __FUNCTION__);
+    ////printf("%-40s: Entry\r\n", __FUNCTION__);
     // 16 byte blocks only
     if (blockSize != THREEDES_BLOCK_SIZE) {
-        printf("%-40s: blockSize != 3DES_BLOCK_SIZE...\r\n", __FUNCTION__);
+        //printf("%-40s: blockSize != 3DES_BLOCK_SIZE...\r\n", __FUNCTION__);
         return 0;
     }
 
@@ -288,7 +288,7 @@ int tripledes_encrypt(cipher_context_t *context, uint8_t *plain, uint8_t *crypt)
     uint32_t work[2];
 
     if (!key) {
-        printf("%-40s: [ERROR] Could NOT malloc space for the des3_key_s \
+        //printf("%-40s: [ERROR] Could NOT malloc space for the des3_key_s \
                    struct.\r\n", __FUNCTION__);
         return -1;
     }
@@ -297,7 +297,7 @@ int tripledes_encrypt(cipher_context_t *context, uint8_t *plain, uint8_t *crypt)
     res = des3_key_setup(context->context, key);
 
     if (res < 0) {
-        printf("%-40s: [ERROR] des3_key_setup failed with Code %i\r\n",
+        //printf("%-40s: [ERROR] des3_key_setup failed with Code %i\r\n",
                __FUNCTION__, res);
         free(key);
         return -2;
@@ -323,7 +323,7 @@ int tripledes_decrypt(cipher_context_t *context, uint8_t *crypt, uint8_t *plain)
     uint32_t work[2];
 
     if (!key) {
-        printf("%-40s: [ERROR] Could NOT malloc space for the des3_key_s \
+        //printf("%-40s: [ERROR] Could NOT malloc space for the des3_key_s \
                         struct.\r\n", __FUNCTION__);
         return -1;
     }
@@ -332,7 +332,7 @@ int tripledes_decrypt(cipher_context_t *context, uint8_t *crypt, uint8_t *plain)
     res = des3_key_setup(context->context, key);
 
     if (res < 0) {
-        printf("%-40s: [ERROR] des3_key_setup failed with Code %i\r\n",
+        //printf("%-40s: [ERROR] des3_key_setup failed with Code %i\r\n",
                __FUNCTION__, res);
         free(key);
         return -2;

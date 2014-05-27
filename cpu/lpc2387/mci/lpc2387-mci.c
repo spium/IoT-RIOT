@@ -634,7 +634,7 @@ DSTATUS MCI_initialize(void)
     }
 
     if (!send_cmd(CMD7, (unsigned long)CardRCA << 16, 1, resp)) {	/* Select card */
-        //printf("MCI CMD7 fail\n");
+        ////printf("MCI CMD7 fail\n");
         goto di_fail;
     }
 
@@ -642,7 +642,7 @@ DSTATUS MCI_initialize(void)
 
     if (!(ty & CT_BLOCK)) {		/* Set data block length to 512 (for byte addressing cards) */
         if (!send_cmd(CMD16, 512, 1, resp) || (resp[0] & 0xFDF90000)) {
-            //printf("MCI CMD16 fail\n");
+            ////printf("MCI CMD16 fail\n");
             goto di_fail;
         }
     }
@@ -652,7 +652,7 @@ DSTATUS MCI_initialize(void)
     if (ty & CT_SDC) {		/* Set wide bus mode (for SDCs) */
         if (!send_cmd(ACMD6, 2, 1, resp)	/* Set bus mode of SDC */
            || (resp[0] & 0xFDF90000)) {
-            //printf("MCI ACMD6 fail\n");
+            ////printf("MCI ACMD6 fail\n");
             goto di_fail;
         }
 

@@ -240,7 +240,7 @@ void ccnl_populate_cache(struct ccnl_relay_s *ccnl, unsigned char *buf, int data
             goto Done;
         }
 
-        printf("populating: %s\n", ccnl_prefix_to_path(prefix));
+        //printf("populating: %s\n", ccnl_prefix_to_path(prefix));
 
         c = ccnl_content_new(ccnl, &pkt, &prefix, &ppkd, content,
                              contlen);

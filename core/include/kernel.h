@@ -51,7 +51,7 @@
 /**
  * @def KERNEL_CONF_STACKSIZE_PRINTF
  * @ingroup conf
- * @brief Size of the task's printf stack in bytes
+ * @brief Size of the task's //printf stack in bytes
  */
 #ifndef KERNEL_CONF_STACKSIZE_PRINTF
 #error KERNEL_CONF_STACKSIZE_PRINTF must be defined per CPU

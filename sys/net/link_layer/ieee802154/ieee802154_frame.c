@@ -109,10 +109,10 @@ uint8_t ieee802154_frame_init(ieee802154_frame_t *frame, uint8_t *buf)
     DEBUG("INFO: IEEE 802.15.4 header initialized:\n");
 
     for (size_t i = 0; i < index; i++) {
-        printf("%02x ", buf[i]);
+        //printf("%02x ", buf[i]);
 
         if (!((i + 1) % 16) || i == index - 1) {
-            printf("\n");
+            //printf("\n");
         }
     }
 
@@ -283,7 +283,7 @@ uint16_t ieee802154_frame_get_fcs(const uint8_t *frame, uint8_t frame_len)
 
 void ieee802154_frame_print_fcf_frame(ieee802154_frame_t *frame)
 {
-    printf("frame type: %02x\n"
+    /*printf("frame type: %02x\n"
            "security enabled: %02x\n"
            "frame pending: %02x\n"
            "ack requested: %02x\n"
@@ -299,4 +299,5 @@ void ieee802154_frame_print_fcf_frame(ieee802154_frame_t *frame)
            frame->fcf.dest_addr_m,
            frame->fcf.frame_ver,
            frame->fcf.src_addr_m);
+    */
 }

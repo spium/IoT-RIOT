@@ -41,7 +41,7 @@ static const caddr_t heap_start[NUM_HEAPS] = {(caddr_t)&__heap1_start,(caddr_t)&
 void heap_stats(void)
 {
     for(int i = 0; i < NUM_HEAPS; i++)
-        printf("# heap %i: %p -- %p -> %p (%li of %li free)\n", i, heap_start[i], heap[i], heap_max[i],
+        //printf("# heap %i: %p -- %p -> %p (%li of %li free)\n", i, heap_start[i], heap[i], heap_max[i],
             (uint32_t)heap_max[i] - (uint32_t)heap[i], (uint32_t)heap_max[i] - (uint32_t)heap_start[i]);
 }
 

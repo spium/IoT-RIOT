@@ -27,10 +27,10 @@ static inline uint8_t sector_read(unsigned char *read_buf, unsigned long sector,
     unsigned long i;
 
     if (MCI_read(read_buf, sector, 1) == RES_OK) {
-        printf("[disk] Read sector %lu (%lu):\n", sector, offset);
+        //printf("[disk] Read sector %lu (%lu):\n", sector, offset);
 
         for (i = offset + 1; i <= offset + length; i++) {
-            printf(" %u", read_buf[i - 1]);
+            //printf(" %u", read_buf[i - 1]);
 
             if (!(i % 16)) {
                 puts("");
@@ -51,7 +51,7 @@ void _get_sectorsize(int argc, char **argv)
 
     unsigned short ssize;
     if (MCI_ioctl(GET_SECTOR_SIZE, &ssize) == RES_OK) {
-        printf("[disk] sector size is %u\n", ssize);
+        //printf("[disk] sector size is %u\n", ssize);
     }
     else {
         puts("[disk] Failed to fetch sector size. Card inserted?");
@@ -65,7 +65,7 @@ void _get_blocksize(int argc, char **argv)
 
     unsigned long bsize;
     if (MCI_ioctl(GET_BLOCK_SIZE, &bsize) == RES_OK) {
-        printf("[disk] block size is %lu\n", bsize);
+        //printf("[disk] block size is %lu\n", bsize);
     }
     else {
         puts("[disk] Failed to fetch block size. Card inserted?");
@@ -79,7 +79,7 @@ void _get_sectorcount(int argc, char **argv)
 
     unsigned long scount;
     if (MCI_ioctl(GET_SECTOR_COUNT, &scount) == RES_OK) {
-        printf("[disk] sector count is %lu\n", scount);
+        //printf("[disk] sector count is %lu\n", scount);
     }
     else {
         puts("[disk] Failed to fetch sector count. Card inserted?");
@@ -102,10 +102,10 @@ void _read_sector(int argc, char **argv)
             }
         }
 
-        printf("[disk] Error while reading sector %lu\n", sectornr);
+        //printf("[disk] Error while reading sector %lu\n", sectornr);
     }
     else {
-        printf("[disk] Usage:\n%s <SECTOR>\n", argv[0]);
+        //printf("[disk] Usage:\n%s <SECTOR>\n", argv[0]);
         return;
     }
 }
@@ -116,7 +116,7 @@ void _read_bytes(int argc, char **argv)
     unsigned short ssize, length;
 
     if (argc != 3) {
-        printf("[disk] Usage:\n%s <OFFSET> <LENGTH>\n", argv[0]);
+        //printf("[disk] Usage:\n%s <OFFSET> <LENGTH>\n", argv[0]);
         return;
     }
 
@@ -155,7 +155,7 @@ void _read_bytes(int argc, char **argv)
         } /* length < (ssize - offset) */
     } /* ioctl */
 
-    printf("[disk] Error while reading sector %lu\n", sector);
+    //printf("[disk] Error while reading sector %lu\n", sector);
     return;
 
 }

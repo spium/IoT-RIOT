@@ -36,7 +36,7 @@ char tcp_timer_stack[TCP_TIMER_STACKSIZE];
 
 int destiny_init_transport_layer(void)
 {
-    printf("Initializing transport layer packages. Size of socket_type: %u\n",
+    //printf("Initializing transport layer packages. Size of socket_type: %u\n",
            (unsigned int) sizeof(socket_internal_t));
     /* SOCKETS */
     memset(sockets, 0, MAX_SOCKETS * sizeof(socket_internal_t));
@@ -57,7 +57,7 @@ int destiny_init_transport_layer(void)
     vtimer_now(&now);
     srand(timex_uint64(now));
 #ifdef TCP_HC
-    printf("TCP_HC enabled!\n");
+    //printf("TCP_HC enabled!\n");
     global_context_counter = rand();
 #endif
     global_sequence_counter = rand();

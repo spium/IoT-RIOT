@@ -72,7 +72,7 @@ export HEXFILE ?= $(ELFFILE:.elf=.hex)
 
 ## make script for your application. Build RIOT-base here!
 all: $(BINDIR)$(PROJECT).a
-	@echo "Building application $(PROJECT) for $(BOARD) w/ MCU $(MCU)."
+	@echo "Building application $(PROJECT) for $(BOARD) w/ MCU $(MCU). $(CFLAGS)"
 	"$(MAKE)" -C $(RIOTBOARD)/$(BOARD)
 	"$(MAKE)" -C $(RIOTBASE)
 ifeq ($(BUILDOSXNATIVE),1)

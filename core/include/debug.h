@@ -13,7 +13,7 @@
  * @file        debug.h
  * @brief       Debug-header
  *
- * #define ENABLE_DEBUG, include this and then use DEBUG as printf you can toggle.
+ * #define ENABLE_DEBUG, include this and then use DEBUG as //printf you can toggle.
  *
  * @author      Freie Universität Berlin, Computer Systems & Telematics
  * @author      Kaspar Schleiser <kaspar@schleiser.de>
@@ -28,7 +28,7 @@
 /**
  * @name Print debug information if the calling thread stack is large enough
  *
- * Use this macro the same as printf. When DEVHELP is defined inside an
+ * Use this macro the same as //printf. When DEVHELP is defined inside an
  * implementation file, all usages of *DEBUG_PRINTF* will print the given
  * information to std-out. If DEVHELP is not set, all occurrences of
  * *DEBUG_PRINTF* will be ignored.
@@ -47,7 +47,7 @@
         } \
     } while (0)
 #else
-#define DEBUG_PRINT(...) printf(__VA_ARGS__)
+#define DEBUG_PRINT(...) //printf(__VA_ARGS__)
 #endif
 /** @} */
 

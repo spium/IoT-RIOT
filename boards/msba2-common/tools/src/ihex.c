@@ -80,7 +80,7 @@ int read_intel_hex(const char *filename)
     fp = fopen(filename, "r");
 
     if (fp == NULL) {
-        printf("Unable to read file %s\n", filename);
+        //printf("Unable to read file %s\n", filename);
         return -1;
     }
 
@@ -91,7 +91,7 @@ int read_intel_hex(const char *filename)
 
         if (*buf) {
             if (parse_hex_line(buf) == 0) {
-                printf("Warning, parse error line %d\n", lineno);
+                //printf("Warning, parse error line %d\n", lineno);
                 fclose(fp);
                 return -2;
             }
@@ -154,7 +154,7 @@ parse_hex_line(char *line)
 
     ptr += 4;
 
-    /* printf("Line: length=%d Addr=%d\n", len, addr); */
+    /* //printf("Line: length=%d Addr=%d\n", len, addr); */
     if (!sscanf(ptr, "%02x", &code)) {
         return 0;
     }
@@ -189,7 +189,7 @@ parse_hex_line(char *line)
             }
 
             extended_addr = i << 4;
-            //printf("ext addr = %05X\n", extended_addr);
+            ////printf("ext addr = %05X\n", extended_addr);
         }
 
         if (code == 4 && len == 2) {
@@ -209,7 +209,7 @@ parse_hex_line(char *line)
             }
 
             extended_addr = i << 16;
-            //printf("ext addr = %08X\n", extended_addr);
+            ////printf("ext addr = %08X\n", extended_addr);
         }
 
         return 1;	// non-data line

@@ -65,7 +65,7 @@ static shell_command_handler_t find_handler(const shell_command_t *command_list,
 
 static void print_help(const shell_command_t *command_list)
 {
-    printf("%-20s %s\n", "Command", "Description");
+    //printf("%-20s %s\n", "Command", "Description");
     puts("---------------------------------------");
 
     const shell_command_t *command_lists[] = {
@@ -82,7 +82,7 @@ static void print_help(const shell_command_t *command_list)
         if ((entry = command_lists[i])) {
             /* iterating over commands in command_lists entry */
             while (entry->name != NULL) {
-                printf("%-20s %s\n", entry->name, entry->desc);
+                //printf("%-20s %s\n", entry->name, entry->desc);
                 entry++;
             }
         }

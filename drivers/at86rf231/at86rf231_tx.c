@@ -81,7 +81,7 @@ static void at86rf231_xmit(uint8_t *data, uint8_t length)
         vtimer_usleep(10);
 
         if (!--max_wait) {
-            printf("at86rf231 : ERROR : could not enter PLL_ON mode");
+            //printf("at86rf231 : ERROR : could not enter PLL_ON mode");
             break;
         }
     }

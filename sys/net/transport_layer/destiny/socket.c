@@ -41,7 +41,7 @@ socket_internal_t sockets[MAX_SOCKETS];
 
 void print_socket(socket_t *current_socket);
 void print_internal_socket(socket_internal_t *current_socket_internal);
-void printf_tcp_context(tcp_hc_context_t *current_tcp_context);
+void //printf_tcp_context(tcp_hc_context_t *current_tcp_context);
 int exists_socket(int socket);
 void set_socket_address(sockaddr6_t *sockaddr, sa_family_t sin6_family,
                         uint16_t sin6_port, uint32_t sin6_flowinfo,
@@ -51,66 +51,66 @@ void set_tcp_packet(tcp_hdr_t *tcp_hdr, uint16_t src_port, uint16_t dst_port,
                     uint8_t dataOffset_reserved, uint8_t reserved_flags,
                     uint16_t window, uint16_t checksum, uint16_t urg_pointer);
 
-void printf_tcp_context(tcp_hc_context_t *current_tcp_context)
+void //printf_tcp_context(tcp_hc_context_t *current_tcp_context)
 {
-    printf("Context: %u\n", current_tcp_context->context_id);
-    printf("Rcv Seq: %" PRIu32 " Rcv Ack: %" PRIu32 ", Rcv Wnd: %u\n", current_tcp_context->seq_rcv, current_tcp_context->ack_rcv, current_tcp_context->wnd_rcv);
-    printf("Snd Seq: %" PRIu32 " Snd Ack: %" PRIu32 ", Snd Wnd: %u\n", current_tcp_context->seq_snd, current_tcp_context->ack_snd, current_tcp_context->wnd_snd);
+    //printf("Context: %u\n", current_tcp_context->context_id);
+    //printf("Rcv Seq: %" PRIu32 " Rcv Ack: %" PRIu32 ", Rcv Wnd: %u\n", current_tcp_context->seq_rcv, current_tcp_context->ack_rcv, current_tcp_context->wnd_rcv);
+    //printf("Snd Seq: %" PRIu32 " Snd Ack: %" PRIu32 ", Snd Wnd: %u\n", current_tcp_context->seq_snd, current_tcp_context->ack_snd, current_tcp_context->wnd_snd);
 }
 
 void print_tcp_flags(tcp_hdr_t *tcp_header)
 {
-    printf("FLAGS: ");
+    //printf("FLAGS: ");
 
     switch (tcp_header->reserved_flags) {
         case TCP_ACK: {
-            printf("ACK ");
+            //printf("ACK ");
             break;
         }
 
         case TCP_RST: {
-            printf("RST ");
+            //printf("RST ");
             break;
         }
 
         case TCP_SYN: {
-            printf("SYN ");
+            //printf("SYN ");
             break;
         }
 
         case TCP_FIN: {
-            printf("FIN ");
+            //printf("FIN ");
             break;
         }
 
         case TCP_URG_PSH: {
-            printf("URG PSH ");
+            //printf("URG PSH ");
             break;
         }
 
         case TCP_SYN_ACK: {
-            printf("SYN ACK ");
+            //printf("SYN ACK ");
             break;
         }
 
         case TCP_FIN_ACK: {
-            printf("FIN ACK ");
+            //printf("FIN ACK ");
             break;
         }
     }
 
-    printf("\n");
+    //printf("\n");
 }
 
 void print_tcp_cb(tcp_cb_t *cb)
 {
     timex_t now;
     vtimer_now(&now);
-    printf("Send_ISS: %" PRIu32 "\nSend_UNA: %" PRIu32 "\nSend_NXT: %" PRIu32 "\nSend_WND: %u\n",
+    //printf("Send_ISS: %" PRIu32 "\nSend_UNA: %" PRIu32 "\nSend_NXT: %" PRIu32 "\nSend_WND: %u\n",
            cb->send_iss, cb->send_una, cb->send_nxt, cb->send_wnd);
-    printf("Rcv_IRS: %" PRIu32 "\nRcv_NXT: %" PRIu32 "\nRcv_WND: %u\n",
+    //printf("Rcv_IRS: %" PRIu32 "\nRcv_NXT: %" PRIu32 "\nRcv_WND: %u\n",
            cb->rcv_irs, cb->rcv_nxt, cb->rcv_wnd);
-    printf("Time difference: %" PRIu64 ", No_of_retries: %u, State: %u\n\n",
+    //printf("Time difference: %" PRIu64 ", No_of_retries: %u, State: %u\n\n",
            timex_uint64(timex_sub(now, cb->last_packet_time)), cb->no_of_retries, cb->state);
 }
 
@@ -118,44 +118,44 @@ void print_tcp_status(int in_or_out, ipv6_hdr_t *ipv6_header,
                       tcp_hdr_t *tcp_header, socket_t *tcp_socket)
 {
     char addr_str[IPV6_MAX_ADDR_STR_LEN];
-    printf("--- %s TCP packet: ---\n",
+    //printf("--- %s TCP packet: ---\n",
            (in_or_out == INC_PACKET ? "Incoming" : "Outgoing"));
-    printf("IPv6 Source: %s\n",
+    //printf("IPv6 Source: %s\n",
            ipv6_addr_to_str(addr_str, IPV6_MAX_ADDR_STR_LEN,
                             &ipv6_header->srcaddr));
-    printf("IPv6 Dest: %s\n",
+    //printf("IPv6 Dest: %s\n",
            ipv6_addr_to_str(addr_str, IPV6_MAX_ADDR_STR_LEN,
                             &ipv6_header->destaddr));
-    printf("TCP Length: %x\n", ipv6_header->length - TCP_HDR_LEN);
-    printf("Source Port: %x, Dest. Port: %x\n",
+    //printf("TCP Length: %x\n", ipv6_header->length - TCP_HDR_LEN);
+    //printf("Source Port: %x, Dest. Port: %x\n",
            NTOHS(tcp_header->src_port), NTOHS(tcp_header->dst_port));
-    printf("Source Port: %u, Dest. Port: %u\n",
+    //printf("Source Port: %u, Dest. Port: %u\n",
            NTOHS(tcp_header->src_port), NTOHS(tcp_header->dst_port));
-    printf("ACK: %" PRIu32 ", SEQ: %" PRIu32 ", Window: %x\n",
+    //printf("ACK: %" PRIu32 ", SEQ: %" PRIu32 ", Window: %x\n",
            tcp_header->ack_nr, tcp_header->seq_nr, tcp_header->window);
-    printf("ACK: %" PRIu32 ", SEQ: %" PRIu32 ", Window: %u\n",
+    //printf("ACK: %" PRIu32 ", SEQ: %" PRIu32 ", Window: %u\n",
            tcp_header->ack_nr, tcp_header->seq_nr, tcp_header->window);
     print_tcp_flags(tcp_header);
     print_tcp_cb(&tcp_socket->tcp_control);
 #ifdef TCP_HC
-    printf_tcp_context(&tcp_socket->tcp_control.tcp_context);
+    //printf_tcp_context(&tcp_socket->tcp_control.tcp_context);
 #endif
 }
 
 void print_socket(socket_t *current_socket)
 {
     char addr_str[IPV6_MAX_ADDR_STR_LEN];
-    printf("Domain: %i, Type: %i, Protocol: %i \n",
+    //printf("Domain: %i, Type: %i, Protocol: %i \n",
            current_socket->domain,
            current_socket->type,
            current_socket->protocol);
-    printf("Local address: %s\n",
+    //printf("Local address: %s\n",
            ipv6_addr_to_str(addr_str, IPV6_MAX_ADDR_STR_LEN,
                             &current_socket->local_address.sin6_addr));
-    printf("Foreign address: %s\n",
+    //printf("Foreign address: %s\n",
            ipv6_addr_to_str(addr_str, IPV6_MAX_ADDR_STR_LEN,
                             &current_socket->foreign_address.sin6_addr));
-    printf("Local Port: %u, Foreign Port: %u\n",
+    //printf("Local Port: %u, Foreign Port: %u\n",
            NTOHS(current_socket->local_address.sin6_port),
            NTOHS(current_socket->foreign_address.sin6_port));
 }
@@ -163,12 +163,12 @@ void print_socket(socket_t *current_socket)
 void print_internal_socket(socket_internal_t *current_socket_internal)
 {
     socket_t *current_socket = &current_socket_internal->socket_values;
-    printf("\n--------------------------\n");
-    printf("ID: %i, RECV PID: %i SEND PID: %i\n",
+    //printf("\n--------------------------\n");
+    //printf("ID: %i, RECV PID: %i SEND PID: %i\n",
            current_socket_internal->socket_id, current_socket_internal->recv_pid,
            current_socket_internal->send_pid);
     print_socket(current_socket);
-    printf("\n--------------------------\n");
+    //printf("\n--------------------------\n");
 }
 
 socket_internal_t *get_socket(int s)
@@ -184,7 +184,7 @@ socket_internal_t *get_socket(int s)
 void destiny_socket_print_sockets(void)
 {
     int i;
-    printf("\n---   Socket list:   ---\n");
+    //printf("\n---   Socket list:   ---\n");
 
     for (i = 1; i < MAX_SOCKETS + 1; i++) {
         if (get_socket(i) != NULL) {
@@ -616,7 +616,7 @@ int destiny_socket_connect(int socket, sockaddr6_t *addr, uint32_t addrlen)
 
     /* Check for consistency */
     if (tcp_header->ack_nr != current_tcp_socket->tcp_control.send_nxt + 1) {
-        printf("TCP packets not consistent!\n");
+        //printf("TCP packets not consistent!\n");
     }
 
     /* Got SYN ACK from Server */
@@ -806,7 +806,7 @@ int32_t destiny_socket_send(int s, const void *buf, uint32_t len, int flags)
                 current_tcp_socket->tcp_control.tcp_context.hc_type =
                     COMPRESSED_HEADER;
 #endif
-                printf("Error while sending, returning to application thread!\n");
+                //printf("Error while sending, returning to application thread!\n");
                 return -1;
             }
 
@@ -927,7 +927,7 @@ int32_t destiny_socket_recv(int s, void *buf, uint32_t len, int flags)
 
     /* Check if socket exists */
     if (!is_tcp_socket(s)) {
-        printf("INFO: NO TCP SOCKET!\n");
+        //printf("INFO: NO TCP SOCKET!\n");
         return -1;
     }
 
@@ -993,7 +993,7 @@ int32_t destiny_socket_recvfrom(int s, void *buf, uint32_t len, int flags,
         return destiny_socket_recv(s, buf, len, flags);
     }
     else {
-        printf("Socket Type not supported!\n");
+        //printf("Socket Type not supported!\n");
         return -1;
     }
 }
@@ -1163,7 +1163,7 @@ int destiny_socket_bind(int s, sockaddr6_t *addr, int addrlen)
         }
     }
     else {
-        printf("SOCKET DOES NOT EXIST!\n");
+        //printf("SOCKET DOES NOT EXIST!\n");
         return -1;
     }
 
@@ -1266,7 +1266,7 @@ int handle_new_tcp_connection(socket_internal_t *current_queued_int_socket,
 
     /* Check for consistency */
     if (tcp_header->ack_nr != current_queued_socket->tcp_control.send_nxt + 1) {
-        printf("TCP packets not consistent!\n");
+        //printf("TCP packets not consistent!\n");
     }
 
     /* Got ack, connection established, refresh local and foreign tcp socket

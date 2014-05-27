@@ -52,6 +52,6 @@ void config_load(void)
  */
 uint8_t config_save(void)
 {
-    printf("XXX: config_save(): not implemented - your config will vanish on process termination\n");
+    //printf("XXX: config_save(): not implemented - your config will vanish on process termination\n");
     return 1;
 }

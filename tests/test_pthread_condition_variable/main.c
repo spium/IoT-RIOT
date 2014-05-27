@@ -69,7 +69,7 @@ int main(void)
         count++;
 
         if ((count % 100000) == 0) {
-            printf("Still alive alternated [count: %ldk] times.\n", count / 1000);
+            //printf("Still alive alternated [count: %ldk] times.\n", count / 1000);
         }
 
         if (count == expected_value) {

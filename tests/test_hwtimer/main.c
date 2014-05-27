@@ -39,7 +39,7 @@ int main(void)
 
     puts("");
     puts("  Timers should print \"callback x\" once when they run out.");
-    printf("  The order for x is 1, n-1, n-2, ..., 2 where n is the number of available hardware timers (%u on this platform).\n", HWTIMER_MAXTIMERS);
+    //printf("  The order for x is 1, n-1, n-2, ..., 2 where n is the number of available hardware timers (%u on this platform).\n", HWTIMER_MAXTIMERS);
     puts("  One timer should fire every second until all timers have run out.");
     puts("  Additionally the message \"hwtimer set.\" should be printed once 1 second from now.");
     puts("");
@@ -50,18 +50,18 @@ int main(void)
 
     /* make the first timer first to fire so timers do not run out linearly */
     char *msgn = msg;
-    snprintf(msgn, MSGLEN, "callback %2x", 1);
+    sn//printf(msgn, MSGLEN, "callback %2x", 1);
     hwtimer_set(HWTIMER_TICKS(BASE_DELAY), callback, (void *) msgn);
-    printf("set %s\n", msgn);
+    //printf("set %s\n", msgn);
 
     /* set up to HWTIMER_MAXTIMERS-1 because hwtimer_wait below also
      * needs a timer */
     for (int i = 1; i < (HWTIMER_MAXTIMERS - 1); i++) {
         msgn = msg + (i * MSGLEN);
         delay -= DELTA_DELAY;
-        snprintf(msgn, MSGLEN, "callback %2x", i + 1);
+        sn//printf(msgn, MSGLEN, "callback %2x", i + 1);
         hwtimer_set(HWTIMER_TICKS(delay), callback, (void *) msgn);
-        printf("set %s\n", msgn);
+        //printf("set %s\n", msgn);
     }
 
     puts("");

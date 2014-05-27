@@ -48,7 +48,7 @@ void udp_server(int argc, char **argv)
     (void) argv;
 
     int udp_server_thread_pid = thread_create(udp_server_stack_buffer, KERNEL_CONF_STACKSIZE_MAIN, PRIORITY_MAIN, CREATE_STACKTEST, init_udp_server, "init_udp_server");
-    printf("UDP SERVER ON PORT %d (THREAD PID: %d)\n", HTONS(SERVER_PORT), udp_server_thread_pid);
+    //printf("UDP SERVER ON PORT %d (THREAD PID: %d)\n", HTONS(SERVER_PORT), udp_server_thread_pid);
 }
 
 void init_udp_server(void)
@@ -67,7 +67,7 @@ void init_udp_server(void)
     fromlen = sizeof(sa);
 
     if (-1 == destiny_socket_bind(sock, &sa, sizeof(sa))) {
-        printf("Error bind failed!\n");
+        //printf("Error bind failed!\n");
         destiny_socket_close(sock);
     }
 
@@ -76,10 +76,10 @@ void init_udp_server(void)
                                           &sa, &fromlen);
 
         if (recsize < 0) {
-            printf("ERROR: recsize < 0!\n");
+            //printf("ERROR: recsize < 0!\n");
         }
 
-        printf("UDP packet received, payload: %s\n", buffer_main);
+        //printf("UDP packet received, payload: %s\n", buffer_main);
     }
 
     destiny_socket_close(sock);
@@ -96,7 +96,7 @@ void udp_send(int argc, char **argv)
     char text[5];
 
     if (argc != 3) {
-        printf("usage: send <addr> <text>\n");
+        //printf("usage: send <addr> <text>\n");
         return;
     }
 
@@ -108,7 +108,7 @@ void udp_send(int argc, char **argv)
     sock = destiny_socket(PF_INET6, SOCK_DGRAM, IPPROTO_UDP);
 
     if (-1 == sock) {
-        printf("Error Creating Socket!");
+        //printf("Error Creating Socket!");
         return;
     }
 
@@ -125,10 +125,10 @@ void udp_send(int argc, char **argv)
                                        sizeof sa);
 
     if (bytes_sent < 0) {
-        printf("Error sending packet!\n");
+        //printf("Error sending packet!\n");
     }
     else {
-        printf("Successful deliverd %i bytes over UDP to %s to 6LoWPAN\n",
+        //printf("Successful deliverd %i bytes over UDP to %s to 6LoWPAN\n",
                bytes_sent, ipv6_addr_to_str(addr_str, IPV6_MAX_ADDR_STR_LEN,
                                             &ipaddr));
     }

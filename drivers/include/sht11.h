@@ -78,7 +78,7 @@ void sht11_init(void);
  * Example:
  * \code sht11_val sht11;
  * sht11_read_sensor(&sht11, HUMIDITY|TEMPERATURE);
- * printf("%-6.2f °C %5.2f %% %5.2f %%\n", sht11.temperature, sht11.relhum, sht11.relhum_temp); \endcode
+ * //printf("%-6.2f °C %5.2f %% %5.2f %%\n", sht11.temperature, sht11.relhum, sht11.relhum_temp); \endcode
  */
 uint8_t sht11_read_sensor(sht11_val_t *value, sht11_mode_t mode);
 

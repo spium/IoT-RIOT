@@ -232,43 +232,43 @@ void cc1100_reset_statistic(void)
 
 void cc1100_print_statistic(void)
 {
-    printf("\nStatistic on CC1100 interface\n\n");
-    printf("Total packets send on layer 0.5 (broadcast): %lu\n", cc1100_statistic.packets_out_broadcast);
-    printf("Total packets send on layer 0.5 (unicast): %lu\n", cc1100_statistic.packets_out);
-    printf("Total packets Acked on layer 0.5: %lu (%.2f%%)\n", cc1100_statistic.packets_out_acked, cc1100_statistic.packets_out_acked * (100.0f / (float)cc1100_statistic.packets_out));
-    printf("Total packets send on layer 0: %lu\n", cc1100_statistic.raw_packets_out);
-    printf("Total packets send on layer 0 w. Ack on Layer 0.5: %lu (Avg. Ack after: %lu packets)\n", cc1100_statistic.raw_packets_out_acked, cc1100_statistic.raw_packets_out_acked  / cc1100_statistic.packets_out_acked);
-    printf("Burst count on this node: %i (%.2f%%)\n", cc1100_burst_count, (100 / (float)cc1100_burst_count) * (cc1100_statistic.raw_packets_out_acked  / (float) cc1100_statistic.packets_out_acked));
-    printf("Total packets In on layer 0: %lu\n", cc1100_statistic.packets_in);
-    printf("Duped packets In on layer 0: %lu\n", cc1100_statistic.packets_in_dups);
-    printf("Corrupted packets In on layer 0: %lu\n", cc1100_statistic.packets_in_crc_fail);
-    printf("Packets In on layer 0 while in TX: %lu\n", cc1100_statistic.packets_in_while_tx);
-    printf("Total packets In and up to layer 1: %lu (%.2f%%)\n", cc1100_statistic.packets_in_up, cc1100_statistic.packets_in_up * (100.0f / (float)cc1100_statistic.packets_in));
-    printf("Total Acks send on layer 0.5: %lu\n", cc1100_statistic.acks_send);
-    printf("RX Buffer max: %lu (now: %u)\n", cc1100_statistic.rx_buffer_max, rx_buffer_size);
-    printf("State machine resets by cc1100 watchdog: %lu\n", cc1100_statistic.watch_dog_resets);
+    //printf("\nStatistic on CC1100 interface\n\n");
+    //printf("Total packets send on layer 0.5 (broadcast): %lu\n", cc1100_statistic.packets_out_broadcast);
+    //printf("Total packets send on layer 0.5 (unicast): %lu\n", cc1100_statistic.packets_out);
+    //printf("Total packets Acked on layer 0.5: %lu (%.2f%%)\n", cc1100_statistic.packets_out_acked, cc1100_statistic.packets_out_acked * (100.0f / (float)cc1100_statistic.packets_out));
+    //printf("Total packets send on layer 0: %lu\n", cc1100_statistic.raw_packets_out);
+    //printf("Total packets send on layer 0 w. Ack on Layer 0.5: %lu (Avg. Ack after: %lu packets)\n", cc1100_statistic.raw_packets_out_acked, cc1100_statistic.raw_packets_out_acked  / cc1100_statistic.packets_out_acked);
+    //printf("Burst count on this node: %i (%.2f%%)\n", cc1100_burst_count, (100 / (float)cc1100_burst_count) * (cc1100_statistic.raw_packets_out_acked  / (float) cc1100_statistic.packets_out_acked));
+    //printf("Total packets In on layer 0: %lu\n", cc1100_statistic.packets_in);
+    //printf("Duped packets In on layer 0: %lu\n", cc1100_statistic.packets_in_dups);
+    //printf("Corrupted packets In on layer 0: %lu\n", cc1100_statistic.packets_in_crc_fail);
+    //printf("Packets In on layer 0 while in TX: %lu\n", cc1100_statistic.packets_in_while_tx);
+    //printf("Total packets In and up to layer 1: %lu (%.2f%%)\n", cc1100_statistic.packets_in_up, cc1100_statistic.packets_in_up * (100.0f / (float)cc1100_statistic.packets_in));
+    //printf("Total Acks send on layer 0.5: %lu\n", cc1100_statistic.acks_send);
+    //printf("RX Buffer max: %lu (now: %u)\n", cc1100_statistic.rx_buffer_max, rx_buffer_size);
+    //printf("State machine resets by cc1100 watchdog: %lu\n", cc1100_statistic.watch_dog_resets);
 }
 
 void cc1100_print_config(void)
 {
     char buf[8];
-    printf("Current radio mode:           %s\r\n", cc1100_mode_to_text(radio_mode));
-    printf("Current radio state:          %s\r\n", cc1100_state_to_text(radio_state));
-    printf("Current MARC state:           %s\r\n", cc1100_get_marc_state());
-    printf("Current channel number:       %u\r\n", cc1100_get_channel());
-    printf("Burst count:                  %u packet(s)\r\n", cc1100_burst_count);
-    printf("Retransmissions (unicast):    %u - if no ACK\r\n", cc1100_retransmission_count_uc);
-    printf("Retransmissions (broadcast):  %u - always\r\n", cc1100_retransmission_count_bc);
-    printf("Output power setting:         %s\r\n", cc1100_get_output_power(buf));
+    //printf("Current radio mode:           %s\r\n", cc1100_mode_to_text(radio_mode));
+    //printf("Current radio state:          %s\r\n", cc1100_state_to_text(radio_state));
+    //printf("Current MARC state:           %s\r\n", cc1100_get_marc_state());
+    //printf("Current channel number:       %u\r\n", cc1100_get_channel());
+    //printf("Burst count:                  %u packet(s)\r\n", cc1100_burst_count);
+    //printf("Retransmissions (unicast):    %u - if no ACK\r\n", cc1100_retransmission_count_uc);
+    //printf("Retransmissions (broadcast):  %u - always\r\n", cc1100_retransmission_count_bc);
+    //printf("Output power setting:         %s\r\n", cc1100_get_output_power(buf));
 
     if (radio_mode == CC1100_MODE_WOR) {
-        printf("RX polling interval:      %u ms\r\n", cc1100_wor_config.rx_interval);
-        printf("WOR receive time:         0x%.2X (%f ms)\r\n", cc1100_wor_config.rx_time_reg,
+        //printf("RX polling interval:      %u ms\r\n", cc1100_wor_config.rx_interval);
+        //printf("WOR receive time:         0x%.2X (%f ms)\r\n", cc1100_wor_config.rx_time_reg,
                cc1100_wor_config.rx_time_ms);
-        printf("CC1100 WOREVT0 register:  0x%.2X\r\n", cc1100_wor_config.wor_evt_0);
-        printf("CC1100 WOREVT1 register:  0x%.2X\r\n", cc1100_wor_config.wor_evt_1);
-        printf("CC1100 WOR_CTRL register: 0x%.2X\r\n", cc1100_wor_config.wor_ctrl);
-        printf("CC1100 MAN_WOR flag:      %u\r\n", rflags.MAN_WOR);
+        //printf("CC1100 WOREVT0 register:  0x%.2X\r\n", cc1100_wor_config.wor_evt_0);
+        //printf("CC1100 WOREVT1 register:  0x%.2X\r\n", cc1100_wor_config.wor_evt_1);
+        //printf("CC1100 WOR_CTRL register: 0x%.2X\r\n", cc1100_wor_config.wor_ctrl);
+        //printf("CC1100 MAN_WOR flag:      %u\r\n", rflags.MAN_WOR);
     }
 }
 

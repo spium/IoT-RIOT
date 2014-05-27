@@ -124,7 +124,7 @@ void etx_show_candidates(void)
             break;
         }
 
-        printf("Candidates Addr:%d\n"
+        //printf("Candidates Addr:%d\n"
                "\t cur_etx:%f\n"
                "\t packets_rx:%d\n"
                "\t packets_tx:%d\n"

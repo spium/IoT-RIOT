@@ -167,7 +167,7 @@ void _maca_bound_check ( volatile maca_packet_t *packet ) {
     }
 
     // bad packet bounds! next, nirvana...
-    printf ( "bad packet bounds! Halting... \n" );
+    //printf ( "bad packet bounds! Halting... \n" );
 
     while ( 1 ) {
         continue;
@@ -342,7 +342,7 @@ void _maca_post_transmit ( void ) {
         maca_dma_rx = maca_get_free_packet();
 
         if ( !maca_dma_rx ) {
-            printf ( "tried to fill MACA->DMARX in maca_post_tx but there are no packet buffers left" );
+            //printf ( "tried to fill MACA->DMARX in maca_post_tx but there are no packet buffers left" );
             maca_dma_rx = &maca_dummy_ack;
         }
     }
@@ -397,7 +397,7 @@ void _maca_add_to_rx ( volatile maca_packet_t *packet ) {
     safe_irq_disable ( INT_NUM_MACA );
 
     if ( !packet ) {
-        printf ( "packet null passed to _maca_add_to_rx\n" );
+        //printf ( "packet null passed to _maca_add_to_rx\n" );
         return;
     }
 
@@ -434,48 +434,48 @@ void _maca_decode_status ( void ) {
 
     switch ( code ) {
     case MACA_STATUS_COMPLETECODE_ABORTED: {
-        printf ( "maca: aborted\n" );
+        //printf ( "maca: aborted\n" );
         _maca_resume_maca_sync ();
         break;
     }
 
     case MACA_STATUS_COMPLETECODE_NOTCOMPLETE: {
-        printf ( "maca: not completed\n" );
+        //printf ( "maca: not completed\n" );
         _maca_resume_maca_sync ();
         break;
     }
 
     case MACA_STATUS_COMPLETECODE_TIMEOUT: {
-        printf ( "maca: timeout\n" );
+        //printf ( "maca: timeout\n" );
         _maca_resume_maca_sync ();
         break;
     }
 
     case MACA_STATUS_COMPLETECODE_NOACK: {
-        printf ( "maca: no ack\n" );
+        //printf ( "maca: no ack\n" );
         _maca_resume_maca_sync ();
         break;
     }
 
     case MACA_STATUS_COMPLETECODE_EXTTIMEOUT: {
-        printf ( "maca: ext timeout\n" );
+        //printf ( "maca: ext timeout\n" );
         _maca_resume_maca_sync ();
         break;
     }
 
     case MACA_STATUS_COMPLETECODE_EXTPNDTIMEOUT: {
-        printf ( "maca: ext pnd timeout\n" );
+        //printf ( "maca: ext pnd timeout\n" );
         _maca_resume_maca_sync ();
         break;
     }
     case MACA_STATUS_COMPLETECODE_SUCCESS: {
-        printf ( "maca: success\n" );
+        //printf ( "maca: success\n" );
         _maca_resume_maca_sync ();
         break;
     }
 
     default: {
-        printf ( "maca status: %x", MACA->STATUSbits.COMPLETE_CODE );
+        //printf ( "maca status: %x", MACA->STATUSbits.COMPLETE_CODE );
         _maca_resume_maca_sync ();
     }
     }
@@ -485,19 +485,19 @@ void maca_isr ( void ) {
     //maca_entry++;
 
     if ( MACA->STATUSbits.OVR ) {
-        printf ( "maca overrun\n" );
+        //printf ( "maca overrun\n" );
     }
 
     if ( MACA->STATUSbits.BUSY ) {
-        printf ( "maca busy\n" );
+        //printf ( "maca busy\n" );
     }
 
     if ( MACA->STATUSbits.CRC ) {
-        printf ( "maca crc error\n" );
+        //printf ( "maca crc error\n" );
     }
 
     if ( MACA->STATUSbits.TO ) {
-        printf ( "maca timeout\n" );
+        //printf ( "maca timeout\n" );
     }
 
     if ( MACA->IRQbits.DI ) {
@@ -527,14 +527,14 @@ void maca_isr ( void ) {
 
     // filter faild
     if ( MACA->IRQbits.FLT ) {
-        printf ( "maca filter faild\n" );
+        //printf ( "maca filter faild\n" );
         _maca_resume_maca_sync ();
         MACA->CLRIRQbits.FLT = 0x1;
     }
 
     // CRC checksum faild
     if ( MACA->IRQbits.CRC ) {
-        printf ( "maca crc checksum faild\n" );
+        //printf ( "maca crc checksum faild\n" );
         _maca_resume_maca_sync ();
         MACA->CLRIRQbits.CRC = 0x1;
     }
@@ -571,7 +571,7 @@ void maca_isr ( void ) {
 
     // this should never happen ...
     if ( MACA->IRQ != 0 ) {
-        printf ( "MACA->IRQ is %x", (unsigned int) MACA->IRQ );
+        //printf ( "MACA->IRQ is %x", (unsigned int) MACA->IRQ );
     }
 
     if ( maca_tx_head != 0 ) {
@@ -776,7 +776,7 @@ void _maca_radio_init ( void ) {
     _maca_init_from_flash ( 0x1f000 );
 
     for ( c=0; c<4; c++ ) {
-        printf ( "  0x%02x\n\r", _ram_values[c] );
+        //printf ( "  0x%02x\n\r", _ram_values[c] );
     }
 
     for ( c=0; c<16; c++ ) {
@@ -943,7 +943,7 @@ uint32_t _exec_init_entry ( volatile uint32_t *entries, uint8_t *value_buffer ) 
     if ( entries[0] <= MACA_ROM_END ) {
         if ( entries[0] == 0 ) {
             /* do delay */
-            printf ( "init_entry: delay 0x%08x\n", (unsigned int) entries[1] );
+            //printf ( "init_entry: delay 0x%08x\n", (unsigned int) entries[1] );
 
             for ( i=0; i < entries[1]; i++ ) {
                 continue;
@@ -953,7 +953,7 @@ uint32_t _exec_init_entry ( volatile uint32_t *entries, uint8_t *value_buffer ) 
         }
         else if ( entries[0] == 1 ) {
             /* do bit set/clear */
-            printf ( "init_entry: bit set/clear 0x%08x 0x%08x 0x%08x\n", (unsigned int) entries[1],
+            //printf ( "init_entry: bit set/clear 0x%08x 0x%08x 0x%08x\n", (unsigned int) entries[1],
                      (unsigned int) entries[2],
                      (unsigned int) entries[3] );
             * ( uint32_t * ) ( entries[2] ) = ( * ( uint32_t * ) ( entries[2] ) & entries[1] ) | ( entries[3] & entries[1] );
@@ -961,32 +961,32 @@ uint32_t _exec_init_entry ( volatile uint32_t *entries, uint8_t *value_buffer ) 
         }
         else if ( entries[0] >= 16 && entries[0] < 0xfff1 ) {
             /* store bytes in value_buffer */
-            printf ( "init_entry: store in value_buffer 0x%02x position %d\n", (unsigned int) entries[1],
+            //printf ( "init_entry: store in value_buffer 0x%02x position %d\n", (unsigned int) entries[1],
                      (unsigned int) ( entries[0]>>4 ) - 1 );
             value_buffer[ ( entries[0]>>4 )-1] = entries[1];
             return 2;
         }
         else if ( entries[0] == MACA_ENTRY_EOF ) {
-            printf ( "init_entry: EOF \n" );
+            //printf ( "init_entry: EOF \n" );
             return 0;
         }
         else {
             /* invalid */
-            printf ( "init_entry: invalid code 0x%08x\n", (unsigned int) entries[0] );
+            //printf ( "init_entry: invalid code 0x%08x\n", (unsigned int) entries[0] );
             return 0;
         }
     }
     else {
         /* address not in ROM */
         /* store value in address command */
-        printf ( "init_entry: address value pair - *0x%08x = 0x%08x\n", (unsigned int) entries[0],
+        //printf ( "init_entry: address value pair - *0x%08x = 0x%08x\n", (unsigned int) entries[0],
                  (unsigned int) entries[1] );
 
         if ( entries[0] != CRM->VREG_CNTL ) {
             * ( uint32_t * ) ( entries[0] ) = entries[1];
         }
         else {
-            printf ( "skipping CRM->VREG_CNTL\n" );
+            //printf ( "skipping CRM->VREG_CNTL\n" );
         }
 
         return 2;
@@ -1004,15 +1004,15 @@ uint32_t _maca_init_from_flash ( uint32_t addr ) {
     volatile uint32_t j = 0;
 
     err = nvm_detect ( g_nvm_internal_interface_c, &type );
-    printf ( "nvm_detect returned type 0x%08x err 0x%02x\n", type, err );
+    //printf ( "nvm_detect returned type 0x%08x err 0x%02x\n", type, err );
 
     nvm_setsvar ( 0 );
     err = nvm_read ( g_nvm_internal_interface_c, type, ( uint8_t * ) buffer, addr, 8 );
     i += 8;
-    printf ( "nvm_read returned: 0x%02x\n", err );
+    //printf ( "nvm_read returned: 0x%02x\n", err );
 
     for ( j = 0; j < 4; j++ ) {
-        printf ( "0x%08x\n", (unsigned int) buffer[j] );
+        //printf ( "0x%08x\n", (unsigned int) buffer[j] );
     }
 
     if ( buffer[0] == MACA_FLASH_INIT_MAGIC ) {

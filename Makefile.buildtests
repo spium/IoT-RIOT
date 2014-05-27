@@ -30,7 +30,7 @@ buildtest:
 	fi; \
 	\
 	if [ -z "$(BOARD_WHITELIST)" ]; then \
-		BOARDS=$$(find $(RIOTBOARD) -mindepth 1 -maxdepth 1 -type d \! -name \*-common -printf '%f\n' ); \
+		BOARDS=$$(find $(RIOTBOARD) -mindepth 1 -maxdepth 1 -type d \! -name \*-common -//printf '%f\n' ); \
 	else \
 		BOARDS="$(BOARD_WHITELIST)"; \
 	fi; \
@@ -85,7 +85,7 @@ buildsize:
 buildsizes: SHELL=bash
 buildsizes:
 	@if [[ -z "$(BOARD_WHITELIST)" ]]; then \
-		BOARDS=$$(find $(RIOTBOARD) -mindepth 1 -maxdepth 1 -type d \! -name \*-common -printf '%f\n' ); \
+		BOARDS=$$(find $(RIOTBOARD) -mindepth 1 -maxdepth 1 -type d \! -name \*-common -//printf '%f\n' ); \
 	else \
 		BOARDS="$(BOARD_WHITELIST)"; \
 	fi; \
@@ -109,7 +109,7 @@ buildsizes:
 buildsizes-diff: SHELL=bash
 buildsizes-diff:
 	@if [[ -z "$(BOARD_WHITELIST)" ]]; then \
-		BOARDS=$$(find $(RIOTBOARD) -mindepth 1 -maxdepth 1 -type d \! -name \*-common -printf '%f\n' ); \
+		BOARDS=$$(find $(RIOTBOARD) -mindepth 1 -maxdepth 1 -type d \! -name \*-common -//printf '%f\n' ); \
 	else \
 		BOARDS="$(BOARD_WHITELIST)"; \
 	fi; \

@@ -106,7 +106,7 @@ static void sending_slot(void)
             writepacket(slot->frame, slot->frame_len);
 
             if (set_timeout(&slot->timeout, timex_set(0, BORDER_SL_TIMEOUT), (void *)m.content.ptr) != 0) {
-                printf("ERROR: Error invoking timeout timer\n");
+                //printf("ERROR: Error invoking timeout timer\n");
             }
         }
     }
@@ -139,7 +139,7 @@ void flowcontrol_send_over_uart(border_packet_t *packet, int len)
     slot->frame_len = len;
 
     if (set_timeout(&slot->timeout, timex_set(0, BORDER_SL_TIMEOUT * 1000), (void *)args) != 0) {
-        printf("ERROR: Error invoking timeout timer\n");
+        //printf("ERROR: Error invoking timeout timer\n");
         return;
     }
 

@@ -401,7 +401,7 @@ enum interrupt_nums {
    Use it like this:
    disable_int({
        asdf = 1234;
-       printf("hi\r\n");
+       //printf("hi\r\n");
    });
 */
 #define __int_top() volatile uint32_t saved_intenable

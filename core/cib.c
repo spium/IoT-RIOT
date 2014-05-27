@@ -63,6 +63,6 @@ int main() {
 
     int res = cib_get(&cib);
 
-    printf("%i\n", res);
+    //printf("%i\n", res);
 }
 */

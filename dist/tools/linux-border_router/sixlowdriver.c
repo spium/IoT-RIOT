@@ -76,7 +76,7 @@ void *serial_reader_f(void *arg)
                 continue;
             }
 
-            printf("\033[00;33m[via serial interface] %s\033[00m\n", buf);
+            //printf("\033[00;33m[via serial interface] %s\033[00m\n", buf);
         }
     }
 }
@@ -148,8 +148,8 @@ int tun_add_addr(const char *ip_addr)
 {
     char command[21 + IPV6_ADDR_LEN + IF_NAME_LEN];
 
-    printf("INFO: ip addr add %s dev %s\n", ip_addr, tun_if_name);
-    sprintf(command, "ip addr add %s dev %s", ip_addr, tun_if_name);
+    //printf("INFO: ip addr add %s dev %s\n", ip_addr, tun_if_name);
+    s//printf(command, "ip addr add %s dev %s", ip_addr, tun_if_name);
 
     if (system(command) != 0) {
         return -1;
@@ -307,8 +307,8 @@ int border_initialize(char *if_name, const char *ip_addr, const char *tty_dev)
 
     tun_fd = open_tun(if_name, IFF_TUN);
 
-    printf("INFO: ip link set %s up\n", if_name);
-    sprintf(command, "ip link set %s up", if_name);
+    //printf("INFO: ip link set %s up\n", if_name);
+    s//printf(command, "ip link set %s up", if_name);
 
     strncpy(tun_if_name, if_name, IF_NAME_LEN);
 

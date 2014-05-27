@@ -110,7 +110,7 @@ int main(int argc, char *argv[] ){
     while ( r.avail ) {
         c = ringbuffer_get_one(&r);
         if (c == -1) break;
-        printf("c=%i\n", (int)c);
+        //printf("c=%i\n", (int)c);
     }
 
     ringbuffer_add_one(&r, 1);
@@ -124,7 +124,7 @@ int main(int argc, char *argv[] ){
     int n = ringbuffer_get(&r, buffer2, sizeof(buffer2));
 
     for (int i = 0; i < n; i++) {
-        printf("%i\n", buffer2[i]);
+        //printf("%i\n", buffer2[i]);
     }
 
     ringbuffer_add_one(&r, 1);
@@ -141,7 +141,7 @@ int main(int argc, char *argv[] ){
     while ( r.avail ) {
         c = ringbuffer_get_one(&r);
         if (c == -1) break;
-        printf("c=%i\n", (int)c);
+        //printf("c=%i\n", (int)c);
     }
 
     return 0;

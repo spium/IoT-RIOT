@@ -116,7 +116,7 @@ static void test1(void)
 static void priority_sema_thread(void)
 {
     sem_wait(&s);
-    printf("Thread '%s' woke up.\n", thread_getname(thread_getpid()));
+    //printf("Thread '%s' woke up.\n", thread_getname(thread_getpid()));
 }
 
 char names[SEMAPHORE_TEST_THREADS][16];
@@ -131,8 +131,8 @@ void test2(void)
     for (int i = 0; i < SEMAPHORE_TEST_THREADS; i++) {
         int priority = PRIORITY_MAIN - (i + 3) % 10 + 1;
 
-        snprintf(names[i], sizeof(names[i]), "priority %d", priority);
-        printf("first: thread create: %d\n", priority);
+        sn//printf(names[i], sizeof(names[i]), "priority %d", priority);
+        //printf("first: thread create: %d\n", priority);
         int pid = thread_create(test2_thread_stack[i],
                                 KERNEL_CONF_STACKSIZE_PRINTF, priority, CREATE_STACKTEST,
                                 priority_sema_thread, names[i]);
@@ -141,13 +141,13 @@ void test2(void)
             puts("first: thread create failed");
         }
 
-        printf("first: thread created: %s (%d/%d)\n", names[i], i + 1, SEMAPHORE_TEST_THREADS);
+        //printf("first: thread created: %s (%d/%d)\n", names[i], i + 1, SEMAPHORE_TEST_THREADS);
     }
 
     puts("------------------------------------------");
 
     for (int i = 0; i < SEMAPHORE_TEST_THREADS; i++) {
-        printf("post no. %d\n", i);
+        //printf("post no. %d\n", i);
         sem_post(&s);
         puts("Back in main thread.");
     }

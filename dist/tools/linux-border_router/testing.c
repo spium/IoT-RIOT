@@ -32,16 +32,16 @@ void init_file(const char *skeleton_file_name,
 
     while (fgets(line, 1024, skeleton_file) != NULL) {
         if (strncmp(line, "# sending window size=%d\n", 1024) == 0) {
-            fprintf(stats_file, line, BORDER_SWS);
+            f//printf(stats_file, line, BORDER_SWS);
         }
         else if (strncmp(line, "# count=%ld (-c)\n", 1024) == 0) {
-            fprintf(stats_file, line, runs_per_test);
+            f//printf(stats_file, line, runs_per_test);
         }
         else if (strncmp(line, "# interval=%f (-i)\n", 1024) == 0) {
-            fprintf(stats_file, line, interval);
+            f//printf(stats_file, line, interval);
         }
         else {
-            fprintf(stats_file, "%s", line);
+            f//printf(stats_file, "%s", line);
         }
     }
 
@@ -74,7 +74,7 @@ int testing_destroy()
     int res, i;
 
     for (i = 0; i < run_counter; i++) {
-        fprintf(stats_file, "%7d\t%3d\t%7ld\n",
+        f//printf(stats_file, "%7d\t%3d\t%7ld\n",
                 i, stats[i].seq_num, stats[i].time_diff
                );
     }
@@ -141,7 +141,7 @@ void generate_filename(
     strftime(timestr, 16, "%Y.%m.%d", tmp);
 
     do {
-        sprintf(filename,
+        s//printf(filename,
                 "%s/%s-Results-Ping6_%d_%d_%f-%d.txt",
                 results_dir_name,
                 timestr,
@@ -162,12 +162,12 @@ void start_test(const char *ping_addr,
                 const char *results_dir_name, const char *skeleton_file,
                 int runs_per_test, float interval)
 {
-    printf("%d, %f\n", runs_per_test, interval);
+    //printf("%d, %f\n", runs_per_test, interval);
     char command[50];
     char filename[50];
     generate_filename(filename, results_dir_name, runs_per_test, interval);
 
-    sprintf(command, "ping6 -v -f -c %d -i %f -W 1 abcd::d",
+    s//printf(command, "ping6 -v -f -c %d -i %f -W 1 abcd::d",
             runs_per_test,
             interval
            );

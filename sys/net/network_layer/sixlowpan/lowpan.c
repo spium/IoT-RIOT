@@ -180,16 +180,16 @@ int sixlowpan_lowpan_sendto(int if_id, const void *dest, int dest_len,
         print_long_local_addr((net_if_eui64_t *)dest);
     }
     else {
-        printf("0x%04"PRIx16"\n", NTOHS(*((uint16_t *)dest)));
+        //printf("0x%04"PRIx16"\n", NTOHS(*((uint16_t *)dest)));
     }
 
     DEBUG("data: \n");
 
     for (int i = 0; i < data_len; i++) {
-        printf("%02x ", data[i]);
+        //printf("%02x ", data[i]);
 
         if (!((i + 1) % 16) || i == data_len - 1) {
-            printf("\n");
+            //printf("\n");
         }
     }
 
@@ -303,7 +303,7 @@ void sixlowpan_lowpan_set_iphc_status(
 #ifdef DEBUG_ENABLED
 void print_long_local_addr(net_if_eui64_t *saddr)
 {
-    printf("%02x%02x:%02x%02x:%02x%02x:%02x%02x\n",
+    //printf("%02x%02x:%02x%02x:%02x%02x:%02x%02x\n",
            ((uint8_t *)saddr)[0], ((uint8_t *)saddr)[1], ((uint8_t *)saddr)[2],
            ((uint8_t *)saddr)[3], ((uint8_t *)saddr)[4], ((uint8_t *)saddr)[5],
            ((uint8_t *)saddr)[6], ((uint8_t *)saddr)[7]);
@@ -315,17 +315,17 @@ void sixlowpan_lowpan_print_reassembly_buffers(void)
     lowpan_interval_list_t *temp_interval;
     temp_buffer = head;
 
-    printf("\n\n--- Reassembly Buffers ---\n");
+    //printf("\n\n--- Reassembly Buffers ---\n");
 
     while (temp_buffer != NULL) {
         print_long_local_addr(&temp_buffer->s_addr);
-        printf("Ident.: %i, Packet Size: %i/%i, Timestamp: %"PRIu64"\n",
+        //printf("Ident.: %i, Packet Size: %i/%i, Timestamp: %"PRIu64"\n",
                temp_buffer->tag, temp_buffer->current_packet_size,
                temp_buffer->packet_size, timex_uint64(temp_buffer->timestamp));
         temp_interval = temp_buffer->interval_list_head;
 
         while (temp_interval != NULL) {
-            printf("\t%i - %i\n", temp_interval->start, temp_interval->end);
+            //printf("\t%i - %i\n", temp_interval->start, temp_interval->end);
             temp_interval = temp_interval->next;
         }
 
@@ -339,17 +339,17 @@ void sixlowpan_lowpan_print_fifo_buffers(void)
     lowpan_interval_list_t *temp_interval;
     temp_buffer = packet_fifo;
 
-    printf("\n\n--- Reassembly Buffers ---\n");
+    //printf("\n\n--- Reassembly Buffers ---\n");
 
     while (temp_buffer != NULL) {
         print_long_local_addr(&temp_buffer->s_addr);
-        printf("Ident.: %i, Packet Size: %i/%i, Timestamp: %"PRIu64"\n",
+        //printf("Ident.: %i, Packet Size: %i/%i, Timestamp: %"PRIu64"\n",
                temp_buffer->tag, temp_buffer->current_packet_size,
                temp_buffer->packet_size, timex_uint64(temp_buffer->timestamp));
         temp_interval = temp_buffer->interval_list_head;
 
         while (temp_interval != NULL) {
-            printf("\t%i - %i\n", temp_interval->start, temp_interval->end);
+            //printf("\t%i - %i\n", temp_interval->start, temp_interval->end);
             temp_interval = temp_interval->next;
         }
 
@@ -681,10 +681,10 @@ void handle_packet_fragment(uint8_t *data, uint8_t datagram_offset,
     else {
         /* No memory left or duplicate */
         if (current_buf == NULL) {
-            printf("ERROR: no memory left!\n");
+            //printf("ERROR: no memory left!\n");
         }
         else {
-            printf("ERROR: duplicate fragment!\n");
+            //printf("ERROR: duplicate fragment!\n");
         }
     }
 }
@@ -700,8 +700,7 @@ void check_timeout(void)
 
     while (temp_buf != NULL) {
         if ((timex_uint64(now) - timex_uint64(temp_buf->timestamp)) >= LOWPAN_REAS_BUF_TIMEOUT) {
-            printf("TIMEOUT!cur_time: %" PRIu64 ", temp_buf: %" PRIu64 "\n", timex_uint64(now),
-                   timex_uint64(temp_buf->timestamp));
+            //printf("TIMEOUT!cur_time: %" PRIu64 ", temp_buf: %" PRIu64 "\n", timex_uint64(now), timex_uint64(temp_buf->timestamp));
             temp_buf = collect_garbage(temp_buf);
         }
         else {
@@ -842,7 +841,7 @@ void lowpan_read(uint8_t *data, uint8_t length, net_if_eui64_t *s_addr,
               frag_size, byte_offset, datagram_size);
         if ((frag_size % 8) != 0) {
             if ((byte_offset + frag_size) != datagram_size) {
-                printf("ERROR: received invalid fragment\n");
+                //printf("ERROR: received invalid fragment\n");
                 return;
             }
         }
@@ -1285,7 +1284,7 @@ void lowpan_iphc_decoding(uint8_t *data, uint8_t length, net_if_eui64_t *s_addr,
         }
 
         if (con == NULL) {
-            printf("ERROR: context not found\n");
+            //printf("ERROR: context not found\n");
             return;
         }
 
@@ -1385,7 +1384,7 @@ void lowpan_iphc_decoding(uint8_t *data, uint8_t length, net_if_eui64_t *s_addr,
             }
 
             if (con == NULL) {
-                printf("ERROR: context not found\n");
+                //printf("ERROR: context not found\n");
                 return;
             }
 
@@ -1460,7 +1459,7 @@ void lowpan_iphc_decoding(uint8_t *data, uint8_t length, net_if_eui64_t *s_addr,
             }
 
             if (con == NULL) {
-                printf("ERROR: context not found\n");
+                //printf("ERROR: context not found\n");
                 return;
             }
 

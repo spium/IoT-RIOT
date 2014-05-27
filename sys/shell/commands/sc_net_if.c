@@ -66,7 +66,7 @@ int is_number(char *str)
 
 static inline void _eui64_to_str(char *eui64_str, net_if_eui64_t *eui64)
 {
-    sprintf(eui64_str, "%02x-%02x-%02x-%02x-%02x-%02x-%02x-%02x",
+    s//printf(eui64_str, "%02x-%02x-%02x-%02x-%02x-%02x-%02x-%02x",
             eui64->uint8[0], eui64->uint8[1], eui64->uint8[2], eui64->uint8[3],
             eui64->uint8[4], eui64->uint8[5], eui64->uint8[6], eui64->uint8[7]);
 }
@@ -76,7 +76,7 @@ char *addr_data_to_str(char *addr_str, const uint8_t *addr, uint8_t addr_len)
     int i;
 
     for (i = 0; i < addr_len / 8; i++) {
-        sprintf(addr_str, "%02x", addr[i]);
+        s//printf(addr_str, "%02x", addr[i]);
     }
 
     uint8_t r = addr_len % 8;
@@ -88,7 +88,7 @@ char *addr_data_to_str(char *addr_str, const uint8_t *addr, uint8_t addr_len)
             mask |= 0x1 << (8 - (r--));
         }
 
-        sprintf(addr_str, "%02x", addr[addr_len / 8] & mask);
+        s//printf(addr_str, "%02x", addr[addr_len / 8] & mask);
     }
 
     return addr_str;
@@ -101,7 +101,7 @@ void add_usage(void)
 
 void set_usage(void)
 {
-    printf("Usage: ifconfig <if_id> set <key> <value>\n"
+    //printf("Usage: ifconfig <if_id> set <key> <value>\n"
            "      Sets an transceiver specific value\n"
            "      <key> may be one of the following\n"
            "       * \"srcaddrmode\" - sets the source address mode for IEEE\n"
@@ -184,7 +184,7 @@ void _net_if_ifconfig(int argc, char **argv)
     }
 
     create_usage();
-    printf("or:    ifconfig [<if_id> [add <protocol> <addr>|set <key> <value>]]\n");
+    //printf("or:    ifconfig [<if_id> [add <protocol> <addr>|set <key> <value>]]\n");
 }
 
 void _net_if_ifconfig_set_srcaddrmode(int if_id, char *mode)
@@ -451,7 +451,7 @@ void _net_if_ifconfig_create(char *transceivers_str)
         puts("Maximum number of allowed interfaces reached.\n");
     }
     else {
-        printf("Initialized interface %d\n", iface);
+        //printf("Initialized interface %d\n", iface);
     }
 }
 
@@ -556,26 +556,26 @@ void _net_if_ifconfig_list(int if_id)
     net_if_get_eui64(&eui64, if_id, 0);
     _eui64_to_str(eui64_str, &eui64);
 
-    printf("Iface %3d   HWaddr: 0x%04x", if_id,
+    //printf("Iface %3d   HWaddr: 0x%04x", if_id,
            hw_address);
 
     if (channel < 0) {
-        printf(" Channel: not set");
+        //printf(" Channel: not set");
     }
     else {
-        printf(" Channel: %d", (uint16_t) channel);
+        //printf(" Channel: %d", (uint16_t) channel);
     }
 
     if (pan_id < 0) {
-        printf(" PAN ID: not set");
+        //printf(" PAN ID: not set");
     }
     else {
-        printf(" PAN ID: 0x%04x", (uint16_t)pan_id);
+        //printf(" PAN ID: 0x%04x", (uint16_t)pan_id);
     }
 
-    printf("\n");
+    //printf("\n");
 
-    printf("            EUI-64: %s\n", eui64_str);
+    //printf("            EUI-64: %s\n", eui64_str);
 
     switch (net_if_get_src_address_mode(if_id)) {
         case NET_IF_TRANS_ADDR_M_SHORT:
@@ -621,43 +621,43 @@ void _net_if_ifconfig_list(int if_id)
         if (addr_ptr->addr_protocol == NET_IF_L3P_RAW) {
             char addr_str[addr_ptr->addr_len / 4 + 3];
 
-            printf("            Raw L3 addr: 0x");
-            printf("%s", addr_data_to_str(addr_str, addr_ptr->addr_data,
+            //printf("            Raw L3 addr: 0x");
+            //printf("%s", addr_data_to_str(addr_str, addr_ptr->addr_data,
                                           addr_ptr->addr_len));
             puts("\n");
         }
 
         if (addr_ptr->addr_protocol & NET_IF_L3P_IPV6) {
             char addr_str[IPV6_MAX_ADDR_STR_LEN];
-            printf("            inet6 addr: ");
+            //printf("            inet6 addr: ");
 
             if (inet_ntop(AF_INET6, addr_ptr->addr_data, addr_str,
                           IPV6_MAX_ADDR_STR_LEN)) {
-                printf("%s/%d", addr_str, addr_ptr->addr_len);
-                printf("  scope: ");
+                //printf("%s/%d", addr_str, addr_ptr->addr_len);
+                //printf("  scope: ");
 
                 if (addr_ptr->addr_len > 2 && _is_link_local((uint8_t *)addr_ptr->addr_data)) {
-                    printf("local");
+                    //printf("local");
                 }
                 else {
-                    printf("global");
+                    //printf("global");
                 }
 
                 if (!(addr_ptr->addr_protocol & NET_IF_L3P_IPV6_UNICAST)) {
-                    printf(" ");
+                    //printf(" ");
 
                     if (addr_ptr->addr_protocol & NET_IF_L3P_IPV6_MULTICAST) {
-                        printf("[multicast]");
+                        //printf("[multicast]");
                     }
                     else if (addr_ptr->addr_protocol & NET_IF_L3P_IPV6_ANYCAST) {
-                        printf("[anycast]");
+                        //printf("[anycast]");
                     }
                 }
 
-                printf("\n");
+                //printf("\n");
             }
             else {
-                printf("error in conversion\n");
+                //printf("error in conversion\n");
             }
         }
     }

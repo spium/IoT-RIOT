@@ -82,7 +82,7 @@ rpl_dodag_t *rpl_new_dodag(uint8_t instanceid, ipv6_addr_t *dodagid)
     inst = rpl_get_instance(instanceid);
 
     if (inst == NULL) {
-        printf("Error - No instance found for id %d. This should not happen\n",
+        //printf("Error - No instance found for id %d. This should not happen\n",
                instanceid);
         return NULL;
     }
@@ -373,7 +373,7 @@ void rpl_global_repair(rpl_dodag_t *dodag, ipv6_addr_t *p_addr, uint16_t rank)
     rpl_dodag_t *my_dodag = rpl_get_my_dodag();
 
     if (my_dodag == NULL) {
-        printf("[Error] - no global repair possible, if not part of a DODAG\n");
+        //printf("[Error] - no global repair possible, if not part of a DODAG\n");
         return;
     }
 
@@ -383,7 +383,7 @@ void rpl_global_repair(rpl_dodag_t *dodag, ipv6_addr_t *p_addr, uint16_t rank)
     my_dodag->my_preferred_parent = rpl_new_parent(my_dodag, p_addr, rank);
 
     if (my_dodag->my_preferred_parent == NULL) {
-        printf("[Error] no more parent after global repair\n");
+        //printf("[Error] no more parent after global repair\n");
         my_dodag->my_rank = INFINITE_RANK;
     }
     else {
@@ -395,7 +395,7 @@ void rpl_global_repair(rpl_dodag_t *dodag, ipv6_addr_t *p_addr, uint16_t rank)
         delay_dao();
     }
 
-    printf("Migrated to DODAG Version %d. My new Rank: %d\n", my_dodag->version,
+    //printf("Migrated to DODAG Version %d. My new Rank: %d\n", my_dodag->version,
            my_dodag->my_rank);
 }
 
@@ -405,7 +405,7 @@ void rpl_local_repair(void)
     rpl_dodag_t *my_dodag = rpl_get_my_dodag();
 
     if (my_dodag == NULL) {
-        printf("[Error] - no local repair possible, if not part of a DODAG\n");
+        //printf("[Error] - no local repair possible, if not part of a DODAG\n");
         return;
     }
 

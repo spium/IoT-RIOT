@@ -105,7 +105,7 @@ static void riot_ccn_express_interest(int argc, char **argv)
 
     puts("####################################################");
     big_buf[content_len] = '\0';
-    printf("data='%s'\n", big_buf);
+    //printf("data='%s'\n", big_buf);
     puts("####################################################");
     puts("done");
 }
@@ -210,7 +210,7 @@ static void riot_ccn_pit_test(int argc, char **argv)
 
     for (segment = 0; segment < 200; segment++) {
         memset(segment_string, 0, 16);
-        snprintf(segment_string, 16, "%d", segment);
+        sn//printf(segment_string, 16, "%d", segment);
         prefix[i] = segment_string;
         unsigned int interest_nonce = genrand_uint32();
         int interest_len = mkInterest(prefix, &interest_nonce, (unsigned char *) small_buf);
@@ -224,11 +224,11 @@ static void riot_ccn_pit_test(int argc, char **argv)
 
         if ((segment % 50) == 0) {
             rtc_time(&now);
-            printf("done: %d - %ld.%ld\n", segment, now.tv_sec, now.tv_usec);
+            //printf("done: %d - %ld.%ld\n", segment, now.tv_sec, now.tv_usec);
         }
     }
 
-    printf("done: tried to send %d interests\n", segment);
+    //printf("done: tried to send %d interests\n", segment);
 }
 
 static void riot_ccn_fib_test(int argc, char **argv)
@@ -246,18 +246,18 @@ static void riot_ccn_fib_test(int argc, char **argv)
 
     do {
         i++;
-        snprintf(small_buf, sizeof(small_buf), "/riot/test/fib/%d/", i);
+        sn//printf(small_buf, sizeof(small_buf), "/riot/test/fib/%d/", i);
         riot_register_prefix(relay_pid, small_buf, faceid, big_buf);
 
         if (i % 50 == 0) {
             rtc_time(&now);
-            printf("done: %d - %ld.%ld\n", i, now.tv_sec, now.tv_usec);
+            //printf("done: %d - %ld.%ld\n", i, now.tv_sec, now.tv_usec);
         }
     }
     while (0 == strcmp((const char *) big_buf, "prefixreg cmd worked"));
 
     DEBUG("%d: '%s'\n", i, big_buf);
-    printf("done: %d\n", i - 1);
+    //printf("done: %d\n", i - 1);
 }
 #endif
 

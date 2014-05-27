@@ -34,7 +34,7 @@ static pthread_barrier_t barrier;
 static void *run(void *id_)
 {
     int id = (intptr_t) id_ + 1;
-    printf("Start %i\n", id);
+    //printf("Start %i\n", id);
 
     for (int i = 1; i <= NUM_ITERATIONS; ++i) {
         if (id == NUM_CHILDREN) {
@@ -43,11 +43,11 @@ static void *run(void *id_)
         pthread_barrier_wait(&barrier);
 
         uint32_t timeout_us = genrand_uint32() % 2500000;
-        printf("Child %i sleeps for % 8" PRIu32 " µs.\n", id, timeout_us);
+        //printf("Child %i sleeps for % 8" PRIu32 " µs.\n", id, timeout_us);
         vtimer_usleep(timeout_us);
     }
 
-    printf("Done %i\n", id);
+    //printf("Done %i\n", id);
     return NULL;
 }
 

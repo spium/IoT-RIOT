@@ -66,7 +66,7 @@ void _fini(void)
  */
 void _exit(int n)
 {
-    printf("#! exit %i: resetting\n", n);
+    //printf("#! exit %i: resetting\n", n);
     NVIC_SystemReset();
     while(1);
 }

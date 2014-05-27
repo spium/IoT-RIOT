@@ -16,7 +16,7 @@
 
 void hard_reset_to_bootloader(void)
 {
-    printf("Reset CPU (into bootloader)\r\n");
+    //printf("Reset CPU (into bootloader)\r\n");
     set_rts(1);		/* RTS (ttl level) connects to P0.14 */
     set_dtr(1);		/* DTR (ttl level) connects to RST */
     send_break_signal();	/* or break detect circuit to RST */
@@ -29,7 +29,7 @@ void hard_reset_to_bootloader(void)
 
 void hard_reset_to_user_code(void)
 {
-    printf("Reset CPU (into user code)\r\n");
+    //printf("Reset CPU (into user code)\r\n");
     set_rts(0);		/* RTS (ttl level) connects to P0.14 */
     set_dtr(1);		/* DTR (ttl level) connects to RST */
     send_break_signal();	/* or break detect circuit to RST */

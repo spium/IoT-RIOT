@@ -45,29 +45,29 @@ uint32_t            global_sequence_counter;
 
 void printTCPHeader(tcp_hdr_t *tcp_header)
 {
-    printf("\nBEGIN: TCP HEADER\n");
-    printf("ack_nr: %" PRIu32 "\n", tcp_header->ack_nr);
-    printf("checksum: %i\n", tcp_header->checksum);
-    printf("dataOffset_reserved: %i\n", tcp_header->dataOffset_reserved);
-    printf("dst_port: %i\n", tcp_header->dst_port);
-    printf("reserved_flags: %i\n", tcp_header->reserved_flags);
-    printf("seq_nr: %" PRIu32 "\n", tcp_header->seq_nr);
-    printf("src_port: %i\n", tcp_header->src_port);
-    printf("urg_pointer: %i\n", tcp_header->urg_pointer);
-    printf("window: %i\n", tcp_header->window);
-    printf("END: TCP HEADER\n");
+    //printf("\nBEGIN: TCP HEADER\n");
+    //printf("ack_nr: %" PRIu32 "\n", tcp_header->ack_nr);
+    //printf("checksum: %i\n", tcp_header->checksum);
+    //printf("dataOffset_reserved: %i\n", tcp_header->dataOffset_reserved);
+    //printf("dst_port: %i\n", tcp_header->dst_port);
+    //printf("reserved_flags: %i\n", tcp_header->reserved_flags);
+    //printf("seq_nr: %" PRIu32 "\n", tcp_header->seq_nr);
+    //printf("src_port: %i\n", tcp_header->src_port);
+    //printf("urg_pointer: %i\n", tcp_header->urg_pointer);
+    //printf("window: %i\n", tcp_header->window);
+    //printf("END: TCP HEADER\n");
 }
 
 void printArrayRange_tcp(uint8_t *udp_header, uint16_t len)
 {
     int i = 0;
-    printf("-------------MEMORY-------------\n");
+    //printf("-------------MEMORY-------------\n");
 
     for (i = 0; i < len; i++) {
-        printf("%#x ", *(udp_header + i));
+        //printf("%#x ", *(udp_header + i));
     }
 
-    printf("-------------MEMORY-------------\n");
+    //printf("-------------MEMORY-------------\n");
 }
 
 uint16_t tcp_csum(ipv6_hdr_t *ipv6_header, tcp_hdr_t *tcp_header)
@@ -149,7 +149,7 @@ void handle_tcp_ack_packet(ipv6_hdr_t *ipv6_header, tcp_hdr_t *tcp_header,
         }
     }
 
-    printf("NO WAY OF HANDLING THIS ACK!\n");
+    //printf("NO WAY OF HANDLING THIS ACK!\n");
 }
 
 void handle_tcp_rst_packet(ipv6_hdr_t *ipv6_header, tcp_hdr_t *tcp_header,
@@ -182,12 +182,12 @@ void handle_tcp_syn_packet(ipv6_hdr_t *ipv6_header, tcp_hdr_t *tcp_header,
             net_msg_send(&m_send_tcp, tcp_socket->recv_pid, 0, TCP_SYN);
         }
         else {
-            printf("Dropped TCP SYN Message because an error occured while "\
+            //printf("Dropped TCP SYN Message because an error occured while "\
                    "requesting a new queued socket!\n");
         }
     }
     else {
-        printf("Dropped TCP SYN Message because socket was not in state TCP_LISTEN!");
+        //printf("Dropped TCP SYN Message because socket was not in state TCP_LISTEN!");
     }
 }
 
@@ -203,7 +203,7 @@ void handle_tcp_syn_ack_packet(ipv6_hdr_t *ipv6_header, tcp_hdr_t *tcp_header,
         net_msg_send(&m_send_tcp, tcp_socket->recv_pid, 0, TCP_SYN_ACK);
     }
     else {
-        printf("Socket not in state TCP_SYN_SENT, dropping SYN-ACK-packet!");
+        //printf("Socket not in state TCP_SYN_SENT, dropping SYN-ACK-packet!");
     }
 }
 
@@ -349,7 +349,7 @@ void tcp_packet_handler(void)
                 }
 
                 case TCP_RST: {
-                    printf("RST Bit set!\n");
+                    //printf("RST Bit set!\n");
                     /* only RST Bit set */
                     handle_tcp_rst_packet(ipv6_header, tcp_header, tcp_socket);
                     break;
@@ -358,7 +358,7 @@ void tcp_packet_handler(void)
                 case TCP_SYN: {
                     /* only SYN Bit set, look for matching, listening socket
                      * and request new queued socket */
-                    printf("SYN Bit set!\n");
+                    //printf("SYN Bit set!\n");
                     handle_tcp_syn_packet(ipv6_header, tcp_header, tcp_socket);
                     break;
                 }
@@ -371,14 +371,14 @@ void tcp_packet_handler(void)
                 }
 
                 case TCP_FIN: {
-                    printf("FIN Bit set!\n");
+                    //printf("FIN Bit set!\n");
                     /* only FIN Bit set */
                     handle_tcp_fin_packet(ipv6_header, tcp_header, tcp_socket);
                     break;
                 }
 
                 case TCP_FIN_ACK: {
-                    printf("FIN ACK Bit set!\n");
+                    //printf("FIN ACK Bit set!\n");
                     /* only FIN and ACK Bit set */
                     handle_tcp_fin_ack_packet(ipv6_header, tcp_header, tcp_socket);
                     break;
@@ -391,7 +391,7 @@ void tcp_packet_handler(void)
             }
         }
         else {
-            printf("Wrong checksum (%x) or no corresponding socket found!\n",
+            //printf("Wrong checksum (%x) or no corresponding socket found!\n",
                    chksum);
             printArrayRange(((uint8_t *)ipv6_header), IPV6_HDR_LEN +
                             ipv6_header->length, "Incoming");

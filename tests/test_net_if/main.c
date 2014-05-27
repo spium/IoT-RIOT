@@ -50,45 +50,45 @@ int main(void)
     iface = initialize_tests();
 
     if (!test_net_if_initialization(iface)) {
-        printf("FAILED: test_net_if_initialization()\n");
+        //printf("FAILED: test_net_if_initialization()\n");
         return -1;
     }
 
     if (!test_net_if_get_add_l3p_types(iface)) {
-        printf("FAILED: test_net_if_get_add_l3p_types()\n");
+        //printf("FAILED: test_net_if_get_add_l3p_types()\n");
         return -1;
     }
 
     if (!test_net_if_add_address(iface, &addr1, &addr2)) {
-        printf("FAILED: test_net_if_add_address()\n");
+        //printf("FAILED: test_net_if_add_address()\n");
         return -1;
     }
 
     if (!test_net_if_del_address(iface, &addr1, &addr2)) {
-        printf("FAILED: test_net_if_del_address()\n");
+        //printf("FAILED: test_net_if_del_address()\n");
         return -1;
     }
 
     if (!test_net_if_get_set_hardware_address(iface, own)) {
-        printf("FAILED: test_net_if_get_set_hardware_address()\n");
+        //printf("FAILED: test_net_if_get_set_hardware_address()\n");
         return -1;
     }
 
     if (!test_net_if_get_set_pan_id(iface)) {
-        printf("FAILED: test_net_if_get_set_pan_id()\n");
+        //printf("FAILED: test_net_if_get_set_pan_id()\n");
         return -1;
     }
 
     if (!test_net_if_get_set_eui64(iface, &eui64, own)) {
-        printf("FAILED: test_net_if_get_set_eui64()\n");
+        //printf("FAILED: test_net_if_get_set_eui64()\n");
         return -1;
     }
 
     int count = net_if_send_packet(iface, target, "Test", 4);
 
-    printf("Count was %i after net_if_send_packet()\n", count);
+    //printf("Count was %i after net_if_send_packet()\n", count);
 
-    printf("All test ran successfully.\n");
+    //printf("All test ran successfully.\n");
 
     return 0;
 }
@@ -119,17 +119,17 @@ int test_net_if_initialization(int iface)
     net_if_addr_t *addr_ptr = NULL;
 
     if (net_if_get_l3p_types(iface)) {
-        printf("FAILED: No L3 type expected on interface %d.\n", iface);
+        //printf("FAILED: No L3 type expected on interface %d.\n", iface);
         return 0;
     }
 
     if (net_if_iter_addresses(iface + 1, &addr_ptr)) {
-        printf("FAILED: Expected error on interface '%d'\n", iface + 1);
+        //printf("FAILED: Expected error on interface '%d'\n", iface + 1);
         return 0;
     }
 
     if (net_if_iter_addresses(iface, &addr_ptr)) {
-        printf("FAILED: Expected error on interface '%d'\n", iface);
+        //printf("FAILED: Expected error on interface '%d'\n", iface);
         return 0;
     }
 
@@ -139,55 +139,55 @@ int test_net_if_initialization(int iface)
 int test_net_if_get_add_l3p_types(int iface)
 {
     if (net_if_add_l3p_types(iface + 1, NET_IF_L3P_IPV6_UNICAST)) {
-        printf("FAILED: expected net_if_add_l3p_types to fail for iface %d.\n",
+        //printf("FAILED: expected net_if_add_l3p_types to fail for iface %d.\n",
                iface + 1);
         return 0;
     }
 
     if (!net_if_add_l3p_types(iface, 0)) {
-        printf("FAILED: expected net_if_add_l3p_types to succeed for iface %d and no type\n",
+        //printf("FAILED: expected net_if_add_l3p_types to succeed for iface %d and no type\n",
                iface);
         return 0;
     }
 
 
     if (!net_if_add_l3p_types(iface, NET_IF_L3P_IPV6_UNICAST)) {
-        printf("FAILED: expected net_if_add_l3p_types to succeed for iface %d and no type\n",
+        //printf("FAILED: expected net_if_add_l3p_types to succeed for iface %d and no type\n",
                iface);
         return 0;
     }
 
     if (!(net_if_get_l3p_types(iface) & NET_IF_L3P_IPV6_UNICAST)) {
-        printf("FAILED: L3 type IPv6 unicast expected on interface %d.\n", iface);
+        //printf("FAILED: L3 type IPv6 unicast expected on interface %d.\n", iface);
         return 0;
     }
 
     if (net_if_get_l3p_types(iface) & ~NET_IF_L3P_IPV6_UNICAST) {
-        printf("FAILED: L3 type other than IPv6 unicast not expected on interface %d.\n",
+        //printf("FAILED: L3 type other than IPv6 unicast not expected on interface %d.\n",
                iface);
         return 0;
     }
 
     if (net_if_del_l3p_types(iface + 1, NET_IF_L3P_IPV6_UNICAST)) {
-        printf("FAILED: expected net_if_del_l3p_types to fail for iface %d.\n",
+        //printf("FAILED: expected net_if_del_l3p_types to fail for iface %d.\n",
                iface + 1);
         return 0;
     }
 
     if (!net_if_del_l3p_types(iface, 0)) {
-        printf("FAILED: expected net_if_del_l3p_types to succeed for iface %d and no type\n",
+        //printf("FAILED: expected net_if_del_l3p_types to succeed for iface %d and no type\n",
                iface);
         return 0;
     }
 
     if (!net_if_del_l3p_types(iface, NET_IF_L3P_IPV6_UNICAST)) {
-        printf("FAILED: expected net_if_del_l3p_types to succeed for iface %d and no type\n",
+        //printf("FAILED: expected net_if_del_l3p_types to succeed for iface %d and no type\n",
                iface);
         return 0;
     }
 
     if (net_if_get_l3p_types(iface)) {
-        printf("FAILED: No L3 type expected on interface %d.\n", iface);
+        //printf("FAILED: No L3 type expected on interface %d.\n", iface);
         return 0;
     }
 
@@ -201,50 +201,50 @@ int test_net_if_add_address(int iface, net_if_addr_t *addr1,
     net_if_addr_t *addr_ptr = NULL;
 
     if (net_if_add_address(iface + 1, addr1)) {
-        printf("FAILED: expected net_if_add_address(%d, %p) to fail.\n",
+        //printf("FAILED: expected net_if_add_address(%d, %p) to fail.\n",
                iface + 1, (void *)addr1);
         return 0;
     }
 
     if (net_if_add_address(iface, NULL)) {
-        printf("FAILED: expected net_if_add_address(%d, NULL) to fail.\n",
+        //printf("FAILED: expected net_if_add_address(%d, NULL) to fail.\n",
                iface);
         return 0;
     }
 
     if (!net_if_add_address(iface, addr1)) {
-        printf("FAILED: Address addition failed\n");
+        //printf("FAILED: Address addition failed\n");
         return 0;
     }
 
     if (!(net_if_get_l3p_types(iface) & NET_IF_L3P_IPV6_MULTICAST)) {
-        printf("FAILED: L3 type IPv6 multicast expected on interface %d.\n", iface);
+        //printf("FAILED: L3 type IPv6 multicast expected on interface %d.\n", iface);
         return 0;
     }
 
     if (net_if_get_l3p_types(iface) & ~NET_IF_L3P_IPV6_MULTICAST) {
-        printf("FAILED: L3 type other than IPv6 multicast not expected on interface %d.\n",
+        //printf("FAILED: L3 type other than IPv6 multicast not expected on interface %d.\n",
                iface);
         return 0;
     }
 
     if (!net_if_add_address(iface, addr2)) {
-        printf("FAILED: Address addition failed\n");
+        //printf("FAILED: Address addition failed\n");
         return 0;
     }
 
     if (!(net_if_get_l3p_types(iface) & NET_IF_L3P_IPV6_MULTICAST)) {
-        printf("FAILED: L3 type IPv6 multcast expected on interface %d.\n", iface);
+        //printf("FAILED: L3 type IPv6 multcast expected on interface %d.\n", iface);
         return 0;
     }
 
     if (!(net_if_get_l3p_types(iface) & NET_IF_L3P_IPV6_PREFIX)) {
-        printf("FAILED: L3 type IPv6 prefix expected on interface %d.\n", iface);
+        //printf("FAILED: L3 type IPv6 prefix expected on interface %d.\n", iface);
         return 0;
     }
 
     if (net_if_get_l3p_types(iface) & ~(NET_IF_L3P_IPV6_MULTICAST | NET_IF_L3P_IPV6_PREFIX)) {
-        printf("FAILED: L3 type other than IPv6 multicast and IPv6 prefix not expected on interface %d.\n",
+        //printf("FAILED: L3 type other than IPv6 multicast and IPv6 prefix not expected on interface %d.\n",
                iface);
         return 0;
     }
@@ -256,8 +256,8 @@ int test_net_if_add_address(int iface, net_if_addr_t *addr1,
     }
 
     if (count != 2) {
-        printf("FAILED: expected 2 addresses in iface's address list once respectively\n");
-        printf("        missing '%d'\n", 2 - count);
+        //printf("FAILED: expected 2 addresses in iface's address list once respectively\n");
+        //printf("        missing '%d'\n", 2 - count);
         return 0;
     }
 
@@ -271,19 +271,19 @@ int test_net_if_del_address(int iface, net_if_addr_t *addr1,
     net_if_addr_t *addr_ptr = NULL;
 
     if (net_if_del_address(iface + 1, addr1)) {
-        printf("FAILED: expected net_if_del_address(%d, %p) to fail.\n",
+        //printf("FAILED: expected net_if_del_address(%d, %p) to fail.\n",
                iface + 1, (void *)addr1);
         return 0;
     }
 
     if (net_if_del_address(iface, NULL)) {
-        printf("FAILED: expected net_if_del_address(%d, NULL) to fail.\n",
+        //printf("FAILED: expected net_if_del_address(%d, NULL) to fail.\n",
                iface);
         return 0;
     }
 
     if (!net_if_del_address(iface, addr1)) {
-        printf("FAILED: Address deletion failed\n");
+        //printf("FAILED: Address deletion failed\n");
         return 0;
     }
 
@@ -294,8 +294,8 @@ int test_net_if_del_address(int iface, net_if_addr_t *addr1,
     }
 
     if (count != 1) {
-        printf("FAILED: expected 1 address in iface's address list\n");
-        printf("        missing '%d'\n", 1 - count);
+        //printf("FAILED: expected 1 address in iface's address list\n");
+        //printf("        missing '%d'\n", 1 - count);
         return 0;
     }
 
@@ -307,13 +307,13 @@ int test_net_if_get_set_hardware_address(int iface, uint16_t addr)
     uint16_t tmp;
 
     if (net_if_set_hardware_address(iface + 1, addr)) {
-        printf("FAILED: expected net_if_set_hardware_address(%d, %d) to fail.\n",
+        //printf("FAILED: expected net_if_set_hardware_address(%d, %d) to fail.\n",
                iface + 1, addr);
         return 0;
     }
 
     if (net_if_set_hardware_address(iface, 0)) {
-        printf("FAILED: expected net_if_set_hardware_address(%d, 0) to fail.\n",
+        //printf("FAILED: expected net_if_set_hardware_address(%d, 0) to fail.\n",
                iface);
         return 0;
     }
@@ -321,7 +321,7 @@ int test_net_if_get_set_hardware_address(int iface, uint16_t addr)
     tmp = net_if_set_hardware_address(iface, addr);
 
     if (addr != tmp) {
-        printf("FAILED: Expected '%d' as result of net_if_set_hardware_addr() "
+        //printf("FAILED: Expected '%d' as result of net_if_set_hardware_addr() "
                "(was '%d')\n", addr, tmp);
         return 0;
     }
@@ -329,7 +329,7 @@ int test_net_if_get_set_hardware_address(int iface, uint16_t addr)
     tmp = net_if_get_hardware_address(iface);
 
     if (addr != tmp) {
-        printf("FAILED: Expected '%d' as result of net_if_get_hardware_addr() "
+        //printf("FAILED: Expected '%d' as result of net_if_get_hardware_addr() "
                "(was '%d')\n", addr, tmp);
         return 0;
     }
@@ -343,19 +343,19 @@ int test_net_if_get_set_pan_id(int iface)
     uint16_t pan_id = 0xabcd;
 
     if ((res = net_if_get_pan_id(iface + 1)) >= 0) {
-        printf("FAILED: net_if_get_pan_id(%d) not failed\n", iface);
+        //printf("FAILED: net_if_get_pan_id(%d) not failed\n", iface);
         return 0;
     }
 
     if ((res = net_if_set_pan_id(iface, pan_id)) < 0) {
-        printf("FAILED: net_if_set_pan_id(%d, 0x%04x) failed\n", iface, pan_id);
+        //printf("FAILED: net_if_set_pan_id(%d, 0x%04x) failed\n", iface, pan_id);
         return 0;
     }
 
 #if MODULE_AT86RF231 || MODULE_CC2420 || MODULE_MC1322X
 
     if ((res = net_if_get_pan_id(iface)) < 0) {
-        printf("FAILED: net_if_get_pan_id(%d) failed\n", iface);
+        //printf("FAILED: net_if_get_pan_id(%d) failed\n", iface);
         return 0;
     }
 
@@ -371,20 +371,20 @@ int test_net_if_get_set_eui64(int iface, net_if_eui64_t *eui64,
                               uint16_t addr)
 {
     if (net_if_get_eui64(NULL, iface, 1)) {
-        printf("FAILED: expected net_if_get_eui64(NULL, %d, 1) to fail\n",
+        //printf("FAILED: expected net_if_get_eui64(NULL, %d, 1) to fail\n",
                iface);
         return 0;
     }
 
     if (!net_if_get_eui64(eui64, iface, 1)) {
-        printf("FAILED: Error getting EUI-64 on interface %d\n", iface);
+        //printf("FAILED: Error getting EUI-64 on interface %d\n", iface);
         return 0;
     }
 
     if (eui64->uint16[0] != 0 || eui64->uint8[2] != 0 ||
         eui64->uint8[3] != 0xff || eui64->uint8[4] != 0xfe ||
         eui64->uint8[5] != 0 || (uint16_t)eui64->uint16[3] != HTONS(addr)) {
-        printf("FAILED: Expected last 16 bit of EUI-64 to be 0x%04x (is 0x%04x)\n",
+        //printf("FAILED: Expected last 16 bit of EUI-64 to be 0x%04x (is 0x%04x)\n",
                addr, NTOHS(eui64->uint16[3]));
         return 0;
     }
@@ -392,12 +392,12 @@ int test_net_if_get_set_eui64(int iface, net_if_eui64_t *eui64,
     eui64->uint64 = 0;
 
     if (net_if_set_eui64(iface, NULL)) {
-        printf("FAILED: expected error on net_if_set_eui64(%d, NULL)\n", iface);
+        //printf("FAILED: expected error on net_if_set_eui64(%d, NULL)\n", iface);
         return 0;
     }
 
     if (net_if_set_eui64(iface, eui64)) {
-        printf("FAILED: expected error trying to set EUI-64 to broadcast\n");
+        //printf("FAILED: expected error trying to set EUI-64 to broadcast\n");
         return 0;
     }
 
@@ -412,14 +412,14 @@ int test_net_if_get_set_eui64(int iface, net_if_eui64_t *eui64,
     eui64->uint8[7] = 0x88;
 
     if (!net_if_set_eui64(iface, eui64)) {
-        printf("FAILED: Error setting EUI-64 on interface %d\n", iface);
+        //printf("FAILED: Error setting EUI-64 on interface %d\n", iface);
         return 0;
     }
 
     eui64->uint64 = 0;
 
     if (!net_if_get_eui64(eui64, iface, 0)) {
-        printf("FAILED: Error getting EUI-64 on interface %d\n", iface);
+        //printf("FAILED: Error getting EUI-64 on interface %d\n", iface);
         return 0;
     }
 
@@ -429,7 +429,7 @@ int test_net_if_get_set_eui64(int iface, net_if_eui64_t *eui64,
         eui64->uint8[2] != 0x33 || eui64->uint8[3] != 0x44 ||
         eui64->uint8[4] != 0x55 || eui64->uint8[5] != 0x66 ||
         eui64->uint8[6] != 0x77 || eui64->uint8[7] != 0x88) {
-        printf("FAILED: EUI-64 to be 11-22-33-44-55-66-77-88 but is "
+        //printf("FAILED: EUI-64 to be 11-22-33-44-55-66-77-88 but is "
                "%02x-%02x-%02x-%02x-%02x-%02x-%02x-%02x\n",
                eui64->uint8[0], eui64->uint8[1], eui64->uint8[2],
                eui64->uint8[3], eui64->uint8[4], eui64->uint8[5],

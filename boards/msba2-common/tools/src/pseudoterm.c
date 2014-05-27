@@ -82,10 +82,10 @@ void sig_handler(int signal)
     if (signal == SIGUSR1) {
         if (stopped) {
             stopped = 0;
-            printf("\nSignal received, opening port.\r\n");
+            //printf("\nSignal received, opening port.\r\n");
 
             if (init() < 0) {
-                printf("Cannot open port.\r\n");
+                //printf("Cannot open port.\r\n");
                 close_tty();
                 exit(1);
             }
@@ -94,13 +94,13 @@ void sig_handler(int signal)
     else if (signal == SIGUSR2) {
         if (!stopped) {
             stopped = 1;
-            printf("\nSignal received, closing port. \r\n");
+            //printf("\nSignal received, closing port. \r\n");
             pthread_cancel(serial_reader);
             close_serial_port();
         }
     }
     else if (signal == SIGINT) {
-        printf("SIGINT received, exiting...\n");
+        //printf("SIGINT received, exiting...\n");
         pthread_cancel(serial_reader);
         close_serial_port();
         close_tty();
@@ -164,20 +164,20 @@ int main(int argc, char **argv)
         port_name = argv[1];
     }
 
-    printf("Using %s as serial device.\n", port_name);
+    //printf("Using %s as serial device.\n", port_name);
 
     char ttybuf[255];
     tty_fd = open_tty();
 
     if (tty_fd < 0) {
-        printf("Error opening terminal.\n");
+        //printf("Error opening terminal.\n");
         return (1);
     }
 
     install_sighandler();
 
     if (init() < 0) {
-        printf("Cannot open port.\r\n");
+        //printf("Cannot open port.\r\n");
         exit(1);
     }
 

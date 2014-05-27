@@ -1,7 +1,7 @@
 #!/usr/bin/env sh
 
 function _out() {
-    [[ $QUIET != "1" ]] && printf "$@"
+    [[ $QUIET != "1" ]] && //printf "$@"
 }
 QUIET=0
 

@@ -273,7 +273,7 @@ int main(int argc, char **argv)
           (vref2_erase >= 0))
        ) {
 
-        printf("*** You must specify a layout or a complete set of overrides\n");
+        //printf("*** You must specify a layout or a complete set of overrides\n");
         return EXIT_FAILURE;
     }
 
@@ -290,23 +290,23 @@ int main(int argc, char **argv)
     override(vref2_erase);
 
     if ((num_devs = ftdi_usb_find_all(&ftdic, &devlist, vendid, prodid)) < 0) {
-        fprintf(stderr, "ftdi_usb_find_all failed: %d (%s)\n",
+        f//printf(stderr, "ftdi_usb_find_all failed: %d (%s)\n",
                 num_devs,
                 ftdi_get_error_string(&ftdic));
         return EXIT_FAILURE;
     }
 
     if (ftdi_init(&ftdic) < 0) {
-        fprintf(stderr, "ftdi_init failed\n");
+        f//printf(stderr, "ftdi_init failed\n");
         return EXIT_FAILURE;
     }
 
     if ((ret = ftdi_set_interface(&ftdic, layout.interface)) < 0) {
-        fprintf(stderr, "couldn't set interface %d, err %d (%s)\n", layout.interface, ret, ftdi_get_error_string(&ftdic));
+        f//printf(stderr, "couldn't set interface %d, err %d (%s)\n", layout.interface, ret, ftdi_get_error_string(&ftdic));
         return EXIT_FAILURE;
     }
 
-    printf("Found %d devices with vendor id 0x%04x product id 0x%04x\n",
+    //printf("Found %d devices with vendor id 0x%04x product id 0x%04x\n",
            num_devs, vendid, prodid);
 
     if (num_devs == 0) {
@@ -322,11 +322,11 @@ int main(int argc, char **argv)
     }
 
     if (layout.name != NULL) {
-        printf("Opening device %d interface %d using layout %s\n",
+        //printf("Opening device %d interface %d using layout %s\n",
                dev_index, layout.interface, layout.name);
     }
     else {
-        printf("Opening device %d interface %d without a layout.\n",
+        //printf("Opening device %d interface %d without a layout.\n",
                dev_index, layout.interface);
     }
 
@@ -355,7 +355,7 @@ int main(int argc, char **argv)
         if (ret)
 #endif // __APPLE__
         {
-            fprintf(stderr, "couldn't open dev_index %d, err %d (%s)\n", dev_index, ret, ftdi_get_error_string(&ftdic));
+            f//printf(stderr, "couldn't open dev_index %d, err %d (%s)\n", dev_index, ret, ftdi_get_error_string(&ftdic));
             return EXIT_FAILURE;
         }
     }
@@ -372,7 +372,7 @@ int main(int argc, char **argv)
         commands[i].cmd(&ftdic, &layout);
     }
     else {
-        printf("invalid command\n");
+        //printf("invalid command\n");
 
         ftdi_list_free(&devlist);
         ftdi_deinit(&ftdic);
@@ -380,7 +380,7 @@ int main(int argc, char **argv)
         return EXIT_FAILURE;
     }
 
-    printf("done.\n");
+    //printf("done.\n");
 
     ftdi_list_free(&devlist);
     ftdi_deinit(&ftdic);
@@ -391,45 +391,45 @@ int main(int argc, char **argv)
 void usage(void)
 {
     int i;
-    printf("Usage: bbmc [options|overrides] -l|--layout layout command \n");
-    printf("Commands:\n");
+    //printf("Usage: bbmc [options|overrides] -l|--layout layout command \n");
+    //printf("Commands:\n");
 
     for (i = 0; commands[i].name != NULL; i++) {
-        printf("           %s: %s\n", commands[i].name, commands[i].desc);
+        //printf("           %s: %s\n", commands[i].name, commands[i].desc);
     }
 
-    printf("\n");
-    printf("Required options:\n");
-    printf("           -l|--layout\t specifiy which board layout to use\n");
-    printf("                      \t layout is not necessary with a full\n");
-    printf("                      \t set of overrides\n");
-    printf("\nLayout overrides:\n");
-    printf("           --interface\t\t FTDI interface to use\n");
-    printf("           --dir\t\t direction (1 is output)\n");
-    printf("           --reset_release\t reset release command\n");
-    printf("           --reset_set\t\t reset set command\n");
-    printf("           --vref2_normal\t vref2 normal\n");
-    printf("           --vref2_erase\t vref2 erase\n");
-    printf("\n");
-    printf("Layouts:\n");
+    //printf("\n");
+    //printf("Required options:\n");
+    //printf("           -l|--layout\t specifiy which board layout to use\n");
+    //printf("                      \t layout is not necessary with a full\n");
+    //printf("                      \t set of overrides\n");
+    //printf("\nLayout overrides:\n");
+    //printf("           --interface\t\t FTDI interface to use\n");
+    //printf("           --dir\t\t direction (1 is output)\n");
+    //printf("           --reset_release\t reset release command\n");
+    //printf("           --reset_set\t\t reset set command\n");
+    //printf("           --vref2_normal\t vref2 normal\n");
+    //printf("           --vref2_erase\t vref2 erase\n");
+    //printf("\n");
+    //printf("Layouts:\n");
 
     for (i = 0; layouts[i].name != NULL; i++) {
-        printf("\t%s: %s\n", layouts[i].name, layouts[i].desc);
-        printf("\n");
-        printf("\t\tinterface: \t0x%04x\n", layouts[i].interface);
-        printf("\t\tdir: \t\t0x%04x\n", layouts[i].dir);
-        printf("\t\treset release: \t0x%04x\n", layouts[i].reset_release);
-        printf("\t\treset hold:    \t0x%04x\n", layouts[i].reset_set);
-        printf("\t\tvref2 normal:  \t0x%04x\n", layouts[i].vref2_normal);
-        printf("\t\tvref2 erase:   \t0x%04x\n", layouts[i].vref2_erase);
-        printf("\n");
+        //printf("\t%s: %s\n", layouts[i].name, layouts[i].desc);
+        //printf("\n");
+        //printf("\t\tinterface: \t0x%04x\n", layouts[i].interface);
+        //printf("\t\tdir: \t\t0x%04x\n", layouts[i].dir);
+        //printf("\t\treset release: \t0x%04x\n", layouts[i].reset_release);
+        //printf("\t\treset hold:    \t0x%04x\n", layouts[i].reset_set);
+        //printf("\t\tvref2 normal:  \t0x%04x\n", layouts[i].vref2_normal);
+        //printf("\t\tvref2 erase:   \t0x%04x\n", layouts[i].vref2_erase);
+        //printf("\n");
     }
 
-    printf("\n");
-    printf("Options:\n");
-    printf("           -i|--index     specifiy which device to use (default 0)\n");
-    printf("           -v|--vendor    set vendor id (default 0x0403)\n");
-    printf("           -p|--product   set vendor id (default 0x6010)\n");
+    //printf("\n");
+    //printf("Options:\n");
+    //printf("           -i|--index     specifiy which device to use (default 0)\n");
+    //printf("           -v|--vendor    set vendor id (default 0x0403)\n");
+    //printf("           -p|--product   set vendor id (default 0x6010)\n");
 }
 
 int print_and_prompt(struct ftdi_device_list *devlist)
@@ -442,29 +442,29 @@ int print_and_prompt(struct ftdi_device_list *devlist)
     char *s;
     int sel = -1;
 
-    printf("\n");
+    //printf("\n");
 
     i = 0;
 
     for (curdev = devlist; curdev != NULL; i++) {
-        printf("  [%d]   ", i);
+        //printf("  [%d]   ", i);
 
         if (0 > (ret = ftdi_usb_get_strings(&ftdic,
                                             curdev->dev,
                                             manufacturer, 128,
                                             description, 128,
                                             serial, 128))) {
-            fprintf(stderr, "ftdi_usb_get_strings failed: %d (%s)\n",
+            f//printf(stderr, "ftdi_usb_get_strings failed: %d (%s)\n",
                     ret, ftdi_get_error_string(&ftdic));
             return EXIT_FAILURE;
         }
 
-        printf("Manufacturer: %s, Description: %s, Serial %s\n",
+        //printf("Manufacturer: %s, Description: %s, Serial %s\n",
                manufacturer, description, serial);
         curdev = curdev->next;
     }
 
-    printf("\nUse which device? ");
+    //printf("\nUse which device? ");
 
     s = fgets(input, BUF_LEN, stdin);
 
@@ -488,7 +488,7 @@ void reset(struct ftdi_context *ftdic, const struct layout *l)
     /* set as inputs for now */
     ftdi_set_bitmode(ftdic, 0 , BITMODE_MPSSE);
 
-    printf("toggle reset\n");
+    //printf("toggle reset\n");
 
     bb_mpsee(ftdic, l->dir, (l->reset_release | l->vref2_normal));
     bb_mpsee(ftdic, l->dir, (l->reset_set     | l->vref2_normal));
@@ -501,7 +501,7 @@ void reset(struct ftdi_context *ftdic, const struct layout *l)
 
 void erase(struct ftdi_context *ftdic, const struct layout *l)
 {
-    printf("setting VREF2 erase\n");
+    //printf("setting VREF2 erase\n");
 
     /* using MPSSE since it give access to high GPIO*/
     /* set as inputs for now */
@@ -510,16 +510,16 @@ void erase(struct ftdi_context *ftdic, const struct layout *l)
     bb_mpsee(ftdic, l->dir, (l->reset_release | l->vref2_normal));
     bb_mpsee(ftdic, l->dir, (l->reset_release | l->vref2_erase));
 
-    printf("toggle reset\n");
+    //printf("toggle reset\n");
 
     bb_mpsee(ftdic, l->dir, (l->reset_set     | l->vref2_erase));
     bb_mpsee(ftdic, l->dir, (l->reset_release | l->vref2_erase));
 
-    printf("waiting for erase\n");
+    //printf("waiting for erase\n");
 
     sleep(2);
 
-    printf("setting VREF2 normal\n");
+    //printf("setting VREF2 normal\n");
 
     bb_mpsee(ftdic, l->dir, (l->reset_release | l->vref2_normal));
 
@@ -540,12 +540,12 @@ int bb_mpsee(struct ftdi_context *ftdic, uint16_t dir, uint16_t val)
     buf[1] = (val & 0xff);
     buf[2] = dir & 0xff;
 #if DEBUG
-    fprintf(stderr, "write %x %x %x\n", buf[0], buf[1], buf[2]);
+    f//printf(stderr, "write %x %x %x\n", buf[0], buf[1], buf[2]);
 #endif
 
     if ((ret = (ftdi_write_data(ftdic, buf, 3))) < 0) {
         perror("ft2232_write error");
-        fprintf(stderr, "ft2232_write command %x\n", buf[0]);
+        f//printf(stderr, "ft2232_write command %x\n", buf[0]);
         return EXIT_FAILURE;
     }
 
@@ -555,12 +555,12 @@ int bb_mpsee(struct ftdi_context *ftdic, uint16_t dir, uint16_t val)
     buf[1] = (val >> 8);
     buf[2] = dir >> 8;
 #if DEBUG
-    fprintf(stderr, "write %x %x %x\n", buf[0], buf[1], buf[2]);
+    f//printf(stderr, "write %x %x %x\n", buf[0], buf[1], buf[2]);
 #endif
 
     if ((ret = (ftdi_write_data(ftdic, buf, 3))) < 0) {
         perror("ft2232_write error");
-        fprintf(stderr, "ft2232_write command %x\n", buf[0]);
+        f//printf(stderr, "ft2232_write command %x\n", buf[0]);
         return EXIT_FAILURE;
     }
 

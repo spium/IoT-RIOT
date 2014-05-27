@@ -53,7 +53,7 @@ void demultiplex(border_packet_t *packet)
                 }
 
                 default:
-                    printf("ERROR: Unknown ethertype 0x%04x\n", l3_header_buf->ethertype);
+                    //printf("ERROR: Unknown ethertype 0x%04x\n", l3_header_buf->ethertype);
                     break;
             }
 
@@ -89,7 +89,7 @@ void demultiplex(border_packet_t *packet)
                 }
 
                 default:
-                    printf("ERROR: Unknown conftype %02x\n", conf_header_buf->conftype);
+                    //printf("ERROR: Unknown conftype %02x\n", conf_header_buf->conftype);
                     break;
             }
 
@@ -97,7 +97,7 @@ void demultiplex(border_packet_t *packet)
         }
 
         default:
-            printf("ERROR: Unknown border packet type %02x\n", packet->type);
+            //printf("ERROR: Unknown border packet type %02x\n", packet->type);
             break;
     }
 }

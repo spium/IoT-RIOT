@@ -107,7 +107,7 @@ int main(int argc, char **argv)
                     baud = B9600;
                 }
                 else {
-                    printf("Unknown baud rate %s!\n", optarg);
+                    //printf("Unknown baud rate %s!\n", optarg);
                     return -1;
                 }
 
@@ -150,23 +150,23 @@ int main(int argc, char **argv)
 
     /* Print settings */
     if (verbose) {
-        printf("Primary file (RAM): %s\n", filename);
-        printf("Secondary file (Flash): %s\n", second);
-        printf("Zero secondary file: %s\n", zerolen == 1 ? "Yes" : "No");
-        printf("Port: %s\n", term);
-        printf("Baud rate: %i\n", baud);
-        printf("Flow control: %s\n", rts);
-        printf("Reset command: %s\n", command);
-        printf("Exit after load: %s\n", do_exit == 1 ? "Yes" : "No");
-        printf("Delay 1: %i\n", first_delay);
-        printf("Delay 2: %i\n", second_delay);
+        //printf("Primary file (RAM): %s\n", filename);
+        //printf("Secondary file (Flash): %s\n", second);
+        //printf("Zero secondary file: %s\n", zerolen == 1 ? "Yes" : "No");
+        //printf("Port: %s\n", term);
+        //printf("Baud rate: %i\n", baud);
+        //printf("Flow control: %s\n", rts);
+        //printf("Reset command: %s\n", command);
+        //printf("Exit after load: %s\n", do_exit == 1 ? "Yes" : "No");
+        //printf("Delay 1: %i\n", first_delay);
+        //printf("Delay 2: %i\n", second_delay);
     }
 
     /* Open and configure serial port */
     pfd = open(term, O_RDWR | O_NOCTTY | O_NDELAY);
 
     if (pfd == -1) {
-        printf("Cannot open serial port %s!\n", term);
+        //printf("Cannot open serial port %s!\n", term);
         return -1;
     }
 
@@ -191,10 +191,10 @@ int main(int argc, char **argv)
     tcsetattr(pfd, TCSANOW, &options);
 
     /* Reset the board if we can */
-    printf("Reset the board to enter bootloader (waiting for CONNECT)...\n");
+    //printf("Reset the board to enter bootloader (waiting for CONNECT)...\n");
 
     if (command) {
-        printf("Performing reset: %s\n", command);
+        //printf("Performing reset: %s\n", command);
         system(command);
     }
 
@@ -209,11 +209,11 @@ int main(int argc, char **argv)
 
         if (r > 0) {
             buf[i + r] = '\0';
-            printf("%s", &buf[i]);
+            //printf("%s", &buf[i]);
             fflush(stdout);
 
             if (strstr(&buf[i], "CONNECT")) {
-                printf("\n");
+                //printf("\n");
                 break;
             }
 
@@ -224,31 +224,31 @@ int main(int argc, char **argv)
             }
         }
         else {
-            printf(".");
+            //printf(".");
             fflush(stdout);
         }
     }
 
     /* Send primary file */
     if (!filename) {
-        printf("Please specify firmware file name (-f option)!\n");
+        //printf("Please specify firmware file name (-f option)!\n");
         return -1;
     }
 
     if (stat(filename, &sbuf)) {
-        printf("Cannot open firmware file %s!\n", filename);
+        //printf("Cannot open firmware file %s!\n", filename);
         return -1;
     }
 
     ffd = open(filename, O_RDONLY);
 
     if (ffd == -1) {
-        printf("Cannot open firmware file %s!\n", filename);
+        //printf("Cannot open firmware file %s!\n", filename);
         return -1;
     }
 
     s = sbuf.st_size;
-    printf("Sending %s (%i bytes)...\n", filename, s);
+    //printf("Sending %s (%i bytes)...\n", filename, s);
     r = write(pfd, (const void *)&s, 4);
     i = 0;
     r = read(ffd, buf, 1);
@@ -261,17 +261,17 @@ int main(int argc, char **argv)
         while (c < r);
 
         i += r;
-        printf("Written %i\r", i);
+        //printf("Written %i\r", i);
         fflush(stdout);
         r = read(ffd, buf, 1);
     }
 
-    printf("\n");
+    //printf("\n");
 
     /* Secondary loader wait loop */
     if (second || zerolen) {
         /* Wait for ready */
-        printf("Sending secondary file (waiting for ready)...\n");
+        //printf("Sending secondary file (waiting for ready)...\n");
         i = 0;
 
         while (1) {
@@ -280,11 +280,11 @@ int main(int argc, char **argv)
 
             if (r > 0) {
                 buf[i + r] = '\0';
-                printf("%s", &buf[i]);
+                //printf("%s", &buf[i]);
                 fflush(stdout);
 
                 if (strstr(buf, "ready")) {
-                    printf("\n");
+                    //printf("\n");
                     break;
                 }
 
@@ -295,7 +295,7 @@ int main(int argc, char **argv)
                 }
             }
             else {
-                printf(".");
+                //printf(".");
                 fflush(stdout);
             }
         }
@@ -303,19 +303,19 @@ int main(int argc, char **argv)
         /* Send secondary file */
         if (second) {
             if (stat(second, &sbuf)) {
-                printf("Cannot open secondary file %s!\n", second);
+                //printf("Cannot open secondary file %s!\n", second);
                 return -1;
             }
 
             sfd = open(second, O_RDONLY);
 
             if (sfd == -1) {
-                printf("Cannot open secondary file %s!\n", second);
+                //printf("Cannot open secondary file %s!\n", second);
                 return -1;
             }
 
             s = sbuf.st_size;
-            printf("Sending %s (%i bytes)...\n", second, s);
+            //printf("Sending %s (%i bytes)...\n", second, s);
             r = write(pfd, (const void *)&s, 4);
             i = 0;
             r = read(sfd, buf, 1);
@@ -328,23 +328,23 @@ int main(int argc, char **argv)
                 while (c < r);
 
                 i += r;
-                printf("Written %i\r", i);
+                //printf("Written %i\r", i);
                 fflush(stdout);
                 r = read(sfd, buf, 1);
             }
 
-            printf("\n");
+            //printf("\n");
         }
         else if (zerolen) {
             s = 0;
-            printf("Sending %i...\n", s);
+            //printf("Sending %i...\n", s);
             write(pfd, (const void *)&s, 4);
         }
     }
 
     /* Send the remaining arguments */
     if (args) {
-        printf("Sending %s\n", args);
+        //printf("Sending %s\n", args);
         r = write(pfd, (const void *)args, strlen(args));
         r = write(pfd, (const void *)",", 1);
     }
@@ -356,7 +356,7 @@ int main(int argc, char **argv)
 
             if (r > 0) {
                 buf[r] = '\0';
-                printf("%s", buf);
+                //printf("%s", buf);
                 fflush(stdout);
             }
         }
@@ -366,20 +366,20 @@ int main(int argc, char **argv)
 
 void help(void)
 {
-    printf("Example usage: mc1322x-load -f foo.bin -t /dev/ttyS0 -b 9600\n");
-    printf("          or : mc1322x-load -f flasher.bin -s flashme.bin  0x1e000,0x11223344,0x55667788\n");
-    printf("          or : mc1322x-load -f flasher.bin -z  0x1e000,0x11223344,0x55667788\n");
-    printf("       -f required: binary file to load\n");
-    printf("       -s optional: secondary binary file to send\n");
-    printf("       -z optional: send a zero length file as secondary\n");
-    printf("       -t, terminal default: /dev/ttyUSB0\n");
-    printf("       -u, baud rate default: 115200\n");
-    printf("       -r [none|rts] flow control default: rts\n");
-    printf("       -c command to run for autoreset: \n");
-    printf("              e.g. -c 'bbmc -l redbee-econotag -i 0 reset'\n");
-    printf("       -e exit instead of dropping to terminal display\n");
-    printf("       -a first  intercharacter delay, passed to usleep\n");
-    printf("       -b second intercharacter delay, passed to usleep\n");
-    printf("\n");
-    printf("Anything on the command line is sent after all of the files.\n\n");
+    //printf("Example usage: mc1322x-load -f foo.bin -t /dev/ttyS0 -b 9600\n");
+    //printf("          or : mc1322x-load -f flasher.bin -s flashme.bin  0x1e000,0x11223344,0x55667788\n");
+    //printf("          or : mc1322x-load -f flasher.bin -z  0x1e000,0x11223344,0x55667788\n");
+    //printf("       -f required: binary file to load\n");
+    //printf("       -s optional: secondary binary file to send\n");
+    //printf("       -z optional: send a zero length file as secondary\n");
+    //printf("       -t, terminal default: /dev/ttyUSB0\n");
+    //printf("       -u, baud rate default: 115200\n");
+    //printf("       -r [none|rts] flow control default: rts\n");
+    //printf("       -c command to run for autoreset: \n");
+    //printf("              e.g. -c 'bbmc -l redbee-econotag -i 0 reset'\n");
+    //printf("       -e exit instead of dropping to terminal display\n");
+    //printf("       -a first  intercharacter delay, passed to usleep\n");
+    //printf("       -b second intercharacter delay, passed to usleep\n");
+    //printf("\n");
+    //printf("Anything on the command line is sent after all of the files.\n\n");
 }

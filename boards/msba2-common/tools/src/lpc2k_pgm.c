@@ -51,7 +51,7 @@ int programming_status = 0;
 
 int done_program(int i)
 {
-    printf("Programming done.\n");
+    //printf("Programming done.\n");
     programming_done = 1;
     programming_status = i;
     return 0;
@@ -71,7 +71,7 @@ void handle_port_input()
 
 void usage()
 {
-    printf("usage: lpc2k_pgm <port> <ihex-file>\n");
+    //printf("usage: lpc2k_pgm <port> <ihex-file>\n");
 }
 
 int main(int argc, char **argv)

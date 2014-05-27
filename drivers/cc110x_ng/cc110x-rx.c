@@ -201,7 +201,7 @@ uint8_t cc110x_add_ignored(radio_address_t addr)
     uint8_t i = 0;
 
     while ((i < IGN_MAX) && ignored_addr[i++]) {
-        printf("i: %hu\n", i);
+        //printf("i: %hu\n", i);
     }
 
     if (i > IGN_MAX) {

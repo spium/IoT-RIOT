@@ -37,7 +37,7 @@
 #include "native_internal.h"
 #include "tap.h"
 
-int (*real_printf)(const char *format, ...);
+int (*real_//printf)(const char *format, ...);
 int (*real_getpid)(void);
 int _native_null_in_pipe[2];
 int _native_null_out_file;
@@ -87,7 +87,7 @@ void _native_log_stdout(char *stdouttype)
     }
     else if (strcmp(stdouttype, "file") == 0) {
         char stdout_logname[255];
-        snprintf(stdout_logname, sizeof(stdout_logname), "/tmp/riot.stdout.%d", _native_pid);
+        sn//printf(stdout_logname, sizeof(stdout_logname), "/tmp/riot.stdout.%d", _native_pid);
         if ((stdout_outfile = creat(stdout_logname, 0666)) == -1) {
             err(EXIT_FAILURE, "_native_log_stdout: open");
         }
@@ -122,7 +122,7 @@ void _native_log_stderr(char *stderrtype)
     }
     else if (strcmp(stderrtype, "file") == 0) {
         char stderr_logname[255];
-        snprintf(stderr_logname, sizeof(stderr_logname), "/tmp/riot.stderr.%d", _native_pid);
+        sn//printf(stderr_logname, sizeof(stderr_logname), "/tmp/riot.stderr.%d", _native_pid);
         if ((stderr_outfile = creat(stderr_logname, 0666)) == -1) {
             err(EXIT_FAILURE, "_native_log_stderr: open");
         }
@@ -143,28 +143,28 @@ void daemonize(void)
     }
 
     if (_native_pid > 0) {
-        real_printf("RIOT pid: %d\n", _native_pid);
+        real_//printf("RIOT pid: %d\n", _native_pid);
         exit(EXIT_SUCCESS);
     }
 }
 
 void usage_exit(void)
 {
-    real_printf("usage: %s", _progname);
+    real_//printf("usage: %s", _progname);
 
 #ifdef MODULE_NATIVENET
-    real_printf(" <tap interface>");
+    real_//printf(" <tap interface>");
 #endif
 
 #ifdef MODULE_UART0
-    real_printf(" [-t <port>|-u]");
+    real_//printf(" [-t <port>|-u]");
 #endif
 
-    real_printf(" [-d] [-e|-E] [-o]\n");
+    real_//printf(" [-d] [-e|-E] [-o]\n");
 
-    real_printf(" help: %s -h\n", _progname);
+    real_//printf(" help: %s -h\n", _progname);
 
-    real_printf("\nOptions:\n\
+    real_//printf("\nOptions:\n\
 -h      help\n\
 -d      daemonize\n\
 -e      redirect stderr to file\n\
@@ -172,12 +172,12 @@ void usage_exit(void)
 -o      redirect stdout to file when not attached to socket\n");
 
 #ifdef MODULE_UART0
-    real_printf("\
+    real_//printf("\
 -u      redirect stdio to UNIX socket\n\
 -t      redirect stdio to TCP socket\n");
 #endif
 
-    real_printf("\n\
+    real_//printf("\n\
 The order of command line arguments matters.\n");
     exit(EXIT_FAILURE);
 
@@ -185,13 +185,13 @@ The order of command line arguments matters.\n");
 
 __attribute__((constructor)) static void startup(int argc, char **argv)
 {
-    /* get system read/write/printf */
+    /* get system read/write///printf */
     *(void **)(&real_read) = dlsym(RTLD_NEXT, "read");
     *(void **)(&real_write) = dlsym(RTLD_NEXT, "write");
     *(void **)(&real_malloc) = dlsym(RTLD_NEXT, "malloc");
     *(void **)(&real_realloc) = dlsym(RTLD_NEXT, "realloc");
     *(void **)(&real_free) = dlsym(RTLD_NEXT, "free");
-    *(void **)(&real_printf) = dlsym(RTLD_NEXT, "printf");
+    *(void **)(&real_//printf) = dlsym(RTLD_NEXT, "//printf");
     *(void **)(&real_getpid) = dlsym(RTLD_NEXT, "getpid");
 
     _native_argv = argv;

@@ -96,12 +96,12 @@ void calc_rtt(void)
 
 void print_success(void)
 {
-    printf("%s%f%s\n", "time=", rtt, "ms");
+    //printf("%s%f%s\n", "time=", rtt, "ms");
 }
 
 void print_failed(void)
 {
-    printf("%s\n", "ping failed");
+    //printf("%s\n", "ping failed");
 }
 
 void init_payload(void)

@@ -23,11 +23,11 @@
 void _id_handler(int argc, char **argv)
 {
     if (argc < 2) {
-        printf("Current id: %u\n", sysconfig.id);
+        //printf("Current id: %u\n", sysconfig.id);
     }
     else {
         long newid = atoi(argv[1]);
-        printf("Setting new id %ld\n", newid);
+        //printf("Setting new id %ld\n", newid);
         sysconfig.id = newid;
 
         if (!config_save()) {

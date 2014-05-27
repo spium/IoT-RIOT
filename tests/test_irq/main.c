@@ -37,9 +37,9 @@ void busy_thread(void)
         k = j = ++i;
     }
 
-    printf("i: %i\n", i);
-    printf("j: %i\n", j);
-    printf("k: %i\n", k);
+    //printf("i: %i\n", i);
+    //printf("j: %i\n", j);
+    //printf("k: %i\n", k);
 
     puts("success");
 }

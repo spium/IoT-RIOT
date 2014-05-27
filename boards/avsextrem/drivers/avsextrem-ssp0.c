@@ -113,7 +113,7 @@ uint8_t SSP0Prepare(uint8_t chip, uint8_t datasize, uint8_t cpol, uint8_t cpha,
         }
 
         default: {
-            printf("wrong CHIP selected\n");
+            //printf("wrong CHIP selected\n");
             return 0;
         }
     }
@@ -250,7 +250,7 @@ uint8_t SSP0Unprepare(uint8_t chip)
         }
 
         default: {
-            printf("wrong CHIP selected\n");
+            //printf("wrong CHIP selected\n");
             return 0;
         }
     }
@@ -293,7 +293,7 @@ unsigned char SSP0_write(const uint16_t data, uint8_t device)
             case BMA180_EXTERN:
             case L3G_EXTERN:
             case NANOPAN: {
-                printf("[%s] line: %d\n", __FUNCTION__, __LINE__);
+                //printf("[%s] line: %d\n", __FUNCTION__, __LINE__);
                 FIO0CLR = SSP0_SELN;
                 break;
             }

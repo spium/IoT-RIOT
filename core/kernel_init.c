@@ -76,16 +76,16 @@ static char idle_stack[KERNEL_CONF_STACKSIZE_IDLE];
 void kernel_init(void)
 {
     dINT();
-    printf("kernel_init(): This is RIOT! (Version: %s)\n", VERSION);
+    //printf("kernel_init(): This is RIOT! (Version: %s)\n", VERSION);
 
     hwtimer_init();
 
     if (thread_create(idle_stack, sizeof(idle_stack), PRIORITY_IDLE, CREATE_WOUT_YIELD | CREATE_STACKTEST, idle_thread, idle_name) < 0) {
-        printf("kernel_init(): error creating idle task.\n");
+        //printf("kernel_init(): error creating idle task.\n");
     }
 
     if (thread_create(main_stack, sizeof(main_stack), PRIORITY_MAIN, CREATE_WOUT_YIELD | CREATE_STACKTEST, MAIN_FUNC, main_name) < 0) {
-        printf("kernel_init(): error creating main task.\n");
+        //printf("kernel_init(): error creating main task.\n");
     }
 
 #ifdef MODULE_CONFIG
@@ -93,7 +93,7 @@ void kernel_init(void)
     config_load();
 #endif
 
-    printf("kernel_init(): jumping into first task...\n");
+    //printf("kernel_init(): jumping into first task...\n");
 
     cpu_switch_context_exit();
 }

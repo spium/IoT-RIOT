@@ -57,7 +57,7 @@ bool i2c_initialize(uint8_t i2c_interface, uint32_t i2c_mode,
                     uint8_t slave_addr, uint32_t baud_rate, void *handler)
 {
     //puts("i2c_initialize begin...\n");
-    printf("i2cInterface = %d\n", i2c_interface);
+    //printf("i2cInterface = %d\n", i2c_interface);
     i2c_clear_buffer((uint8_t *) i2c_master_buffer,
                      I2C_BUFSIZE * sizeof(uint8_t));
 
@@ -398,7 +398,7 @@ bool i2c_write(uint8_t i2c_interface, uint8_t slave_addr, uint8_t reg_addr,
         for (i = 2; i < tx_buff_length + 2; i++) {
             i2c_master_buffer[i] = tx_buff[j];
             j++;
-            //printf("I2CMasterBuffer[%d] = %d\n", i, I2CMasterBuffer[i]);
+            ////printf("I2CMasterBuffer[%d] = %d\n", i, I2CMasterBuffer[i]);
         }
 
         return i2c_transaction(i2c_interface);
@@ -477,7 +477,7 @@ void i2c_interface0_master_handler(void) //__irq
         case 0x08: /* A Start condition is issued. */
             //puts("A Start condition is issued\n");
             I20DAT = i2c_master_buffer[0];
-            //printf("I22DAT = %lu\n", I22DAT);
+            ////printf("I22DAT = %lu\n", I22DAT);
             I20CONCLR = (I2CONCLR_SIC | I2CONCLR_STAC);
             i2c_master_state = I2C_STARTED;
             break;
@@ -619,7 +619,7 @@ void i2c_interface1_master_handler(void) //__irq
         case 0x08: /* A Start condition is issued. */
             //puts("A Start condition is issued\n");
             I21DAT = i2c_master_buffer[0];
-            //printf("I22DAT = %lu\n", I22DAT);
+            ////printf("I22DAT = %lu\n", I22DAT);
             I21CONCLR = (I2CONCLR_SIC | I2CONCLR_STAC);
             i2c_master_state = I2C_STARTED;
             break;
@@ -762,7 +762,7 @@ void i2c_interface2_master_handler(void) //__irq
         case 0x08: /* A Start condition is issued. */
             //puts("A Start condition is issued\n");
             I22DAT = i2c_master_buffer[0];
-            //printf("I22DAT = %lu\n", I22DAT);
+            ////printf("I22DAT = %lu\n", I22DAT);
             I22CONCLR = (I2CONCLR_SIC | I2CONCLR_STAC);
             i2c_master_state = I2C_STARTED;
             break;

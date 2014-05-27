@@ -19,12 +19,12 @@
 int main(int argc, char **argv)
 {
     if (argc < 4) {
-        fprintf(stderr, "Usage: %s r_addr if_name tty_dev\n", argv[0]);
+        f//printf(stderr, "Usage: %s r_addr if_name tty_dev\n", argv[0]);
         return -1;
     }
 
     char addr[IPV6_ADDR_LEN];
-    sprintf(addr, "abcd::1034:00FF:FE00:%s/64", argv[1]);
+    s//printf(addr, "abcd::1034:00FF:FE00:%s/64", argv[1]);
     char if_name[IF_NAME_LEN];
     strncpy(if_name, argv[2], IF_NAME_LEN);
     char tty_dev[DEV_LEN];
@@ -36,12 +36,12 @@ int main(int argc, char **argv)
         float interval;
 
         if (argc < 9) {
-            fprintf(stderr, "Usage: %s r_addr if_name tty_dev ping_id result_dir skeleton_file ping_count interval\n", argv[0]);
+            f//printf(stderr, "Usage: %s r_addr if_name tty_dev ping_id result_dir skeleton_file ping_count interval\n", argv[0]);
             return -1;
         }
 
         sscanf(argv[8], "%f", &interval);
-        sprintf(ping_addr, "abcd::%s/64", argv[4]);
+        s//printf(ping_addr, "abcd::%s/64", argv[4]);
 
         start_test(ping_addr, argv[5], argv[6], atoi(argv[7]), interval);
 #else

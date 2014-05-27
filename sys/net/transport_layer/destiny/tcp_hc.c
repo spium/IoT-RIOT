@@ -435,7 +435,7 @@ socket_internal_t *decompress_tcp_packet(ipv6_hdr_t *temp_ipv6_header)
             return current_socket;
         }
         else {
-            printf("Socket Null!\n");
+            //printf("Socket Null!\n");
             /* Found no matching socket for this packet -> Drop it */
             return NULL;
         }
@@ -476,7 +476,7 @@ socket_internal_t *decompress_tcp_packet(ipv6_hdr_t *temp_ipv6_header)
             get_tcp_socket_by_context(temp_ipv6_header, current_context);
 
         if (current_socket == NULL) {
-            printf("Current Socket == NULL!\n");
+            //printf("Current Socket == NULL!\n");
             return NULL;
         }
 

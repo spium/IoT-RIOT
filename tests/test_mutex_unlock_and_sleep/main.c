@@ -56,12 +56,12 @@ int main(void)
         count++;
 
         if (indicator > 1 || indicator < -1) {
-            printf("Error, threads did not sleep properly. [indicator: %d]\n", indicator);
+            //printf("Error, threads did not sleep properly. [indicator: %d]\n", indicator);
             return -1;
         }
 
         if ((count % 100000) == 0) {
-            printf("Still alive alternated [count: %dk] times.\n", count / 1000);
+            //printf("Still alive alternated [count: %dk] times.\n", count / 1000);
         }
 
         mutex_unlock_and_sleep(&mutex);

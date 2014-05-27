@@ -40,7 +40,7 @@ char *
 ccnl_addr2ascii(sockunion *su)
 {
     static char buf[10];
-    snprintf(buf, sizeof(buf), "%d", su->id);
+    sn//printf(buf, sizeof(buf), "%d", su->id);
     return buf;
 }
 
@@ -291,7 +291,7 @@ Bail:
 
     // prepare FACEINSTANCE
     len3 = mkHeader(faceinst_buf, CCN_DTAG_FACEINSTANCE, CCN_TT_DTAG);
-    sprintf((char *)retstr, "newface:  %s", cp);
+    s//printf((char *)retstr, "newface:  %s", cp);
     len3 += mkStrBlob(faceinst_buf + len3, CCN_DTAG_ACTION, CCN_TT_DTAG, (char *) retstr);
 
     if (macsrc) {
@@ -320,7 +320,7 @@ Bail:
     }
 
     if (f) {
-        sprintf((char *)faceidstr, "%i", f->faceid);
+        s//printf((char *)faceidstr, "%i", f->faceid);
         len3 += mkStrBlob(faceinst_buf + len3, CCN_DTAG_FACEID, CCN_TT_DTAG, (char *) faceidstr);
     }
 

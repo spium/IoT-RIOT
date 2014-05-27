@@ -31,12 +31,12 @@ int main(void)
     struct bloom_t *bloom = bloom_new(1 << 7, 6, fnv_hash, sax_hash, sdbm_hash,
                                       djb2_hash, kr_hash, dek_hash, rotating_hash, one_at_a_time_hash);
 
-    printf("Testing Bloom filter.\n\n");
-    printf("m: %zd\nk: %zd\n\n", bloom->m, bloom->k);
+    //printf("Testing Bloom filter.\n\n");
+    //printf("m: %zd\nk: %zd\n\n", bloom->m, bloom->k);
 
     for (int i = 0; i < lenB; i++) {
         bloom_add(bloom, (const uint8_t *) B[i], strlen(B[i]));
-        printf("Added \"%s\"\n", B[i]);
+        //printf("Added \"%s\"\n", B[i]);
     }
 
     int in = 0;
@@ -51,13 +51,13 @@ int main(void)
         }
     }
 
-    printf("\n");
-    printf("%d elements probably in the filter.\n", in);
-    printf("%d elements not in the filter.\n", not_in);
+    //printf("\n");
+    //printf("%d elements probably in the filter.\n", in);
+    //printf("%d elements not in the filter.\n", not_in);
     double false_positive_rate = (double) in / (double) lenA;
-    printf("%f false positive rate.\n", false_positive_rate);
+    //printf("%f false positive rate.\n", false_positive_rate);
 
     bloom_del(bloom);
-    printf("\nAll done!\n");
+    //printf("\nAll done!\n");
     return 0;
 }

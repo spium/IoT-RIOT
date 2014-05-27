@@ -252,39 +252,39 @@ bool lm75A_init(uint8_t i2c_interface, uint32_t baud_rate,
     if ((external_interr_handler != NULL)
         && lm75A_ext_irq_handler_register(2, BIT3, GPIOINT_FALLING_EDGE,
                                           external_interr_handler)) {
-        printf("# %-70s%10s\n", "External interrupt handler registration",
+        //printf("# %-70s%10s\n", "External interrupt handler registration",
                "...[OK]");
     }
     else {
-        printf("# %-70s%10s\n", "External interrupt handler registration",
+        //printf("# %-70s%10s\n", "External interrupt handler registration",
                "...[FAILED]");
         return false;
     }
 
     puts("################## Before reset ##################");
-    printf("configReg = %u\n", lm75A_get_config_reg());
-    printf("hystTemp = %f\n", lm75A_get_hysteresis_temperature());
-    printf("overTemp = %f\n", lm75A_get_over_temperature());
+    //printf("configReg = %u\n", lm75A_get_config_reg());
+    //printf("hystTemp = %f\n", lm75A_get_hysteresis_temperature());
+    //printf("overTemp = %f\n", lm75A_get_over_temperature());
     lm75A_reset();
 
     puts("\n################## After reset ##################");
-    printf("configRegInitial = %u\n", lm75A_get_config_reg());
-    printf("initialHystTemp = %f\n", lm75A_get_hysteresis_temperature());
-    printf("initialOverTemp = %f\n", lm75A_get_over_temperature());
+    //printf("configRegInitial = %u\n", lm75A_get_config_reg());
+    //printf("initialHystTemp = %f\n", lm75A_get_hysteresis_temperature());
+    //printf("initialOverTemp = %f\n", lm75A_get_over_temperature());
 
     puts("\n################## New configuration ##################");
     // set the hysteresis temperature
     lm75A_set_hysteresis_temperature(32.0);
-    printf("hystTemp = %f\n", lm75A_get_hysteresis_temperature());
+    //printf("hystTemp = %f\n", lm75A_get_hysteresis_temperature());
     lm75A_set_over_temperature(33.0);
-    printf("overTemp = %f\n", lm75A_get_over_temperature());
+    //printf("overTemp = %f\n", lm75A_get_over_temperature());
 
     puts("\n################## Go to comparator mode ##################");
     lm75A_set_operation_mode(LM75A_COMPARATOR_MODE);
-    printf("configReg = %u\n", lm75A_get_config_reg());
+    //printf("configReg = %u\n", lm75A_get_config_reg());
     //  puts("\n################## Go to interrupt mode ##################");
     //  lm75A_set_operation_mode(LM75A_INTERRUPT_MODE);
-    //  printf("configReg = %u\n", lm75A_get_config_reg());
+    //  //printf("configReg = %u\n", lm75A_get_config_reg());
 
     return true;
 }
@@ -305,7 +305,7 @@ void lm75A_start_sensor_sampling(void (*handler)(void))
     while (true) {
         //Toggle the green LED;
         LED_RED_TOGGLE;
-        printf("amb_temp = %3.3f\n", lm75A_get_ambient_temperature());
+        //printf("amb_temp = %3.3f\n", lm75A_get_ambient_temperature());
 
         if (my_alarm && (handler != NULL)) {
             LED_GREEN_ON;

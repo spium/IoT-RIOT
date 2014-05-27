@@ -77,14 +77,14 @@ void print_thread_sigmask(ucontext_t *cp)
 
     for (int i = 1; i < (NSIG); i++) {
         if (native_irq_handlers[i].func != NULL) {
-            printf("%s: %s\n",
+            //printf("%s: %s\n",
                    strsignal(i),
                    (sigismember(&_native_sig_set, i) ? "blocked" : "unblocked")
                   );
         }
 
         if (sigismember(p, i)) {
-            printf("%s: pending\n", strsignal(i));
+            //printf("%s: pending\n", strsignal(i));
         }
     }
 }
@@ -96,7 +96,7 @@ void print_sigmasks(void)
 
     for (int i = 0; i < MAXTHREADS; i++) {
         if (sched_threads[i] != NULL) {
-            printf("%s:\n", sched_threads[i]->name);
+            //printf("%s:\n", sched_threads[i]->name);
             //print_thread_sigmask(sched_threads[i]->sp);
             p = (ucontext_t *)(sched_threads[i]->stack_start);
             print_thread_sigmask(p);
@@ -124,18 +124,18 @@ void native_print_signals(void)
 
     for (int i = 1; i < (NSIG); i++) {
         if (native_irq_handlers[i].func != NULL || i == SIGUSR1) {
-            printf("%s: %s in active thread\n",
+            //printf("%s: %s in active thread\n",
                    strsignal(i),
                    (sigismember(&_native_sig_set, i) ? "blocked" : "unblocked")
                   );
         }
 
         if (sigismember(&p, i)) {
-            printf("%s: pending\n", strsignal(i));
+            //printf("%s: pending\n", strsignal(i));
         }
 
         if (sigismember(&q, i)) {
-            printf("%s: blocked in this context\n", strsignal(i));
+            //printf("%s: blocked in this context\n", strsignal(i));
         }
     }
 }
@@ -291,7 +291,7 @@ void isr_set_sigmask(ucontext_t *ctx)
 void native_isr_entry(int sig, siginfo_t *info, void *context)
 {
     (void) info; /* unused at the moment */
-    //printf("\n\033[33m\n\t\tnative_isr_entry(%i)\n\n\033[0m", sig);
+    ////printf("\n\033[33m\n\t\tnative_isr_entry(%i)\n\n\033[0m", sig);
 
     /* save the signal */
     if (real_write(_sig_pipefd[1], &sig, sizeof(int)) == -1) {
@@ -313,7 +313,7 @@ void native_isr_entry(int sig, siginfo_t *info, void *context)
     /* XXX: Workaround safety check - whenever this happens it really
      * indicates a bug in disableIRQ */
     if (native_interrupts_enabled == 0) {
-        //printf("interrupts are off, but I caught a signal.\n");
+        ////printf("interrupts are off, but I caught a signal.\n");
         return;
     }
     if (_native_in_isr != 0) {
@@ -343,7 +343,7 @@ void native_isr_entry(int sig, siginfo_t *info, void *context)
     _native_saved_eip = ((struct sigcontext *)context)->sc_eip;
     ((struct sigcontext *)context)->sc_eip = (unsigned int)&_native_sig_leave_tramp;
 #else
-    //printf("\n\033[31mEIP:\t%p\ngo switching\n\n\033[0m", (void*)((ucontext_t *)context)->uc_mcontext.gregs[REG_EIP]);
+    ////printf("\n\033[31mEIP:\t%p\ngo switching\n\n\033[0m", (void*)((ucontext_t *)context)->uc_mcontext.gregs[REG_EIP]);
     _native_saved_eip = ((ucontext_t *)context)->uc_mcontext.gregs[REG_EIP];
     ((ucontext_t *)context)->uc_mcontext.gregs[REG_EIP] = (unsigned int)&_native_sig_leave_tramp;
 #endif

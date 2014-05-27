@@ -38,7 +38,7 @@ and Telematics group (http://cst.mi.fu-berlin.de).
 //#define DEBUG
 #ifdef DEBUG
 #include <stdio.h>
-#define PRINTF(fmt,args...) printf("pm: " fmt "\n", ##args)
+#define PRINTF(fmt,args...) //printf("pm: " fmt "\n", ##args)
 #else
 #define PRINTF(...)
 #endif

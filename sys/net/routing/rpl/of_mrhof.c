@@ -66,7 +66,7 @@ static uint16_t calc_path_cost(rpl_parent_t *parent)
     }
 
     double etx_value = etx_get_metric(&(parent->addr));
-    printf("Metric for parent returned: %f", etx_value);
+    //printf("Metric for parent returned: %f", etx_value);
 
     if (etx_value != 0) {
         /*

@@ -29,11 +29,11 @@ void _mersenne_init(int argc, char **argv)
 
     if (argc == 1) {
         initval = hwtimer_now();
-        printf("PRNG initialized to current time: %d\n", initval);
+        //printf("PRNG initialized to current time: %d\n", initval);
     }
     else {
         initval = atoi(argv[1]);
-        printf("PRNG initialized given value: %d\n", initval);
+        //printf("PRNG initialized given value: %d\n", initval);
     }
 
     genrand_init(initval);
@@ -44,5 +44,5 @@ void _mersenne_get(int argc, char **argv)
     (void) argc;
     (void) argv;
 
-    printf("%" PRIu32 "\n", genrand_uint32());
+    //printf("%" PRIu32 "\n", genrand_uint32());
 }

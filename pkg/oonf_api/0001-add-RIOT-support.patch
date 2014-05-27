@@ -240,7 +240,7 @@ index dedab2c..fdc3e82 100644
 
 -  if (src->std.sa_family == AF_INET) {
 +  if (src->std.sin6_family == AF_INET) {
-     snprintf(dst->buf, sizeof(*dst), "%s:%d",
+     sn//printf(dst->buf, sizeof(*dst), "%s:%d",
 -        inet_ntop(AF_INET, &src->v4.sin_addr, buf.buf, sizeof(buf)),
 -        ntohs(src->v4.sin_port));
 +        inet_ntop(AF_INET, &src->v4.sin6_addr, buf.buf, sizeof(buf)),
@@ -252,7 +252,7 @@ index dedab2c..fdc3e82 100644
      if (src->v6.sin6_scope_id) {
        char scope_buf[IF_NAMESIZE];
 
-       snprintf(dst->buf, sizeof(*dst), "[%s]:%d%%%s",
+       sn//printf(dst->buf, sizeof(*dst), "[%s]:%d%%%s",
            inet_ntop(AF_INET6, &src->v6.sin6_addr, buf.buf, sizeof(buf)),
 -          ntohs(src->v6.sin6_port),
 +          NTOHS(src->v6.sin6_port),
@@ -262,15 +262,15 @@ index dedab2c..fdc3e82 100644
 +    else
 +#endif
 +    {
-       snprintf(dst->buf, sizeof(*dst), "[%s]:%d",
+       sn//printf(dst->buf, sizeof(*dst), "[%s]:%d",
            inet_ntop(AF_INET6, &src->v6.sin6_addr, buf.buf, sizeof(buf)),
 -          ntohs(src->v6.sin6_port));
 +          NTOHS(src->v6.sin6_port));
      }
    }
    else {
--    snprintf(dst->buf, sizeof(*dst), "\"Unknown socket type: %d\"", src->std.sa_family);
-+    snprintf(dst->buf, sizeof(*dst), "\"Unknown socket type: %d\"", src->std.sin6_family);
+-    sn//printf(dst->buf, sizeof(*dst), "\"Unknown socket type: %d\"", src->std.sa_family);
++    sn//printf(dst->buf, sizeof(*dst), "\"Unknown socket type: %d\"", src->std.sin6_family);
    }
 
    return dst->buf;

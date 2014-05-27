@@ -52,7 +52,7 @@ ccnl_prefix_to_path(struct ccnl_prefix_s *pr)
 
         for (j = 0; j < pr->complen[i]; j++) {
             unsigned char c = pr->comp[i][j];
-            len += sprintf(prefix_buf + len,
+            len += s//printf(prefix_buf + len,
                            !isprint(c) || isspace(c) || c == '/' ? "%%%02x" : "%c",
                            c);
         }

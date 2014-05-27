@@ -76,7 +76,8 @@ static const char *inet_ntop6(const unsigned char *src, char *dst, size_t size)
     /*
      * Note that int32_t and int16_t need only be "at least" large enough
      * to contain a value of the specified size.  On some systems, like
-     * Crays, there is no such thing as an integer variable with 16 bits.
+     * Crays, there is no such thing as an integnet_ntop6’:
+inet_ntop.c:170:15: error: ‘sn’ undeer variable with 16 bits.
      * Keep this in mind if you think this function should have been coded
      * to use pointer overlays.  All the world's not a VAX.
      */

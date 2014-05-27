@@ -65,7 +65,7 @@ void clist_print(clist_node_t *clist)
     clist_node_t *start = clist;
 
     while (clist != NULL) {
-        printf("list entry: %u prev=%u next=%u\n", clist->data, clist->prev->data, clist->next->data);
+        //printf("list entry: %u prev=%u next=%u\n", clist->data, clist->prev->data, clist->next->data);
         clist = clist->next;
 
         if (clist == start) {
@@ -96,26 +96,26 @@ int main (int argc, char* argv[]) {
     c.next = NULL;
     c.prev = NULL;
 
-    printf("adding a,b,c\n");
+    //printf("adding a,b,c\n");
     clist_add(&clist,&a);
     clist_add(&clist,&b);
     clist_add(&clist,&c);
 
     clist_print(clist);
-    printf("\n");
+    //printf("\n");
 
-    printf("removing b...\n");
+    //printf("removing b...\n");
     clist_remove(&clist, &b);
 
     clist_print(clist);
-    printf("\n");
+    //printf("\n");
 
-    printf("removing a...\n");
+    //printf("removing a...\n");
 
     clist_remove(&clist, &a);
     clist_print(clist);
 
-    printf("removing c...\n");
+    //printf("removing c...\n");
 
     clist_remove(&clist, &c);
     clist_print(clist);

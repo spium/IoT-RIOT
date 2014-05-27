@@ -35,10 +35,10 @@ void _get_humidity_handler(int argc, char **argv)
     success = sht11_read_sensor(&sht11_val, HUMIDITY | TEMPERATURE);
 
     if (!success) {
-        printf("Error reading SHT11\n");
+        //printf("Error reading SHT11\n");
     }
     else {
-        printf("Relative humidity: %5.2f%% / Temperature compensated humidity; %5.2f%%\n",
+        //printf("Relative humidity: %5.2f%% / Temperature compensated humidity; %5.2f%%\n",
                (double) sht11_val.relhum, (double) sht11_val.relhum_temp);
     }
 }
@@ -52,10 +52,10 @@ void _get_temperature_handler(int argc, char **argv)
     success = sht11_read_sensor(&sht11_val, TEMPERATURE);
 
     if (!success) {
-        printf("Error reading SHT11\n");
+        //printf("Error reading SHT11\n");
     }
     else {
-        printf("Temperature: %-6.2f°C\n", (double) sht11_val.temperature);
+        //printf("Temperature: %-6.2f°C\n", (double) sht11_val.temperature);
     }
 }
 void _get_weather_handler(int argc, char **argv)
@@ -68,23 +68,23 @@ void _get_weather_handler(int argc, char **argv)
     success = sht11_read_sensor(&sht11_val, HUMIDITY | TEMPERATURE);
 
     if (!success) {
-        printf("Error reading SHT11\n");
+        //printf("Error reading SHT11\n");
     }
     else {
-        printf("Relative humidity: %5.2f%% / Temperature compensated humidity; %5.2f%% ",
+        //printf("Relative humidity: %5.2f%% / Temperature compensated humidity; %5.2f%% ",
                (double) sht11_val.relhum, (double) sht11_val.relhum_temp);
-        printf("Temperature: %-6.2f°C\n", (double) sht11_val.temperature);
+        //printf("Temperature: %-6.2f°C\n", (double) sht11_val.temperature);
     }
 }
 
 void _set_offset_handler(int argc, char **argv)
 {
     if (argc != 2) {
-        printf("Usage: %s <OFFSET>\n", argv[0]);
+        //printf("Usage: %s <OFFSET>\n", argv[0]);
     }
     else {
         sht11_temperature_offset = atoi(argv[1]);
-        printf("Temperature offset set to %f\n", (double) sht11_temperature_offset);
+        //printf("Temperature offset set to %f\n", (double) sht11_temperature_offset);
     }
 }
 

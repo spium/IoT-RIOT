@@ -75,11 +75,11 @@ int open_serial_port(const char *port_name)
     r = set_baud(baud_rate);
 
     if (r == 0) {
-        printf("Port \"%s\" opened at %s baud\r\n",
+        //printf("Port \"%s\" opened at %s baud\r\n",
                port_name, baud_rate);
     }
     else {
-        printf("Port \"%s\" opened, unable to set baud to %s\r\n",
+        //printf("Port \"%s\" opened, unable to set baud to %s\r\n",
                port_name, baud_rate);
     }
 
@@ -115,27 +115,27 @@ static void report_open_error(const char *filename, int err)
     mode_t perm;
     int r, perm_ok = 0;
 
-    printf("\r\n");
-    printf("Unable to open \"%s\"\r\n", filename);
+    //printf("\r\n");
+    //printf("Unable to open \"%s\"\r\n", filename);
 
     if (err == EACCES) {
-        printf("You don't have permission to access %s\r\n", filename);
+        //printf("You don't have permission to access %s\r\n", filename);
     }
 
     r = stat(filename, &info);
 
     if (r < 0) {
         if (errno == ENOENT) {
-            printf("file %s does not exist\r\n", filename);
+            //printf("file %s does not exist\r\n", filename);
         }
         else if (errno == ELOOP) {
-            printf("too many symbolic links\r\n");
+            //printf("too many symbolic links\r\n");
         }
         else if (errno == EACCES) {
-            printf("permission denied to get file status\r\n");
+            //printf("permission denied to get file status\r\n");
         }
         else {
-            printf("Unable to get file status, err%d\r\n", errno);
+            //printf("Unable to get file status, err%d\r\n", errno);
         }
 
         return;
@@ -147,83 +147,83 @@ static void report_open_error(const char *filename, int err)
     p = getpwuid(my_uid);
 
     if (p) {
-        snprintf(my_uname, sizeof(my_uname),
+        sn//printf(my_uname, sizeof(my_uname),
                  "\"%s\" (gid=%d)", p->pw_name, (int)my_uid);
     }
     else {
-        snprintf(my_uname, sizeof(my_uname),
+        sn//printf(my_uname, sizeof(my_uname),
                  "(gid=%d)", (int)my_uid);
     }
 
     p = getpwuid(info.st_uid);
 
     if (p) {
-        snprintf(file_uname, sizeof(file_uname),
+        sn//printf(file_uname, sizeof(file_uname),
                  "\"%s\" (uid=%d)", p->pw_name, (int)info.st_uid);
     }
     else {
-        snprintf(file_uname, sizeof(file_uname),
+        sn//printf(file_uname, sizeof(file_uname),
                  "(uid=%d)", (int)info.st_uid);
     }
 
     g = getgrgid(my_gid);
 
     if (g) {
-        snprintf(my_gname, sizeof(my_gname),
+        sn//printf(my_gname, sizeof(my_gname),
                  "\"%s\" (gid=%d)", g->gr_name, (int)my_gid);
     }
     else {
-        snprintf(my_gname, sizeof(my_gname),
+        sn//printf(my_gname, sizeof(my_gname),
                  "(gid=%d)", (int)my_gid);
     }
 
     g = getgrgid(info.st_gid);
 
     if (g) {
-        snprintf(file_gname, sizeof(file_gname),
+        sn//printf(file_gname, sizeof(file_gname),
                  "\"%s\" (uid=%d)", g->gr_name, (int)info.st_gid);
     }
     else {
-        snprintf(file_gname, sizeof(file_gname),
+        sn//printf(file_gname, sizeof(file_gname),
                  "(uid=%d)", (int)info.st_gid);
     }
 
-    /* printf("%s is owned by: user %s, group %s\r\n",
+    /* //printf("%s is owned by: user %s, group %s\r\n",
     	filename, file_uname, file_gname); */
 
     perm = info.st_mode;
 
     if ((perm & S_IROTH) && (perm & S_IWOTH)) {
-        printf("%s has read/write permission for everybody\r\n",
+        //printf("%s has read/write permission for everybody\r\n",
                filename);
     }
     else {
-        printf("%s is not read/write for everybody, so\r\n", filename);
-        printf("  you must match either user or group permission\r\n");
+        //printf("%s is not read/write for everybody, so\r\n", filename);
+        //printf("  you must match either user or group permission\r\n");
 
         if ((perm & S_IRUSR) && (perm & S_IWUSR)) {
-            printf("%s has read/write permission for user %s\r\n",
+            //printf("%s has read/write permission for user %s\r\n",
                    filename, file_uname);
             perm_ok = 1;
         }
 
         if ((perm & S_IRGRP) && (perm & S_IWGRP)) {
-            printf("%s has read/write permission for group %s\r\n",
+            //printf("%s has read/write permission for group %s\r\n",
                    filename, file_gname);
             perm_ok = 1;
         }
 
         if (perm_ok == 0) {
-            printf("%s does not read/write permission for user or group!\r\n",
+            //printf("%s does not read/write permission for user or group!\r\n",
                    filename);
         }
         else {
-            printf("Your access privs: user %s, group %s\r\n",
+            //printf("Your access privs: user %s, group %s\r\n",
                    my_uname, my_gname);
         }
     }
 
-    printf("\r\n");
+    //printf("\r\n");
 }
 
 
@@ -376,7 +376,7 @@ void set_rts(int val)
     result = ioctl(port_fd, TIOCMGET, &flags);
 
     if (result == -1) {
-        printf("Error %i while reading port io flags\n", errno);
+        //printf("Error %i while reading port io flags\n", errno);
         return;
     }
 
@@ -390,7 +390,7 @@ void set_rts(int val)
     result = ioctl(port_fd, TIOCMSET, &flags);
 
     if (result == -1) {
-        printf("Error %i while setting port io flags\n", errno);
+        //printf("Error %i while setting port io flags\n", errno);
     }
 }
 
@@ -408,7 +408,7 @@ void set_dtr(int val)
     result = ioctl(port_fd, TIOCMGET, &flags);
 
     if (result == -1) {
-        printf("Error %i while reading port io flags\n", errno);
+        //printf("Error %i while reading port io flags\n", errno);
         return;
     }
 
@@ -422,6 +422,6 @@ void set_dtr(int val)
     result = ioctl(port_fd, TIOCMSET, &flags);
 
     if (result == -1) {
-        printf("Error %i while setting port io flags\n", errno);
+        //printf("Error %i while setting port io flags\n", errno);
     }
 }

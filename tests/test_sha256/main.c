@@ -33,15 +33,15 @@ void sha256_calc(const char *str, const char *expected)
     sha256_update(&sha256, str, strlen(str));
     sha256_final(hash, &sha256);
 
-    printf("Input:      %s\n"
+    //printf("Input:      %s\n"
            "Expected:   %s\n"
            "Calculated: ", str, expected);
 
     for (int i = 0; i < SHA256_DIGEST_LENGTH; i++) {
-        printf("%02x", hash[i]);
+        //printf("%02x", hash[i]);
     }
 
-    printf("\n\n");
+    //printf("\n\n");
 }
 
 int main(void)

@@ -104,7 +104,7 @@ void recv_ieee802154_frame(void)
             DEBUG("Sender:");
 
             for (uint8_t i = 0; i < 8; i++) {
-                printf("%02x ", frame.src_addr[i]);
+                //printf("%02x ", frame.src_addr[i]);
             }
 
             DEBUG("\n");
@@ -112,7 +112,7 @@ void recv_ieee802154_frame(void)
             DEBUG("Receiver:");
 
             for (size_t i = 0; i < 8; i++) {
-                printf("%02x ", frame.dest_addr[i]);
+                //printf("%02x ", frame.dest_addr[i]);
             }
 
             DEBUG("\n");
@@ -120,10 +120,10 @@ void recv_ieee802154_frame(void)
             DEBUG("Payload:\n");
 
             for (uint8_t i = 0; i < frame.payload_len; i++) {
-                printf("%02x ", frame.payload[i]);
+                //printf("%02x ", frame.payload[i]);
 
                 if (!((i + 1) % 16) || i == frame.payload_len - 1) {
-                    printf("\n");
+                    //printf("\n");
                 }
             }
 

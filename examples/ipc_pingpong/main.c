@@ -27,12 +27,12 @@
 
 void second_thread(void)
 {
-    printf("2nd thread started, pid: %i\n", thread_getpid());
+    //printf("2nd thread started, pid: %i\n", thread_getpid());
     msg_t m;
 
     while (1) {
         msg_receive(&m);
-        printf("2nd: Got msg from %i\n", m.sender_pid);
+        //printf("2nd: Got msg from %i\n", m.sender_pid);
         m.content.value++;
         msg_reply(&m, &m);
     }
@@ -42,8 +42,8 @@ char second_thread_stack[KERNEL_CONF_STACKSIZE_MAIN];
 
 int main(void)
 {
-    printf("Starting IPC Ping-pong example...\n");
-    printf("1st thread started, pid: %i\n", thread_getpid());
+    //printf("Starting IPC Ping-pong example...\n");
+    //printf("1st thread started, pid: %i\n", thread_getpid());
 
     msg_t m;
 
@@ -55,6 +55,6 @@ int main(void)
 
     while (1) {
         msg_send_receive(&m, &m, pid);
-        printf("1st: Got msg with content %u\n", (unsigned int)m.content.value);
+        //printf("1st: Got msg with content %u\n", (unsigned int)m.content.value);
     }
 }

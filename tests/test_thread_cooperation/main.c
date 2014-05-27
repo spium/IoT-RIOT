@@ -39,15 +39,15 @@ void run(void)
 {
     int err;
     int me = thread_getpid();
-    printf("I am alive (%d)\n", me);
+    //printf("I am alive (%d)\n", me);
     msg_t arg;
     err = msg_receive(&arg);
-    printf("Thread %d has arg %" PRIu32 "\n", me, arg.content.value);
+    //printf("Thread %d has arg %" PRIu32 "\n", me, arg.content.value);
 
     err = mutex_lock(&mtx);
 
     if (err < 1) {
-        printf("[!!!] mutex_lock failed with %d\n", err);
+        //printf("[!!!] mutex_lock failed with %d\n", err);
     }
 
     storage *= arg.content.value;
@@ -58,7 +58,7 @@ void run(void)
     err = msg_send(&final, main_id, 1);
 
     if (err < 0) {
-        printf("[!!!] Failed to send message from %d to main\n", me);
+        //printf("[!!!] Failed to send message from %d to main\n", me);
     }
 }
 
@@ -70,26 +70,26 @@ int main(void)
     err = mutex_init(&mtx);
 
     if (err < 1) {
-        printf("[!!!] mutex_init failed with %d\n", err);
+        //printf("[!!!] mutex_init failed with %d\n", err);
     }
 
-    printf("Problem: %d\n", PROBLEM);
+    //printf("Problem: %d\n", PROBLEM);
 
     msg_t args[PROBLEM];
 
     for (int i = 0; i < PROBLEM; ++i) {
-        printf("Creating thread with arg %d\n", (i + 1));
+        //printf("Creating thread with arg %d\n", (i + 1));
         ths[i] = thread_create(stacks[i], STACK_SIZE, PRIORITY_MAIN - 1, CREATE_WOUT_YIELD | CREATE_STACKTEST, run, "thread");
 
         if (ths[i] < 0)  {
-            printf("[!!!] Creating thread failed with %d\n", err);
+            //printf("[!!!] Creating thread failed with %d\n", err);
         }
         else {
             args[i].content.value = i + 1;
             err = msg_send(&args[i], ths[i], 1);
 
             if (err < 0) {
-                printf("[!!!] Sending message to thread %d failed\n", ths[i]);
+                //printf("[!!!] Sending message to thread %d failed\n", ths[i]);
             }
         }
     }
@@ -97,10 +97,10 @@ int main(void)
     for (int i = 0; i < PROBLEM; ++i) {
         msg_t msg;
         msg_receive(&msg);
-        printf("Reveiced message %d from thread %" PRIu32 "\n", i, msg.content.value);
+        //printf("Reveiced message %d from thread %" PRIu32 "\n", i, msg.content.value);
     }
 
-    printf("Factorial: %d\n", storage);
+    //printf("Factorial: %d\n", storage);
 
     if (storage != 479001600) {
         puts("[!!!] Error, expected: 12!= 479001600.");

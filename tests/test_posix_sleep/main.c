@@ -26,7 +26,7 @@ int main(void)
     puts("usleep 1 x 1000*1000");
     for (int i = 0; i < 10; i++) {
         useconds_t us = i*1000*1000;
-        printf("calling usleep(%u)\n", (unsigned int) us);
+        //printf("calling usleep(%u)\n", (unsigned int) us);
         usleep(us);
         puts("wake up");
     }
@@ -34,7 +34,7 @@ int main(void)
     puts("sleep 1");
     for (int i = 0; i < 10; i++) {
         unsigned int s = i;
-        printf("calling sleep(%u)\n", s);
+        //printf("calling sleep(%u)\n", s);
         sleep(s);
         puts("wake up");
     }

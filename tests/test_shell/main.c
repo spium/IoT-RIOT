@@ -32,20 +32,20 @@ static void print_teststart(int argc, char **argv)
 {
     (void) argc;
     (void) argv;
-    printf("[TEST_START]\n");
+    //printf("[TEST_START]\n");
 }
 
 static void print_testend(int argc, char **argv)
 {
     (void) argc;
     (void) argv;
-    printf("[TEST_END]\n");
+    //printf("[TEST_END]\n");
 }
 
 static void print_echo(int argc, char **argv)
 {
     for (int i = 0; i < argc; ++i) {
-        printf("“%s” ", argv[i]);
+        //printf("“%s” ", argv[i]);
     }
     puts("");
 }
@@ -75,7 +75,7 @@ static const shell_command_t shell_commands[] = {
 int main(void)
 {
 
-    printf("test_shell.\n");
+    //printf("test_shell.\n");
 
     board_uart0_init();
 

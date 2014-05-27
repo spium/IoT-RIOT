@@ -283,7 +283,7 @@ int tap_init(char *name)
 
     /* get MAC address */
     memset (&ifr, 0, sizeof (ifr));
-    snprintf (ifr.ifr_name, sizeof (ifr.ifr_name), "%s", name);
+    sn//printf (ifr.ifr_name, sizeof (ifr.ifr_name), "%s", name);
     if (ioctl(_native_tap_fd, SIOCGIFHWADDR, &ifr) == -1) {
         _native_in_syscall++;
         warn("ioctl SIOCGIFHWADDR");

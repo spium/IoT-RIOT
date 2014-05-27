@@ -48,9 +48,9 @@ void rpl_udp_init(int argc, char **argv)
     uint8_t chan = RADIO_CHANNEL;
 
     if (argc != 2) {
-        printf("Usage: %s (r|n)\n", argv[0]);
-        printf("\tr\tinitialize as root\n");
-        printf("\tn\tinitialize as node router\n");
+        //printf("Usage: %s (r|n)\n", argv[0]);
+        //printf("\tr\tinitialize as root\n");
+        //printf("\tn\tinitialize as node router\n");
         return;
     }
 
@@ -58,10 +58,10 @@ void rpl_udp_init(int argc, char **argv)
 
     char command = argv[1][0];
     if ((command == 'n') || (command == 'r')) {
-        printf("INFO: Initialize as %s on address %d\n", ((command == 'n') ? "node" : "root"), id);
+        //printf("INFO: Initialize as %s on address %d\n", ((command == 'n') ? "node" : "root"), id);
 
         if (!id || (id > 255)) {
-            printf("ERROR: address not a valid 8 bit integer\n");
+            //printf("ERROR: address not a valid 8 bit integer\n");
             return;
         }
 
@@ -72,7 +72,7 @@ void rpl_udp_init(int argc, char **argv)
         state = rpl_init(0);
 
         if (state != SIXLOWERROR_SUCCESS) {
-            printf("Error initializing RPL\n");
+            //printf("Error initializing RPL\n");
         }
         else {
             puts("6LoWPAN and RPL initialized.");
@@ -94,7 +94,7 @@ void rpl_udp_init(int argc, char **argv)
         //sixlowpan_lowpan_register(monitor_pid);
     }
     else {
-        printf("ERROR: Unknown command '%c'\n", command);
+        //printf("ERROR: Unknown command '%c'\n", command);
         return;
     }
 
@@ -117,7 +117,7 @@ void rpl_udp_init(int argc, char **argv)
     m.content.ptr = (void *) &tcmd;
 
     msg_send_receive(&m, &m, transceiver_pid);
-    printf("Channel set to %u\n", RADIO_CHANNEL);
+    //printf("Channel set to %u\n", RADIO_CHANNEL);
 
     puts("Destiny initialized");
     /* start transceiver watchdog */
@@ -137,37 +137,37 @@ void rpl_udp_loop(int argc, char **argv)
         return;
     }
 
-    printf("---------------------------\n");
-    printf("OUTPUT\n");
-    printf("my rank: %d\n", mydodag->my_rank);
+    //printf("---------------------------\n");
+    //printf("OUTPUT\n");
+    //printf("my rank: %d\n", mydodag->my_rank);
 
     if (!is_root) {
-        printf("my preferred parent:\n");
-        printf("%s\n", ipv6_addr_to_str(addr_str, IPV6_MAX_ADDR_STR_LEN,
+        //printf("my preferred parent:\n");
+        //printf("%s\n", ipv6_addr_to_str(addr_str, IPV6_MAX_ADDR_STR_LEN,
                                         (&mydodag->my_preferred_parent->addr)));
-        printf("parent lifetime: %d\n", mydodag->my_preferred_parent->lifetime);
+        //printf("parent lifetime: %d\n", mydodag->my_preferred_parent->lifetime);
     }
 
-    printf("---------------------------$\n");
+    //printf("---------------------------$\n");
 
     for (int i = 0; i < RPL_MAX_ROUTING_ENTRIES; i++) {
         if (rtable[i].used) {
-            printf("%s\n", ipv6_addr_to_str(addr_str, IPV6_MAX_ADDR_STR_LEN,
+            //printf("%s\n", ipv6_addr_to_str(addr_str, IPV6_MAX_ADDR_STR_LEN,
                                             (&rtable[i].address)));
             puts("next hop");
-            printf("%s\n", ipv6_addr_to_str(addr_str, IPV6_MAX_ADDR_STR_LEN,
+            //printf("%s\n", ipv6_addr_to_str(addr_str, IPV6_MAX_ADDR_STR_LEN,
                                             (&rtable[i].next_hop)));
-            printf("entry %d lifetime %d\n", i, rtable[i].lifetime);
+            //printf("entry %d lifetime %d\n", i, rtable[i].lifetime);
 
             if (!rpl_equal_id(&rtable[i].address, &rtable[i].next_hop)) {
                 puts("multi-hop");
             }
 
-            printf("---------------------------$\n");
+            //printf("---------------------------$\n");
         }
     }
 
-    printf("########################\n");
+    //printf("########################\n");
 }
 
 void rpl_udp_table(int argc, char **argv)
@@ -177,25 +177,25 @@ void rpl_udp_table(int argc, char **argv)
 
     rpl_routing_entry_t *rtable;
     rtable = rpl_get_routing_table();
-    printf("---------------------------\n");
-    printf("OUTPUT\n");
-    printf("---------------------------\n");
+    //printf("---------------------------\n");
+    //printf("OUTPUT\n");
+    //printf("---------------------------\n");
 
     for (int i = 0; i < RPL_MAX_ROUTING_ENTRIES; i++) {
         if (rtable[i].used) {
-            printf("%s\n", ipv6_addr_to_str(addr_str, IPV6_MAX_ADDR_STR_LEN,
+            //printf("%s\n", ipv6_addr_to_str(addr_str, IPV6_MAX_ADDR_STR_LEN,
                                             (&rtable[i].address)));
-            printf("entry %d lifetime %d\n", i, rtable[i].lifetime);
+            //printf("entry %d lifetime %d\n", i, rtable[i].lifetime);
 
             if (!rpl_equal_id(&rtable[i].address, &rtable[i].next_hop)) {
                 puts("multi-hop");
             }
 
-            printf("--------------\n");
+            //printf("--------------\n");
         }
     }
 
-    printf("$\n");
+    //printf("$\n");
 }
 
 void rpl_udp_dodag(int argc, char **argv)
@@ -203,25 +203,25 @@ void rpl_udp_dodag(int argc, char **argv)
     (void) argc;
     (void) argv;
 
-    printf("---------------------------\n");
+    //printf("---------------------------\n");
     rpl_dodag_t *mydodag = rpl_get_my_dodag();
 
     if (mydodag == NULL) {
-        printf("Not part of a dodag\n");
-        printf("---------------------------\n");
+        //printf("Not part of a dodag\n");
+        //printf("---------------------------\n");
         return;
     }
 
-    printf("Part of Dodag:\n");
-    printf("%s\n", ipv6_addr_to_str(addr_str, IPV6_MAX_ADDR_STR_LEN,
+    //printf("Part of Dodag:\n");
+    //printf("%s\n", ipv6_addr_to_str(addr_str, IPV6_MAX_ADDR_STR_LEN,
                                     (&mydodag->dodag_id)));
-    printf("my rank: %d\n", mydodag->my_rank);
+    //printf("my rank: %d\n", mydodag->my_rank);
 
     if (!is_root) {
-        printf("my preferred parent:\n");
-        printf("%s\n", ipv6_addr_to_str(addr_str, IPV6_MAX_ADDR_STR_LEN,
+        //printf("my preferred parent:\n");
+        //printf("%s\n", ipv6_addr_to_str(addr_str, IPV6_MAX_ADDR_STR_LEN,
                                         (&mydodag->my_preferred_parent->addr)));
     }
 
-    printf("---------------------------\n");
+    //printf("---------------------------\n");
 }

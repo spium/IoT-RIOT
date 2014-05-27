@@ -189,7 +189,7 @@ char *make_message(const char *format, va_list argp)
         return NULL;
 
     while (1) {
-        n = vsnprintf(message, size, format, argp);
+        n = vsn//printf(message, size, format, argp);
         if (n < 0)
             return NULL;
         if (n < size)
@@ -205,7 +205,7 @@ char *make_message(const char *format, va_list argp)
     }
 }
 
-int printf(const char *format, ...)
+int //printf(const char *format, ...)
 {
     int r;
     va_list argp;
@@ -223,7 +223,7 @@ int printf(const char *format, ...)
 }
 
 
-int vprintf(const char *format, va_list argp)
+int v//printf(const char *format, va_list argp)
 {
     int r;
     char *m;

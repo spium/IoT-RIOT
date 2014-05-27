@@ -42,15 +42,15 @@ msg_t msg_q[RCV_BUFFER_SIZE];
 void rpl_udp_set_id(int argc, char **argv)
 {
     if (argc != 2) {
-        printf("Usage: %s address\n", argv[0]);
-        printf("\taddress must be an 8 bit integer\n");
-        printf("\n\t(Current address is %u)\n", id);
+        //printf("Usage: %s address\n", argv[0]);
+        //printf("\taddress must be an 8 bit integer\n");
+        //printf("\n\t(Current address is %u)\n", id);
         return;
     }
 
     id = atoi(argv[1]);
 
-    printf("Set node ID to %u\n", id);
+    //printf("Set node ID to %u\n", id);
 }
 
 void rpl_udp_monitor(void)
@@ -85,8 +85,8 @@ void rpl_udp_monitor(void)
         }
         else if (m.type == IPV6_PACKET_RECEIVED) {
             ipv6_buf = (ipv6_hdr_t *) m.content.ptr;
-            printf("IPv6 datagram received (next header: %02X)", ipv6_buf->nextheader);
-            printf(" from %s ", ipv6_addr_to_str(addr_str, IPV6_MAX_ADDR_STR_LEN,
+            //printf("IPv6 datagram received (next header: %02X)", ipv6_buf->nextheader);
+            //printf(" from %s ", ipv6_addr_to_str(addr_str, IPV6_MAX_ADDR_STR_LEN,
                                                  &ipv6_buf->srcaddr));
 
             if (ipv6_buf->nextheader == IPV6_PROTO_NUM_ICMPV6) {
@@ -100,13 +100,13 @@ void rpl_udp_monitor(void)
                 DEBUG("\t ICMP code: %02X ", icmp_code);
             }
 
-            printf("\n");
+            //printf("\n");
         }
         else if (m.type == ENOBUFFER) {
             puts("Transceiver buffer full");
         }
         else {
-            printf("Unknown packet received, type %04X\n", m.type);
+            //printf("Unknown packet received, type %04X\n", m.type);
         }
     }
 }
@@ -131,10 +131,10 @@ void rpl_udp_ignore(int argc, char **argv)
 
     if (argc == 2) {
         a = atoi(argv[1]);
-        printf("sending to transceiver (%u): %u\n", transceiver_pid, (*(uint8_t *)tcmd.data));
+        //printf("sending to transceiver (%u): %u\n", transceiver_pid, (*(uint8_t *)tcmd.data));
         msg_send(&mesg, transceiver_pid, 1);
     }
     else {
-        printf("Usage: %s <addr>\n", argv[0]);
+        //printf("Usage: %s <addr>\n", argv[0]);
     }
 }

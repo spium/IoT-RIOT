@@ -22,13 +22,13 @@
 void printArrayRange(uint8_t *array, uint16_t len, char *str)
 {
     int i = 0;
-    printf("-------------%s-------------\n", str);
+    //printf("-------------%s-------------\n", str);
 
     for (i = 0; i < len; i++) {
-        printf("%#x ", *(array + i));
+        //printf("%#x ", *(array + i));
     }
 
-    printf("\n-----------%u-------------\n", len);
+    //printf("\n-----------%u-------------\n", len);
 }
 
 uint16_t csum(uint16_t sum, uint8_t *buf, uint16_t len)

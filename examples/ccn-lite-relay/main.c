@@ -48,13 +48,13 @@ void set_address_handler(uint16_t a)
     tcmd.data = &a;
     mesg.content.ptr = (char *) &tcmd;
 
-    printf("trying to set address %" PRIu16 "\n", a);
+    //printf("trying to set address %" PRIu16 "\n", a);
     mesg.type = SET_ADDRESS;
 
-    printf("transceiver_pid=%d\n", transceiver_pid);
+    //printf("transceiver_pid=%d\n", transceiver_pid);
 
     msg_send_receive(&mesg, &mesg, transceiver_pid);
-    printf("got address: %" PRIu16 "\n", a);
+    //printf("got address: %" PRIu16 "\n", a);
 }
 
 void populate_cache(void)
@@ -73,13 +73,13 @@ void second_thread(void)
 
 int main(void)
 {
-    printf("CCN!\n");
+    //printf("CCN!\n");
 
     relay_pid = thread_getpid();
 
     thread_create(t2_stack, KERNEL_CONF_STACKSIZE_PRINTF, PRIORITY_MAIN + 1, CREATE_STACKTEST, second_thread, "helper thread");
 
-    printf("starting ccn-lite relay...\n");
+    //printf("starting ccn-lite relay...\n");
     ccnl_riot_relay_start(CCNL_DEFAULT_MAX_CACHE_ENTRIES,
                           CCNL_DEFAULT_THRESHOLD_PREFIX,
                           CCNL_DEFAULT_THRESHOLD_AGGREGATE);

@@ -53,8 +53,8 @@ int main(void)
     struct bloom_t *bloom = bloom_new(1 << 12, 8, fnv_hash, sax_hash, sdbm_hash,
                                       djb2_hash, kr_hash, dek_hash, rotating_hash, one_at_a_time_hash);
 
-    printf("Testing Bloom filter.\n\n");
-    printf("m: %" PRIu32 " k: %" PRIu32 "\n\n", (uint32_t) bloom->m,
+    //printf("Testing Bloom filter.\n\n");
+    //printf("m: %" PRIu32 " k: %" PRIu32 "\n\n", (uint32_t) bloom->m,
            (uint32_t) bloom->k);
 
     genrand_init(myseed);
@@ -70,7 +70,7 @@ int main(void)
     }
 
     unsigned long t2 = hwtimer_now();
-    printf("adding %d elements took %" PRIu32 "ms\n", lenB,
+    //printf("adding %d elements took %" PRIu32 "ms\n", lenB,
            (uint32_t) HWTIMER_TICKS_TO_US(t2 - t1) / 1000);
 
     int in = 0;
@@ -93,16 +93,16 @@ int main(void)
     }
 
     unsigned long t4 = hwtimer_now();
-    printf("checking %d elements took %" PRIu32 "ms\n", lenA,
+    //printf("checking %d elements took %" PRIu32 "ms\n", lenA,
            (uint32_t) HWTIMER_TICKS_TO_US(t4 - t3) / 1000);
 
-    printf("\n");
-    printf("%d elements probably in the filter.\n", in);
-    printf("%d elements not in the filter.\n", not_in);
+    //printf("\n");
+    //printf("%d elements probably in the filter.\n", in);
+    //printf("%d elements not in the filter.\n", not_in);
     double false_positive_rate = (double) in / (double) lenA;
-    printf("%f false positive rate.\n", false_positive_rate);
+    //printf("%f false positive rate.\n", false_positive_rate);
 
     bloom_del(bloom);
-    printf("\nAll done!\n");
+    //printf("\nAll done!\n");
     return 0;
 }

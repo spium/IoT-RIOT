@@ -36,7 +36,7 @@
 
 #define DEBUG_SYSCALLS			0
 #if DEBUG_SYSCALLS
-#define	PRINTF(...)				printf(__VA_ARGS__)
+#define	PRINTF(...)				//printf(__VA_ARGS__)
 #else
 #define PRINTF(...)
 #endif
@@ -58,13 +58,13 @@ volatile static uint8_t iUsedHeap = 0;
 /*-----------------------------------------------------------------------------------*/
 void heap_stats(void) {
 	for(int i = 0; i < NUM_HEAPS; i++)
-		printf("# heap %i: %p -- %p -> %p (%li of %li free)\n", i, heap_start[i], heap[i], heap_max[i],
+		//printf("# heap %i: %p -- %p -> %p (%li of %li free)\n", i, heap_start[i], heap[i], heap_max[i],
 			(uint32_t)heap_max[i] - (uint32_t)heap[i], (uint32_t)heap_max[i] - (uint32_t)heap_start[i]);
 }
 /*-----------------------------------------------------------------------------------*/
 void __assert_func(const char *file, int line, const char *func, const char *failedexpr)
 {
-	printf("#! assertion %s failed\n\t%s() in %s:%d\n", failedexpr, func, file, line );
+	//printf("#! assertion %s failed\n\t%s() in %s:%d\n", failedexpr, func, file, line );
 	_exit(3);
 }
 /*-----------------------------------------------------------------------------------*/
@@ -212,7 +212,7 @@ int _unlink_r(struct _reent *r, char* path)
 /*---------------------------------------------------------------------------*/
 void _exit(int n)
 {
-	printf("#! exit %i: resetting\n", n);
+	//printf("#! exit %i: resetting\n", n);
 
 	//FIXME write out all peripherie buffers stdout flush
 	NVIC_SystemReset();

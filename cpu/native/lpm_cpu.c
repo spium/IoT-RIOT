@@ -119,16 +119,16 @@ enum lpm_mode lpm_set(enum lpm_mode target)
         /* XXX: unfinished modes: */
         case LPM_SLEEP:
             /*TODO: implement*/
-            printf("XXX: lpm_set(): LPM_SLEEP not implemented\n");
+            //printf("XXX: lpm_set(): LPM_SLEEP not implemented\n");
             //sigsuspend();
 
         case LPM_POWERDOWN:
             /*TODO: implement*/
-            printf("XXX: lpm_set(): LPM_POWERDOWN not implemented\n");
+            //printf("XXX: lpm_set(): LPM_POWERDOWN not implemented\n");
             //sigsuspend();
 
         case LPM_OFF:
-            printf("lpm_set(): exit()\n");
+            //printf("lpm_set(): exit()\n");
             exit(0);
 
         default:

@@ -28,7 +28,7 @@ void _cc110x_get_set_address_handler(int argc, char **argv)
     if (argc > 1) {
         int16_t a = atoi(argv[1]);
 
-        printf("[cc110x] Setting address %i ... ", a);
+        //printf("[cc110x] Setting address %i ... ", a);
         cc1100_set_address((radio_address_t)a);
 
         if (cc1100_get_address() == (radio_address_t)a) {
@@ -39,7 +39,7 @@ void _cc110x_get_set_address_handler(int argc, char **argv)
         }
     }
     else {
-        printf("[cc1100] Got address: %i\n", cc1100_get_address());
+        //printf("[cc1100] Got address: %i\n", cc1100_get_address());
     }
 }
 
@@ -48,7 +48,7 @@ void _cc110x_get_set_channel_handler(int argc, char **argv)
     if (argc > 1) {
         int16_t a = atoi(argv[1]);
 
-        printf("[cc110x] Setting channel %i...", a);
+        //printf("[cc110x] Setting channel %i...", a);
         cc1100_set_channel(a);
 
         if (cc1100_get_channel() == a) {
@@ -59,6 +59,6 @@ void _cc110x_get_set_channel_handler(int argc, char **argv)
         }
     }
     else {
-        printf("[cc1100] Got address: %i\n", cc1100_get_channel());
+        //printf("[cc1100] Got address: %i\n", cc1100_get_channel());
     }
 }

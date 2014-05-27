@@ -118,9 +118,9 @@ int download_begin(char *file)
 
     file_name = file;
 
-    printf("\r\nEntering Bootloader Mode\r\n");
+    //printf("\r\nEntering Bootloader Mode\r\n");
     hard_reset_to_bootloader();
-    printf("Read \"%s\"", file_name);
+    //printf("Read \"%s\"", file_name);
     r = read_intel_hex(file_name);
 
     if (r < 0) {
@@ -128,7 +128,7 @@ int download_begin(char *file)
         return 0;
     }
 
-    printf(": %d bytes\r\n", r);
+    //printf(": %d bytes\r\n", r);
     mk_valid_code_vector();
     state = SYNC_1;
     reboot_only = 0;
@@ -139,7 +139,7 @@ int download_begin(char *file)
 
 void soft_reboot_begin(void)
 {
-    printf("\r\nEntering Bootloader Mode\r\n");
+    //printf("\r\nEntering Bootloader Mode\r\n");
     hard_reset_to_bootloader();
     state = SYNC_1;
     reboot_only = 1;
@@ -264,25 +264,25 @@ static void download_main(int event)
             case SYNC_1:
                 switch (event) {
                     case BEGIN:
-                        printf("Attempting baud sync");
+                        //printf("Attempting baud sync");
                         retry = 0;
 
                     case RETRY:
-                        printf(".");
+                        //printf(".");
                         fflush(stdout);
                         xmit_cmd("?", 2);
                         return;
 
                     case RESPONSE:
                         if (strcmp(parsed_response_buf, "Synchronized\r\n") == 0) {
-                            //printf("response: sync'd\n");
+                            ////printf("response: sync'd\n");
                             state = SYNC_2;
                             event = BEGIN;
                             break;
                         }
 
                         if (strcmp(parsed_response_buf, "?") == 0) {
-                            //printf("response: echo only\n");
+                            ////printf("response: echo only\n");
                             retry++;
 
                             if (retry > 150) {
@@ -295,7 +295,7 @@ static void download_main(int event)
                             break;
                         }
 
-                        snprintf(buf, sizeof(buf), "Unexpected response to sync, \"%s\"",
+                        sn//printf(buf, sizeof(buf), "Unexpected response to sync, \"%s\"",
                                  parsed_response_buf);
                         download_cancel(buf);
                         return;
@@ -331,7 +331,7 @@ static void download_main(int event)
                             break;
                         }
                         else {
-                            snprintf(buf, sizeof(buf), "Unable to complete baud sync, %s",
+                            sn//printf(buf, sizeof(buf), "Unable to complete baud sync, %s",
                                      parsed_response_buf);
                             download_cancel(buf);
                             return;
@@ -351,17 +351,17 @@ static void download_main(int event)
                 switch (event) {
                     case BEGIN:
                         if (sscanf(crystal, "%lf", &xtal) != 1) {
-                            printf("\r\n");
+                            //printf("\r\n");
                             download_cancel("Crystal frequency is required for 3rd step of baud rate sync");
                             return;
                         }
 
                         if (xtal < 10.0 || xtal > 25.0) {
-                            printf("\r\n");
-                            printf("Warning: crystal frequency out of range (10.0 to 25.0), continuing anyway! (hope you know what you're doing)\r\n");
+                            //printf("\r\n");
+                            //printf("Warning: crystal frequency out of range (10.0 to 25.0), continuing anyway! (hope you know what you're doing)\r\n");
                         }
 
-                        snprintf(buf, sizeof(buf), "%d\r\n", (int)(xtal * 1000.0 + 0.5));
+                        sn//printf(buf, sizeof(buf), "%d\r\n", (int)(xtal * 1000.0 + 0.5));
                         xmit_cmd(buf, 3);
                         return;
 
@@ -371,13 +371,13 @@ static void download_main(int event)
                         }
 
                         if (strcmp(parsed_response_buf, "OK\r\n") == 0) {
-                            printf("Baud sync sucessful\r\n");
+                            //printf("Baud sync sucessful\r\n");
                             state = CHIP_ID;
                             event = BEGIN;
                             break;
                         }
                         else {
-                            snprintf(buf, sizeof(buf), "wrong response to crystal: %s",
+                            sn//printf(buf, sizeof(buf), "wrong response to crystal: %s",
                                      parsed_response_buf);
                             download_cancel(buf);
                             return;
@@ -414,20 +414,20 @@ static void download_main(int event)
                             }
 
                             if (chip->part_number == NULL) {
-                                snprintf(buf, sizeof(buf), UNKNOWN_CHIP_ERROR,
+                                sn//printf(buf, sizeof(buf), UNKNOWN_CHIP_ERROR,
                                          parsed_response_buf + 3);
                                 download_cancel(buf);
                                 break;
                             }
 
-                            printf("Found chip: \"%s\"\r\n", chip->part_number);
+                            //printf("Found chip: \"%s\"\r\n", chip->part_number);
                             //download_cancel("stop here, remove this later");
                             state = UNLOCK;
                             event = BEGIN;
                             break;
                         }
                         else {
-                            snprintf(buf, sizeof(buf), "wrong response to ID: %s",
+                            sn//printf(buf, sizeof(buf), "wrong response to ID: %s",
                                      parsed_response_buf);
                             download_cancel(buf);
                             return;
@@ -455,14 +455,14 @@ static void download_main(int event)
                         }
 
                         if (strcmp(parsed_response_buf, "0\r\n") == 0) {
-                            printf("Device Unlocked\r\n");
+                            //printf("Device Unlocked\r\n");
 
                             if (reboot_only) {
                                 state = BOOT_SOFT;
                             }
                             else {
                                 state = BLANK_CHECK_SECTOR;
-                                printf("Erasing....\r\n");
+                                //printf("Erasing....\r\n");
                                 sector = 0;
                             }
 
@@ -470,7 +470,7 @@ static void download_main(int event)
                             break;
                         }
                         else {
-                            snprintf(buf, sizeof(buf), "wrong response unlock: %s",
+                            sn//printf(buf, sizeof(buf), "wrong response unlock: %s",
                                      parsed_response_buf);
                             download_cancel(buf);
                             return;
@@ -490,19 +490,19 @@ static void download_main(int event)
                 switch (event) {
                     case BEGIN:
                         if (sector >= chip->num_sector) {
-                            printf("Programming....\r\n");
+                            //printf("Programming....\r\n");
                             state = DOWNLOAD_CODE;
                             sector = sector_offset = 0;
                             event = BEGIN;
                             break;
                         }
 
-                        printf("  Sector %2d: ", sector);
+                        //printf("  Sector %2d: ", sector);
                         fflush(stdout);
 
                         if (!bytes_within_range(chip->layout[sector].address,
                                                 chip->layout[sector].address + chip->layout[sector].size - 1)) {
-                            printf("not used\r\n");
+                            //printf("not used\r\n");
                             sector++;
                             break;
                         }
@@ -513,14 +513,14 @@ static void download_main(int event)
                             break;
                         }
 
-                        snprintf(buf, sizeof(buf), "I %d %d\r\n", sector, sector);
+                        sn//printf(buf, sizeof(buf), "I %d %d\r\n", sector, sector);
                         xmit_cmd(buf, 5);
                         return;
 
                     case RESPONSE:
                         if (num_lines(parsed_response_buf) == 1 &&
                             strcmp(parsed_response_buf, "0\r\n") == 0) {
-                            printf("already blank\r\n");
+                            //printf("already blank\r\n");
                             sector++;
                             event = BEGIN;
                             break;
@@ -547,9 +547,9 @@ static void download_main(int event)
             case ERASE_PREPARE:
                 switch (event) {
                     case BEGIN:
-                        printf("prep, ");
+                        //printf("prep, ");
                         fflush(stdout);
-                        snprintf(buf, sizeof(buf), "P %d %d\r\n", sector, sector);
+                        sn//printf(buf, sizeof(buf), "P %d %d\r\n", sector, sector);
                         xmit_cmd(buf, 8);
                         return;
 
@@ -580,9 +580,9 @@ static void download_main(int event)
             case ERASE_SECTOR:
                 switch (event) {
                     case BEGIN:
-                        printf("erase... ");
+                        //printf("erase... ");
                         fflush(stdout);
-                        snprintf(buf, sizeof(buf), "E %d %d\r\n", sector, sector);
+                        sn//printf(buf, sizeof(buf), "E %d %d\r\n", sector, sector);
                         xmit_cmd(buf, 25);
                         return;
 
@@ -592,14 +592,14 @@ static void download_main(int event)
                         }
 
                         if (strcmp(parsed_response_buf, "0\r\n") == 0) {
-                            printf("Ok\r\n");
+                            //printf("Ok\r\n");
                             sector++;
                             state = BLANK_CHECK_SECTOR;
                             event = BEGIN;
                             break;
                         }
                         else {
-                            printf("Error\r\n");
+                            //printf("Error\r\n");
                             download_cancel("Unable to erase flash");
                             return;
                         }
@@ -623,14 +623,14 @@ static void download_main(int event)
                             break;
                         }
 
-                        printf("  Sector %2d (0x%08X-0x%08X): ", sector,
+                        //printf("  Sector %2d (0x%08X-0x%08X): ", sector,
                                chip->layout[sector].address + sector_offset,
                                chip->layout[sector].address + sector_offset + chip->chunk_size - 1);
                         fflush(stdout);
 
                         if (!bytes_within_range(chip->layout[sector].address + sector_offset,
                                                 chip->layout[sector].address + sector_offset + chip->chunk_size - 1)) {
-                            printf("not used\r\n");
+                            //printf("not used\r\n");
                             sector_offset += chip->chunk_size;
 
                             if (sector_offset >= chip->layout[sector].size) {
@@ -641,7 +641,7 @@ static void download_main(int event)
                             break;
                         }
 
-                        snprintf(buf, sizeof(buf), "W %u %d\r\n", chip->ram_addr, chip->chunk_size);
+                        sn//printf(buf, sizeof(buf), "W %u %d\r\n", chip->ram_addr, chip->chunk_size);
                         xmit_cmd(buf, 4);
                         return;
 
@@ -652,7 +652,7 @@ static void download_main(int event)
 
                         if (strcmp(parsed_response_buf, "0\r\n") == 0) {
                             state = XMIT_DATA;
-                            printf("xmit");
+                            //printf("xmit");
                             current_addr = chip->layout[sector].address + sector_offset;
                             num_to_xmit = chip->chunk_size;
                             linecount = 0;
@@ -721,7 +721,7 @@ static void download_main(int event)
             case XMIT_CKSUM:
                 switch (event) {
                     case BEGIN:
-                        snprintf(buf, sizeof(buf), "%u\r\n", cksum);
+                        sn//printf(buf, sizeof(buf), "%u\r\n", cksum);
                         xmit_cmd(buf, 3);
                         return;
 
@@ -732,7 +732,7 @@ static void download_main(int event)
 
                         if (strcmp(parsed_response_buf, "OK\r\n") == 0) {
                             if (num_to_xmit > 0) {
-                                printf(".");
+                                //printf(".");
                                 fflush(stdout);
                                 state = XMIT_DATA;
                                 event = BEGIN;
@@ -761,9 +761,9 @@ static void download_main(int event)
             case WRITE_PREPARE:
                 switch (event) {
                     case BEGIN:
-                        printf("prep, ");
+                        //printf("prep, ");
                         fflush(stdout);
-                        snprintf(buf, sizeof(buf), "P %d %d\r\n", sector, sector);
+                        sn//printf(buf, sizeof(buf), "P %d %d\r\n", sector, sector);
                         xmit_cmd(buf, 5);
                         return;
 
@@ -793,9 +793,9 @@ static void download_main(int event)
             case WRITE_SECTOR:
                 switch (event) {
                     case BEGIN:
-                        printf("write, ");
+                        //printf("write, ");
                         fflush(stdout);
-                        snprintf(buf, sizeof(buf), "C %d %u %d\r\n",
+                        sn//printf(buf, sizeof(buf), "C %d %u %d\r\n",
                                  chip->layout[sector].address + sector_offset,
                                  chip->ram_addr, chip->chunk_size);
                         xmit_cmd(buf, 5);
@@ -807,7 +807,7 @@ static void download_main(int event)
                         }
 
                         if (strcmp(parsed_response_buf, "0\r\n") == 0) {
-                            printf("Ok\r\n");
+                            //printf("Ok\r\n");
                             sector_offset += chip->chunk_size;
 
                             if (sector_offset >= chip->layout[sector].size) {
@@ -839,7 +839,7 @@ static void download_main(int event)
                 //		break;
                 //	}
                 //	else {
-                printf("Booting (hardware reset)...\r\n\r\n");
+                //printf("Booting (hardware reset)...\r\n\r\n");
                 hard_reset_to_user_code();
                 done_program(0);
                 return;
@@ -848,15 +848,15 @@ static void download_main(int event)
             case BOOT_SOFT:
                 switch (event) {
                     case BEGIN:
-                        printf("Booting (soft jump)...\r\n");
-                        printf("loading jump code\r\n");
+                        //printf("Booting (soft jump)...\r\n");
+                        //printf("loading jump code\r\n");
                         // would be nice if we could simply jump to the user's code, but
                         // Philips didn't think of that.  The interrupt vector table stays
                         // mapped to the bootloader, so jumping to zero only runs the
                         // bootloader again.  Intead, we need to download a tiny ARM
                         // program that reconfigures the hardware and then jumps to zero.
-                        //snprintf(buf, sizeof(buf), "G %d A\r\n", 0);
-                        snprintf(buf, sizeof(buf), "W %u %d\r\n", chip->ram_addr, chip->bootprog[0] * 4);
+                        //sn//printf(buf, sizeof(buf), "G %d A\r\n", 0);
+                        sn//printf(buf, sizeof(buf), "W %u %d\r\n", chip->ram_addr, chip->bootprog[0] * 4);
                         xmit_cmd(buf, 4);
                         return;
 
@@ -904,7 +904,7 @@ static void download_main(int event)
                         current_addr += n;
                         num_to_xmit -= n;
                         linecount++;
-                        //printf("send: %s\r\n", buf);
+                        ////printf("send: %s\r\n", buf);
                         xmit_cmd(buf, 5);
                         write_serial_port("\r\n", 2);
                         return;
@@ -938,8 +938,8 @@ static void download_main(int event)
             case BOOT_XMIT_CKSUM:
                 switch (event) {
                     case BEGIN:
-                        snprintf(buf, sizeof(buf), "%u\r\n", cksum);
-                        //printf("send: %s", buf);
+                        sn//printf(buf, sizeof(buf), "%u\r\n", cksum);
+                        ////printf("send: %s", buf);
                         xmit_cmd(buf, 3);
                         return;
 
@@ -950,7 +950,7 @@ static void download_main(int event)
 
                         if (strcmp(parsed_response_buf, "OK\r\n") == 0) {
                             if (num_to_xmit > 0) {
-                                printf(".");
+                                //printf(".");
                                 fflush(stdout);
                                 state = BOOT_XMIT_DATA;
                                 event = BEGIN;
@@ -979,8 +979,8 @@ static void download_main(int event)
             case BOOT_RUN_CODE:
                 switch (event) {
                     case BEGIN:
-                        printf("jumping now!\r\n");
-                        snprintf(buf, sizeof(buf), "G %u A\r\n", chip->ram_addr);
+                        //printf("jumping now!\r\n");
+                        sn//printf(buf, sizeof(buf), "G %u A\r\n", chip->ram_addr);
                         xmit_cmd(buf, 4);
                         return;
 
@@ -994,7 +994,7 @@ static void download_main(int event)
                             return;
                         }
                         else {
-                            printf("response = %s", parsed_response_buf);
+                            //printf("response = %s", parsed_response_buf);
                             download_cancel("couldn't run program");
                             return;
                         }
@@ -1015,7 +1015,7 @@ static void download_main(int event)
 
 
             default:
-                snprintf(buf, sizeof(buf), "unknown state %d\r\n", state);
+                sn//printf(buf, sizeof(buf), "unknown state %d\r\n", state);
                 download_cancel(buf);
                 return;
         }
@@ -1025,13 +1025,13 @@ static void download_main(int event)
 
 void download_cancel(const char *mesg)
 {
-    printf("\r\nDownload Canceled");
+    //printf("\r\nDownload Canceled");
 
     if (mesg && *mesg) {
-        printf(": %s", mesg);
+        //printf(": %s", mesg);
     }
 
-    printf("\r\n");
+    //printf("\r\n");
     // need to do some cleanup for various states???
     done_program(1);
 }
@@ -1056,14 +1056,14 @@ static void xmit_cmd(const char *cmd, int max_time)
     len = strlen(cmd);
 
 #ifdef PRINT_TX_RX_BYTES
-    printf("tx %d bytes: %s\n", len, cmd);
+    //printf("tx %d bytes: %s\n", len, cmd);
 #endif
 
     input_flush_serial_port();
 
     write_serial_port(cmd, len);
 
-    snprintf(expected_echo_buf, sizeof(expected_echo_buf), "%s", cmd);
+    sn//printf(expected_echo_buf, sizeof(expected_echo_buf), "%s", cmd);
 
     if (state == SYNC_1) {
         // special case, baud sync doesn't echo
@@ -1105,13 +1105,13 @@ void download_rx_port(const unsigned char *buf, int num)
     //write(term_fd, buf, num);
 
 #ifdef PRINT_TX_RX_BYTES
-    printf("rx %d bytes:", num);
+    //printf("rx %d bytes:", num);
 
     for (i = 0; i < num; i++) {
-        printf(" %02X", *(buf + i));
+        //printf(" %02X", *(buf + i));
     }
 
-    printf("\r\n");
+    //printf("\r\n");
 #endif
 
     // ignore extra incoming garbage we didn't expect
@@ -1134,7 +1134,7 @@ void download_rx_port(const unsigned char *buf, int num)
         if (*expected_echo_ptr) {
             if (buf[i] != *expected_echo_ptr) {
 #ifdef PRINT_TX_RX_BYTES
-                printf("  <echo_err>  ");
+                //printf("  <echo_err>  ");
 #endif
                 // ignore incorrect echo (will timeout)
                 expected_echo_ptr = NULL;

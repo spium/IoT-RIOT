@@ -27,7 +27,7 @@ static void _gettime_handler(void)
     struct tm now;
     rtc_get_localtime(&now);
 
-    printf("%s", asctime(&now));
+    //printf("%s", asctime(&now));
 }
 
 static void _settime_handler(char **argv)
@@ -58,7 +58,7 @@ static void _settime_handler(char **argv)
         return;
     } while (0);
 
-    printf("Usage: %s YYYY-MM-DD hh:mm:ss\n", argv[0]);
+    //printf("Usage: %s YYYY-MM-DD hh:mm:ss\n", argv[0]);
 }
 
 void _date_handler(int argc, char **argv)

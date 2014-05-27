@@ -93,12 +93,12 @@ void serial_reader_f(void)
         if (bytes < 0) {
             switch (bytes) {
                 case (-SIXLOWERROR_ARRAYFULL): {
-                    printf("ERROR: Array was full\n");
+                    //printf("ERROR: Array was full\n");
                     break;
                 }
 
                 default: {
-                    printf("ERROR: unknown\n");
+                    //printf("ERROR: unknown\n");
                     break;
                 }
             }

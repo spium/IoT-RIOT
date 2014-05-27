@@ -82,7 +82,7 @@ void radio(void)
                 last_seq = cur_seq;
             }
             else {
-                printf("sender was %i\n", p->src);
+                //printf("sender was %i\n", p->src);
             }
 
             p->processing--;
@@ -134,14 +134,14 @@ int main(void)
     msg_t mesg;
     transceiver_command_t tcmd;
 
-    printf("\n\tmain(): initializing transceiver\n");
+    //printf("\n\tmain(): initializing transceiver\n");
     transceiver_init(TRANSCEIVER_NATIVE);
 
-    printf("\n\tmain(): starting transceiver\n");
+    //printf("\n\tmain(): starting transceiver\n");
     transceiver_start();
 
 #ifndef SENDER
-    printf("\n\tmain(): starting radio thread\n");
+    //printf("\n\tmain(): starting radio thread\n");
     radio_pid = thread_create(radio_stack_buffer, RADIO_STACK_SIZE, PRIORITY_MAIN - 2, CREATE_STACKTEST, radio, "radio");
     transceiver_register(TRANSCEIVER_NATIVE, radio_pid);
 #endif
@@ -158,7 +158,7 @@ int main(void)
     mesg.content.ptr = (char *) &tcmd;
     mesg.type = SET_ADDRESS;
 
-    printf("[nativenet] trying to set address %" PRIi16 "\n", a);
+    //printf("[nativenet] trying to set address %" PRIi16 "\n", a);
     msg_send_receive(&mesg, &mesg, transceiver_pid);
 
 #ifdef SENDER
@@ -167,7 +167,7 @@ int main(void)
 #else
     hwtimer_wait(HWTIMER_TICKS(WAIT_TIME * SECOND));
     receiving = 0;
-    printf("Missed %u of %u packets after %u seconds\n", missed_cnt, (last_seq - first),  WAIT_TIME);
+    //printf("Missed %u of %u packets after %u seconds\n", missed_cnt, (last_seq - first),  WAIT_TIME);
 #endif
 
     return 0;

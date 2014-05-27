@@ -123,7 +123,7 @@ uint8_t SMB380_HystereseFunctionSample(int16_t *value)
         SMB380_disableAnyMotionLimit();
         SMB380_enableNewDataInt();
         smb380_mode = SMB380_CONTINOUS;
-        printf("Threshold: x=%i, y=%i, z=%i\n\r", value[0], value[1], value[2]);
+        //printf("Threshold: x=%i, y=%i, z=%i\n\r", value[0], value[1], value[2]);
     }
 
     if ((counter == 100) && (smb380_mode == SMB380_POLL)) {
@@ -267,11 +267,11 @@ static void SMB380_extIntHandler(void)
 
     writeRingBuff(accInt);
 
-    //	printf("SMB380 acc x,y,z: [%i|%i|%i|%2.3f]\r\n", accInt[0], accInt[1],
+    //	//printf("SMB380 acc x,y,z: [%i|%i|%i|%2.3f]\r\n", accInt[0], accInt[1],
     //         accInt[2], acc[3]);
-    //	printf("SMB380 acc x,y,z: [%2.3f|%2.3f|%2.3f|%2.3f]\r\n\n\n", acc[0],
+    //	//printf("SMB380 acc x,y,z: [%2.3f|%2.3f|%2.3f|%2.3f]\r\n\n\n", acc[0],
     //         acc[1], acc[2], acc[3]);
-    //	printf("Nach Interrupt Reset:\n");
+    //	//printf("Nach Interrupt Reset:\n");
     //	SMB380_ShowMemory();
 }
 
@@ -365,7 +365,7 @@ uint8_t readRingBuff(int16_t *value)
 
     if (pointerNo == SMB380_RING_BUFF_MAX_THREADS) {
         if (!initRingReadPointerforCurrentThread()) {
-            //printf("%sNo Readpointer left, maximum of %u is reached!\n\r",
+            ////printf("%sNo Readpointer left, maximum of %u is reached!\n\r",
             //       SMB380_DEBUG_MESSAGE, SMB380_RING_BUFF_MAX_THREADS);
             return 0;
         }
@@ -428,7 +428,7 @@ uint8_t writeRingBuff(int16_t *value)
 
         smb380function(value);
 
-        //printf("Werte: x=%i, y=%i, z=%i\n\r",value[0], value[1], value[2]);
+        ////printf("Werte: x=%i, y=%i, z=%i\n\r",value[0], value[1], value[2]);
         //vgpio_toggle(&gpio_led_green);
 
         settings.writePointerPos += 1;
@@ -466,7 +466,7 @@ uint8_t checkRange(int16_t *value)
 {
     bool increased = false;
 
-    // printf("CurrentValues:  %i %i %i \r\n", xyzTMP[0], xyzTMP[1], xyzTMP[2]);
+    // //printf("CurrentValues:  %i %i %i \r\n", xyzTMP[0], xyzTMP[1], xyzTMP[2]);
 
     // determination of max and min value
     int16_t maxValue = value[0]; // max(xValue, max(yValue, zValue));
@@ -490,7 +490,7 @@ uint8_t checkRange(int16_t *value)
             if ((maxValue > 1800) || (minValue < -1800)) {
                 SMB380_setRange(SMB380_RANGE_4G);
                 increased = true;
-                printf("=== Set range from 2 g to 4 g ===\r\n");
+                //printf("=== Set range from 2 g to 4 g ===\r\n");
             }
 
             break;
@@ -499,7 +499,7 @@ uint8_t checkRange(int16_t *value)
             if ((maxValue > 3800) || (minValue < -3800)) {
                 SMB380_setRange(SMB380_RANGE_8G);
                 increased = true;
-                printf("=== Set range from 4 g to 8 g ===\r\n");
+                //printf("=== Set range from 4 g to 8 g ===\r\n");
             }
 
             break;
@@ -522,7 +522,7 @@ uint8_t checkRange(int16_t *value)
                 if ((maxValue < 2000) && (minValue > -2000)) {
                     if (counter_Decreasing >= 9) {
                         SMB380_setRange(SMB380_RANGE_2G);
-                        printf("=== Set range from 4 g to 2 g ===\r\n");
+                        //printf("=== Set range from 4 g to 2 g ===\r\n");
                         counter_Decreasing = 0;
                     }
                     else {
@@ -539,7 +539,7 @@ uint8_t checkRange(int16_t *value)
                 if ((maxValue < 4000) && (minValue > -4000)) {
                     if (counter_Decreasing >= 9) {
                         SMB380_setRange(SMB380_RANGE_4G);
-                        printf("=== Set range from 8 g to 4 g ===\r\n");
+                        //printf("=== Set range from 8 g to 4 g ===\r\n");
                         counter_Decreasing = 0;
                     }
                     else {
@@ -859,7 +859,7 @@ void SMB380_ShowMemory(void)
 {
     uint16_t uReg = 0;
     uint8_t bitMask[16];
-    printf("SMB380 Speicher\n\r");
+    //printf("SMB380 Speicher\n\r");
     unsigned long cpsr;
 
     for (unsigned char regAd = 0x16; regAd > 0; regAd--) {
@@ -869,7 +869,7 @@ void SMB380_ShowMemory(void)
         uReg = SMB380_ssp_read();
         SMB380_Unprepare();
         restoreIRQ(cpsr);
-        printf("Register: = %X: 0x%X = ", regAd - 1, uReg);
+        //printf("Register: = %X: 0x%X = ", regAd - 1, uReg);
 
         for (int pos = 0; pos < 16; pos++) { //uReg != 0)
             bitMask[15 - pos] = uReg % 2;
@@ -878,14 +878,14 @@ void SMB380_ShowMemory(void)
         }
 
         for (int pos = 8; pos < 16; pos++) { //uReg != 0)
-            printf("%d", bitMask[pos]);
+            //printf("%d", bitMask[pos]);
 
             if ((pos % 4) == 0) {
-                printf(" ");
+                //printf(" ");
             }
         }
 
-        printf("\n");
+        //printf("\n");
     }
 }
 
@@ -1134,7 +1134,7 @@ unsigned char SMB380_readOffset(uint16_t *offset)
 
 
     offset[0] = uReg;
-    printf("Offset X: %u ", uReg);
+    //printf("Offset X: %u ", uReg);
 
     SMB380_ssp_write(SMB380_OFFSET_LSB_GAIN_Y, 0, SMB380_READ_REGISTER);
     uReg = (SMB380_ssp_read() & SMB380_ACC_LSB_MASK) >> 6;
@@ -1142,7 +1142,7 @@ unsigned char SMB380_readOffset(uint16_t *offset)
     uReg |= (SMB380_ssp_read() & SMB380_ACC_MSB_MASK) << 2;
 
     offset[1] = uReg;
-    printf("Offset Y: %u ", uReg);
+    //printf("Offset Y: %u ", uReg);
 
     SMB380_ssp_write(SMB380_OFFSET_LSB_GAIN_Z, 0, SMB380_READ_REGISTER);
     uReg = (SMB380_ssp_read() & SMB380_ACC_LSB_MASK) >> 6;
@@ -1150,7 +1150,7 @@ unsigned char SMB380_readOffset(uint16_t *offset)
     uReg |= (SMB380_ssp_read() & SMB380_ACC_MSB_MASK) << 2;
 
     offset[2] = uReg;
-    printf("Offset Z: %u \r\n", uReg);
+    //printf("Offset Z: %u \r\n", uReg);
 
     SMB380_Unprepare();
     restoreIRQ(cpsr);
@@ -1171,7 +1171,7 @@ unsigned char SMB380_readOffsetTemp(uint16_t *offset)
 
 
     offset[0] = uReg;
-    printf("Offset T: %u ", uReg);
+    //printf("Offset T: %u ", uReg);
 
     SMB380_Unprepare();
     restoreIRQ(cpsr);
@@ -1184,7 +1184,7 @@ unsigned char SMB380_readOffsetTemp(uint16_t *offset)
  */
 void SMB380_writeOffset(uint16_t *offset, uint8_t EEPROM)
 {
-    printf("Writing Offset X: %u Y: %u Z: %u\r\n", offset[0], offset[1], offset[2]);
+    //printf("Writing Offset X: %u Y: %u Z: %u\r\n", offset[0], offset[1], offset[2]);
 
     if (sizeof(offset) >= 3) {
         uint16_t eeoffset = 0;
@@ -1253,7 +1253,7 @@ void SMB380_writeOffset(uint16_t *offset, uint8_t EEPROM)
 
 void SMB380_writeOffsetTemp(uint16_t *offset, uint8_t EEPROM)
 {
-    printf("Writing Offset Temp: %u\r\n", offset[0]);
+    //printf("Writing Offset Temp: %u\r\n", offset[0]);
 
     if (sizeof(offset) >= 1) {
         uint16_t eeoffset = 0;

@@ -329,19 +329,31 @@ int vtimer_usleep(uint32_t usecs)
 
 int vtimer_sleep(timex_t time)
 {
-    int ret;
-    vtimer_t t;
-    mutex_t mutex;
-    mutex_init(&mutex);
-    mutex_lock(&mutex);
+//    int ret;
+//    vtimer_t t;
+//    mutex_t mutex;
+    uint32_t timeToSleep;
+//    mutex_init(&mutex);
+//    mutex_lock(&mutex);
 
-    t.action = (void(*)(void *)) mutex_unlock;
-    t.arg = (void *) &mutex;
-    t.absolute = time;
+//    t.action = (void(*)(void *)) mutex_unlock;
+//    t.arg = (void *) &mutex;
+//    t.absolute = time;
 
-    ret = vtimer_set(&t);
-    mutex_lock(&mutex);
-    return ret;
+    timeToSleep = (time.seconds * 1000uL) + (time.microseconds / 1000uL);
+
+    //TODO meglio scriverla in assembler così sappiamo quanti cicli di overhead di controllo ciclo
+    //abbiamo, così possiamo __delay_cycles il numero corretto di cicli
+
+    while(timeToSleep > 0) {
+    	__delay_cycles(F_CPU/(1000uL));
+    	--timeToSleep;
+    }
+
+//    ret = vtimer_set(&t);
+//    mutex_lock(&mutex);
+//    return ret;
+    return 0;
 }
 
 int vtimer_remove(vtimer_t *t)
@@ -398,7 +410,7 @@ void vtimer_print_long_queue(){
 
 void vtimer_print(vtimer_t *t)
 {
-    printf("Seconds: %" PRIu32 " - Microseconds: %" PRIu32 "\n \
+    /*printf("Seconds: %" PRIu32 " - Microseconds: %" PRIu32 "\n \
             action: %p\n \
             arg: %p\n \
             pid: %u\n",
@@ -406,6 +418,7 @@ void vtimer_print(vtimer_t *t)
            t->action,
            t->arg,
            t->pid);
+           */
 }
 
 #endif

@@ -1,6 +1,6 @@
 eclipse.preferences.version=1
 msp430/DeviceSerialNumber=
-msp430/MSP430TARGETMCU=cc430f6147
+msp430/MSP430TARGETMCU=msp430f1611
 msp430/MSPDebugConnection=TTY
 msp430/MSPDebugDriver=tilib
 msp430/MSPDebugProtocol=JTAG

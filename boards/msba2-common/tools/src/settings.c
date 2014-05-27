@@ -64,7 +64,7 @@ void init_settings(void)
     home_dir = getenv("HOME");
 
     if (home_dir && *home_dir) {
-        snprintf(settings_file, sizeof(settings_file),
+        sn//printf(settings_file, sizeof(settings_file),
                  "%s/.lpc2k_pgm", home_dir);
         fp = fopen(settings_file, "r");
 
@@ -86,7 +86,7 @@ void init_settings(void)
                 if (q) {
                     *q = '\0';
                 }
-                snprintf(file, sizeof(file), "%s", p);
+                sn//printf(file, sizeof(file), "%s", p);
             }
 
             if (strncmp(buf, "port:", 5) == 0) {
@@ -99,7 +99,7 @@ void init_settings(void)
                 if (q) {
                     *q = '\0';
                 }
-                snprintf(port, sizeof(port), "%s", p);
+                sn//printf(port, sizeof(port), "%s", p);
             }
 
             if (strncmp(buf, "baud:", 5) == 0) {
@@ -112,7 +112,7 @@ void init_settings(void)
                 if (q) {
                     *q = '\0';
                 }
-                snprintf(baud, sizeof(baud), "%s", p);
+                sn//printf(baud, sizeof(baud), "%s", p);
             }
 
             if (strncmp(buf, "xtal:", 5) == 0) {
@@ -125,7 +125,7 @@ void init_settings(void)
                 if (q) {
                     *q = '\0';
                 }
-                snprintf(crystal, sizeof(crystal), "%s", p);
+                sn//printf(crystal, sizeof(crystal), "%s", p);
             }
         }
 
@@ -147,10 +147,10 @@ void write_settings_file(void)
         return;
     }
 
-    fprintf(fp, "file: %s\n", file);
-    fprintf(fp, "port: %s\n", port);
-    fprintf(fp, "baud: %s\n", baud);
-    fprintf(fp, "xtal: %s\n", crystal);
+    f//printf(fp, "file: %s\n", file);
+    f//printf(fp, "port: %s\n", port);
+    f//printf(fp, "baud: %s\n", baud);
+    f//printf(fp, "xtal: %s\n", crystal);
     fflush(fp);
     fclose(fp);
 }
@@ -178,7 +178,7 @@ const char *crystal_setting(void)
 void new_file_setting(const char *new_file)
 {
     if (strcmp(file, new_file)) {
-        snprintf(file, sizeof(file), "%s", new_file);
+        sn//printf(file, sizeof(file), "%s", new_file);
         write_settings_file();
     }
 }
@@ -186,7 +186,7 @@ void new_file_setting(const char *new_file)
 void new_port_setting(const char *new_port)
 {
     if (strcmp(port, new_port)) {
-        snprintf(port, sizeof(port), "%s", new_port);
+        sn//printf(port, sizeof(port), "%s", new_port);
         write_settings_file();
     }
 }
@@ -194,7 +194,7 @@ void new_port_setting(const char *new_port)
 void new_baud_setting(const char *new_baud)
 {
     if (strcmp(baud, new_baud)) {
-        snprintf(baud, sizeof(baud), "%s", new_baud);
+        sn//printf(baud, sizeof(baud), "%s", new_baud);
         write_settings_file();
     }
 }
@@ -202,7 +202,7 @@ void new_baud_setting(const char *new_baud)
 void new_crystal_setting(const char *new_xtal)
 {
     if (strcmp(crystal, new_xtal)) {
-        snprintf(crystal, sizeof(crystal), "%s", new_xtal);
+        sn//printf(crystal, sizeof(crystal), "%s", new_xtal);
         write_settings_file();
     }
 }
