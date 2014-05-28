@@ -679,7 +679,7 @@ write_register(uint8_t r, uint8_t value)
 
 char *cc1100_get_output_power(char *buf)
 {
-    s//printf(buf, "%+i dBm", pa_table_dBm[pa_table_index]);
+    sprintf(buf, "%+i dBm", pa_table_dBm[pa_table_index]);
     return buf;
 }
 

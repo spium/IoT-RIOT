@@ -263,8 +263,7 @@ void cc1100_print_config(void)
 
     if (radio_mode == CC1100_MODE_WOR) {
         //printf("RX polling interval:      %u ms\r\n", cc1100_wor_config.rx_interval);
-        //printf("WOR receive time:         0x%.2X (%f ms)\r\n", cc1100_wor_config.rx_time_reg,
-               cc1100_wor_config.rx_time_ms);
+        //printf("WOR receive time:         0x%.2X (%f ms)\r\n", cc1100_wor_config.rx_time_reg,cc1100_wor_config.rx_time_ms);
         //printf("CC1100 WOREVT0 register:  0x%.2X\r\n", cc1100_wor_config.wor_evt_0);
         //printf("CC1100 WOREVT1 register:  0x%.2X\r\n", cc1100_wor_config.wor_evt_1);
         //printf("CC1100 WOR_CTRL register: 0x%.2X\r\n", cc1100_wor_config.wor_ctrl);

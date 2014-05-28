@@ -23,7 +23,7 @@ endif
 export HEXFILE = $(BINDIR)$(APPLICATION).hex
 export FFLAGS = -d $(PORT) -j uif "prog $(HEXFILE)"
 
-export INCLUDES += -I$(RIOTBOARD)/wsn430-common/include
+export INCLUDES += -I$(RIOTBOARD)/msp-ts430pm64/include
 export OFLAGS = -O ihex
 
 export UNDEF += $(BINDIR)msp430_common/startup.o

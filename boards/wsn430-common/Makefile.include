@@ -1,3 +1,5 @@
+export INCLUDES += -I$(RIOTBOARD)/wsn430-common/include
+
 ## the cpu to build for
 export CPU = msp430x16x
 export MCU = msp430f1611

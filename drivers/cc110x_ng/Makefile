@@ -10,6 +10,9 @@ endif
 ifneq (,$(filter wsn430-v1_3b,$(BOARD)))
 	DIRS += spi
 endif
+ifneq (,$(filter msp-ts430pm64,$(BOARD)))
+	DIRS += spi
+endif
 
 all: $(BINDIR)$(MODULE).a
 	@for i in $(DIRS) ; do "$(MAKE)" -C $$i || exit 1; done ;

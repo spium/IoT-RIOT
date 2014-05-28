@@ -10,12 +10,14 @@ export RIOTBASE ?= $(CURDIR)/../..
 # Change this to 0 show compiler invocation lines by default:
 export QUIET ?= 0
 
-export CFLAGS += -g -gdwarf-2
-export ASFLAGS += -g --gdwarf-2
+export CFLAGS += -g -gdwarf-2 -feliminate-unused-debug-symbols -feliminate-dwarf2-dups
+export ASFLAGS += -g --gdwarf-2 --feliminate-unused-debug-symbols --feliminate-dwarf2-dups
 
-#USEMODULE += sixlowpan
+USEMODULE += sixlowpan
 #USEMODULE += ieee802154
-#USEMODULE += cc110x_ng
+USEMODULE += cc110x_ng
+#USEMODULE += defaulttransceiver
+
 #USEMODULE += net_if
 USEMODULE += vtimer
 USEMODULE += auto_init

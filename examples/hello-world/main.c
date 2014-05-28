@@ -9,11 +9,11 @@
 
 int main(void) {
 
-
 //	int n = 0;
 	while(1) {
-//		__delay_cycles(F_CPU);
-		vtimer_usleep(SEC/2);
+		__delay_cycles(4444444);
+//		vtimer_sleep(interval);
+
 		//toggle leds
 		LED_YELLOW_TOGGLE;
 //		++n;
