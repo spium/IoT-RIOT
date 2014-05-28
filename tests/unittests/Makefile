@@ -1,4 +1,4 @@
-export PROJECT = unittests
+export APPLICATION = unittests
 include ../Makefile.tests_common
 
 USEMODULE += embunit
@@ -21,6 +21,9 @@ ifeq (, $(filter tests-%, $(MAKECMDGOALS)))
 else
     UNIT_TESTS := $(filter tests-%, $(MAKECMDGOALS))
 endif
+
+# Pull in `Makefile.include`s from the test suites:
+-include $(UNIT_TESTS:%=$(RIOTBASE)/tests/unittests/%/Makefile.include)
 
 include $(RIOTBASE)/Makefile.include
 
