@@ -8,12 +8,6 @@
 #define SEC ((uint32_t) 1000 * MSEC)
 
 int main(void) {
-	//set leds direction
-	P1DIR |= BIT0;					// Set P1.0 to output direction
-//	P3DIR |= BIT6;
-
-	P1OUT &= ~BIT0;	//turn off green led
-//	P3OUT &= ~BIT6;	//turn on red led
 
 
 //	int n = 0;
@@ -21,7 +15,7 @@ int main(void) {
 //		__delay_cycles(F_CPU);
 		vtimer_usleep(SEC/2);
 		//toggle leds
-		P1OUT ^= BIT0;		// Toggle P1.0 using exclusive-OR
+		LED_YELLOW_TOGGLE;
 //		++n;
 	}
 
