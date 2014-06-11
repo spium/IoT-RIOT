@@ -9,10 +9,13 @@
 
 int main(void) {
 
+	timex_t interval;
+	interval.seconds = 1;
+	interval.microseconds = 0;
 //	int n = 0;
 	while(1) {
-		__delay_cycles(4444444);
-//		vtimer_sleep(interval);
+//		__delay_cycles(4444444);
+		vtimer_sleep(interval);
 
 		//toggle leds
 		LED_YELLOW_TOGGLE;
